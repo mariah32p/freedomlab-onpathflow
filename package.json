@@ -1,0 +1,24 @@
+{
+  "name": "onpathflow-landing",
+  "version": "1.0.0",
+  "description": "OnPathFlow - Visual Goal Path Builder for Coaches",
+  "main": "index.html",
+  "scripts": {
+    "dev": "echo 'Static HTML - open index.html in browser'",
+    "build": "echo 'No build needed for static HTML'",
+    "preview": "echo 'Static HTML - open index.html in browser'"
+  },
+  "dependencies": {
+    "stripe": "^17.7.0",
+    "@supabase/supabase-js": "^2.49.1"
+  },
+  "devDependencies": {},
+  "keywords": [
+    "coaching",
+    "goal-tracking",
+    "progress-tracking",
+    "saas"
+  ],
+  "author": "OnPathFlow",
+  "license": "MIT"
+}
