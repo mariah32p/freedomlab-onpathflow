@@ -13,13 +13,13 @@ export const Navbar: React.FC = () => {
   };
 
   return (
-    <nav className="bg-white shadow-sm border-b">
+    <nav className="bg-white shadow-sm border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <Link to="/" className="flex items-center space-x-2">
-              <Target className="h-8 w-8 text-indigo-600" />
-              <span className="text-xl font-bold text-gray-900">OnPathFlow</span>
+              <Target className="h-8 w-8 text-brand-teal" />
+              <span className="text-xl font-bold text-brand-navy">OnPathFlow</span>
             </Link>
           </div>
 
@@ -28,7 +28,7 @@ export const Navbar: React.FC = () => {
               <>
                 <Link
                   to="/dashboard"
-                  className="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                  className="text-gray-700 hover:text-brand-teal px-3 py-2 rounded-md text-sm font-medium transition-colors"
                 >
                   Dashboard
                 </Link>
@@ -48,19 +48,19 @@ export const Navbar: React.FC = () => {
               <>
                 <Link
                   to="/pricing"
-                  className="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                  className="text-gray-700 hover:text-brand-teal px-3 py-2 rounded-md text-sm font-medium transition-colors"
                 >
                   Pricing
                 </Link>
                 <Link
                   to="/login"
-                  className="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                  className="text-gray-700 hover:text-brand-teal px-3 py-2 rounded-md text-sm font-medium transition-colors"
                 >
                   Sign In
                 </Link>
                 <Link
                   to="/signup"
-                  className="bg-indigo-600 text-white hover:bg-indigo-700 px-4 py-2 rounded-md text-sm font-medium transition-colors"
+                  className="bg-brand-teal text-white hover:bg-opacity-90 px-4 py-2 rounded-md text-sm font-medium transition-colors"
                 >
                   Get Started
                 </Link>

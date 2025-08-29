@@ -9,12 +9,20 @@ export interface Product {
 
 export const products: Product[] = [
   {
-    id: 'prod_SvjFuBUJWo55xd',
-    priceId: 'price_1RzrmtDn6VTzl81bN2GklgrP',
-    name: 'OnPathFlow',
-    description: 'Visual goal tracking and milestone management for coaches, trainers, and course creators. Keep clients motivated with beautiful progress paths, automated check-ins, and celebration moments.',
+    id: 'basic-plan',
+    priceId: 'price_basic_plan',
+    name: 'Basic Plan',
+    description: 'Perfect for individual coaches, small practice, freelancers',
     mode: 'subscription',
     price: 29.00
+  },
+  {
+    id: 'pro-plan',
+    priceId: 'price_pro_plan',
+    name: 'Pro Plan',
+    description: 'Perfect for coaching businesses, course creators, team coaches',
+    mode: 'subscription',
+    price: 49.00
   }
 ];
 
