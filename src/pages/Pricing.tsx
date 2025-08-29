@@ -133,7 +133,7 @@ export const Pricing: React.FC = () => {
             </button>
 
             <p className="text-xs text-gray-500 text-center mt-4">
-              14-day free trial • Cancel anytime • No setup fees
+              7-day free trial • Cancel anytime • No setup fees
             </p>
           </div>
 
@@ -187,7 +187,7 @@ export const Pricing: React.FC = () => {
             </button>
 
             <p className="text-xs text-gray-500 text-center mt-4">
-              14-day free trial • Cancel anytime • No setup fees
+              7-day free trial • Cancel anytime • No setup fees
             </p>
           </div>
         </div>

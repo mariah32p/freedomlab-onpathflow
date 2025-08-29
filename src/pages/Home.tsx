@@ -35,20 +35,23 @@ export const Home: React.FC = () => {
                   Start Free Trial
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
-                <button className="border-2 border-white text-white px-8 py-4 rounded-xl text-lg font-bold hover:bg-white hover:text-brand-navy transition-all inline-flex items-center justify-center">
-                  <Play className="mr-2 h-5 w-5" />
-                  Watch Demo
-                </button>
+                <Link
+                  to="/pricing"
+                  className="border-2 border-white text-white px-8 py-4 rounded-xl text-lg font-bold hover:bg-white hover:text-brand-navy transition-all inline-flex items-center justify-center"
+                >
+                  See Pricing
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
               </div>
               
               <div className="flex items-center space-x-6 text-gray-300">
                 <div className="flex items-center space-x-1">
                   <Star className="h-4 w-4 text-yellow-400 fill-current" />
-                  <span className="text-sm">14-day free trial</span>
+                  <span className="text-sm">7-day free trial</span>
                 </div>
                 <div className="flex items-center space-x-1">
                   <CheckCircle className="h-4 w-4 text-brand-teal" />
-                  <span className="text-sm">No credit card required</span>
+                  <span className="text-sm">Cancel anytime</span>
                 </div>
               </div>
             </div>
@@ -807,11 +810,7 @@ export const Home: React.FC = () => {
             <div className="flex items-center justify-center space-x-8 mt-8 text-gray-200">
               <div className="flex items-center space-x-2">
                 <CheckCircle className="h-5 w-5 text-brand-teal" />
-                <span>14-day free trial</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <CheckCircle className="h-5 w-5 text-brand-teal" />
-                <span>No credit card required</span>
+                <span>7-day free trial</span>
               </div>
               <div className="flex items-center space-x-2">
                 <CheckCircle className="h-5 w-5 text-brand-teal" />
