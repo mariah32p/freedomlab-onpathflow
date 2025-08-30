@@ -8,6 +8,21 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body class="bg-gray-50 min-h-screen flex items-center justify-center">
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 bg-white shadow-sm z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-2xl font-bold text-blue-600">OnPathFlow</a>
+                </div>
+                <div>
+                    <a href="login.html" class="text-gray-600 hover:text-blue-600 font-medium">Sign In</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="pt-20">
     <div class="max-w-md w-full space-y-8 p-8">
         <div class="text-center">
             <h2 class="text-3xl font-bold text-gray-900 mb-2">Create Your Account</h2>
@@ -38,9 +53,10 @@
         <div class="text-center">
             <p class="text-sm text-gray-600">
                 Already have an account? 
-                <a href="/login.html" class="text-blue-600 hover:text-blue-700 font-medium">Sign in</a>
+                <a href="login.html" class="text-blue-600 hover:text-blue-700 font-medium">Sign in</a>
             </p>
         </div>
+    </div>
     </div>
 
     <script>
@@ -74,7 +90,7 @@
                 }
                 
                 // Redirect to get-started page
-                window.location.href = '/get-started.html';
+                window.location.href = 'get-started.html';
                 
             } catch (error) {
                 errorMessage.textContent = error.message;
