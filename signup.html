@@ -8,19 +8,37 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body class="bg-gray-50 min-h-screen flex items-center justify-center">
-    <!-- Header -->
-    <header class="fixed top-0 left-0 right-0 bg-white shadow-sm z-50">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm shadow-sm z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center py-4">
                 <div class="flex items-center">
-                    <a href="index.html" class="text-2xl font-bold text-blue-600">OnPathFlow</a>
+                    <a href="index.html" class="text-2xl font-bold text-blue-600 hover:text-blue-700 transition-colors">OnPathFlow</a>
                 </div>
-                <div>
-                    <a href="login.html" class="text-gray-600 hover:text-blue-600 font-medium">Sign In</a>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html#features" class="text-gray-600 hover:text-blue-600 transition-colors font-medium">Features</a>
+                    <a href="index.html#pricing" class="text-gray-600 hover:text-blue-600 transition-colors font-medium">Pricing</a>
+                    <a href="login.html" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors font-medium">Sign In</a>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobileMenuBtn" class="text-gray-600 hover:text-blue-600">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
                 </div>
             </div>
         </div>
-    </header>
+        
+        <!-- Mobile menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white border-t border-gray-200">
+            <div class="px-4 py-2 space-y-2">
+                <a href="index.html#features" class="block px-3 py-2 text-gray-600 hover:text-blue-600 transition-colors">Features</a>
+                <a href="index.html#pricing" class="block px-3 py-2 text-gray-600 hover:text-blue-600 transition-colors">Pricing</a>
+                <a href="login.html" class="block px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-center">Sign In</a>
+            </div>
+        </div>
+    </nav>
 
     <div class="pt-20">
     <div class="max-w-md w-full space-y-8 p-8">
@@ -98,6 +116,14 @@
                 submitBtn.disabled = false;
                 submitBtn.textContent = 'Create Account & Start Trial';
             }
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
         });
     </script>
 </body>
