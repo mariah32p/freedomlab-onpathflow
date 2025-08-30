@@ -8,20 +8,25 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body class="bg-gray-50 min-h-screen flex items-center justify-center">
-    <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm shadow-sm z-50">
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm shadow-sm z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center py-4">
                 <div class="flex items-center">
-                    <a href="index.html" class="text-2xl font-bold text-blue-600 hover:text-blue-700 transition-colors">OnPathFlow</a>
+                    <a href="index.html" class="flex items-center space-x-2 text-2xl font-bold text-slate-800 hover:text-slate-900 transition-colors">
+                        <svg class="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path>
+                        </svg>
+                        <span class="font-montserrat">OnPathFlow</span>
+                    </a>
                 </div>
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="index.html#features" class="text-gray-600 hover:text-blue-600 transition-colors font-medium">Features</a>
-                    <a href="index.html#pricing" class="text-gray-600 hover:text-blue-600 transition-colors font-medium">Pricing</a>
-                    <a href="login.html" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors font-medium">Sign In</a>
+                    <a href="index.html#features" class="text-slate-600 hover:text-indigo-600 transition-colors font-medium">Features</a>
+                    <a href="index.html#pricing" class="text-slate-600 hover:text-indigo-600 transition-colors font-medium">Pricing</a>
+                    <a href="login.html" class="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 transition-colors font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">Sign In</a>
                 </div>
                 <div class="md:hidden">
-                    <button id="mobileMenuBtn" class="text-gray-600 hover:text-blue-600">
+                    <button id="mobileMenuBtn" class="text-slate-600 hover:text-indigo-600">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                         </svg>
@@ -33,12 +38,24 @@
         <!-- Mobile menu -->
         <div id="mobileMenu" class="hidden md:hidden bg-white border-t border-gray-200">
             <div class="px-4 py-2 space-y-2">
-                <a href="index.html#features" class="block px-3 py-2 text-gray-600 hover:text-blue-600 transition-colors">Features</a>
-                <a href="index.html#pricing" class="block px-3 py-2 text-gray-600 hover:text-blue-600 transition-colors">Pricing</a>
-                <a href="login.html" class="block px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-center">Sign In</a>
+                <a href="index.html#features" class="block px-3 py-2 text-slate-600 hover:text-indigo-600 transition-colors">Features</a>
+                <a href="index.html#pricing" class="block px-3 py-2 text-slate-600 hover:text-indigo-600 transition-colors">Pricing</a>
+                <a href="login.html" class="block px-3 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors text-center">Sign In</a>
             </div>
         </div>
-    </nav>
+    </header>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        if (mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+    </script>
 
     <div class="pt-20">
     <div class="max-w-md w-full space-y-8 p-8">
