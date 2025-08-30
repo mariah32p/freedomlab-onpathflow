@@ -39,19 +39,22 @@ const LandingPage: React.FC = () => {
       <section className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-              Visualize Your Path to Success
+            <div className="bg-amber-50 border border-amber-200 rounded-xl p-6 mb-8 max-w-2xl mx-auto">
+              <p className="text-lg text-amber-800 font-medium">
+                "I want to become a Senior Software Engineer at a top tech company"
+              </p>
+              <p className="text-sm text-amber-600 mt-2">— Sarah, Current Junior Developer</p>
+            </div>
+            <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4">
+              Here's how Sarah mapped her path from Junior to Senior Engineer
             </h2>
-            <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-              See how OnPathFlow transforms complex goals into clear, actionable steps
-            </p>
           </div>
           
           <div className="bg-gradient-to-br from-slate-50 to-blue-50 rounded-2xl p-8 shadow-2xl">
             <div className="bg-white rounded-xl p-6 shadow-lg">
-              {/* Mockup of goal path builder */}
+              {/* Real career progression mockup */}
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-lg font-semibold text-slate-800">Launch My Startup</h3>
+                <h3 className="text-lg font-semibold text-slate-800">Senior Software Engineer Path</h3>
                 <div className="flex space-x-2">
                   <div className="w-3 h-3 bg-red-400 rounded-full"></div>
                   <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
@@ -60,36 +63,36 @@ const LandingPage: React.FC = () => {
               </div>
               
               <div className="space-y-4">
-                {/* Goal path visualization */}
+                {/* Career path steps */}
                 <div className="flex items-center space-x-4">
                   <div className="w-4 h-4 bg-emerald-500 rounded-full"></div>
                   <div className="flex-1 bg-emerald-100 rounded-lg p-3">
-                    <span className="text-emerald-800 font-medium">Market Research</span>
-                    <div className="text-sm text-emerald-600 mt-1">Completed • 2 weeks</div>
+                    <span className="text-emerald-800 font-medium">Master React & TypeScript</span>
+                    <div className="text-sm text-emerald-600 mt-1">✓ Completed • 3 months</div>
                   </div>
                 </div>
                 
                 <div className="flex items-center space-x-4">
                   <div className="w-4 h-4 bg-blue-500 rounded-full animate-pulse"></div>
                   <div className="flex-1 bg-blue-100 rounded-lg p-3">
-                    <span className="text-blue-800 font-medium">Build MVP</span>
-                    <div className="text-sm text-blue-600 mt-1">In Progress • 4 weeks remaining</div>
+                    <span className="text-blue-800 font-medium">Build 3 Portfolio Projects</span>
+                    <div className="text-sm text-blue-600 mt-1">🔄 In Progress • 2 projects done</div>
                   </div>
                 </div>
                 
                 <div className="flex items-center space-x-4">
                   <div className="w-4 h-4 bg-slate-300 rounded-full"></div>
                   <div className="flex-1 bg-slate-100 rounded-lg p-3">
-                    <span className="text-slate-600 font-medium">Launch Campaign</span>
-                    <div className="text-sm text-slate-500 mt-1">Pending • 6 weeks</div>
+                    <span className="text-slate-600 font-medium">Get AWS Certification</span>
+                    <div className="text-sm text-slate-500 mt-1">📅 Scheduled • Exam in 6 weeks</div>
                   </div>
                 </div>
                 
                 <div className="flex items-center space-x-4">
                   <div className="w-4 h-4 bg-slate-300 rounded-full"></div>
                   <div className="flex-1 bg-slate-100 rounded-lg p-3">
-                    <span className="text-slate-600 font-medium">Scale & Grow</span>
-                    <div className="text-sm text-slate-500 mt-1">Pending • 10 weeks</div>
+                    <span className="text-slate-600 font-medium">Apply to Target Companies</span>
+                    <div className="text-sm text-slate-500 mt-1">🎯 Next • Start in 8 weeks</div>
                   </div>
                 </div>
               </div>
@@ -103,10 +106,10 @@ const LandingPage: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-              Everything You Need to Succeed
+              Why Vague Goals Fail (And How We Fix It)
             </h2>
             <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-              Powerful features designed to help you plan, track, and achieve your goals
+              Stop spinning your wheels. Start building momentum with features that turn dreams into done.
             </p>
           </div>
           
@@ -118,9 +121,9 @@ const LandingPage: React.FC = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-slate-900 mb-3">Visual Path Mapping</h3>
+              <h3 className="text-xl font-semibold text-slate-900 mb-3">Break Down Big Dreams</h3>
               <p className="text-slate-600 leading-relaxed">
-                Create clear, visual representations of your goal paths with our intuitive drag-and-drop interface.
+                "Get promoted" becomes "Complete React course → Build 3 projects → Get AWS cert → Apply to 5 companies." Clear steps, not wishful thinking.
               </p>
             </div>
 
@@ -131,9 +134,9 @@ const LandingPage: React.FC = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-slate-900 mb-3">Progress Tracking</h3>
+              <h3 className="text-xl font-semibold text-slate-900 mb-3">See Real Progress</h3>
               <p className="text-slate-600 leading-relaxed">
-                Monitor your progress with detailed analytics and milestone tracking to stay motivated.
+                Watch your completion percentage climb. Get dopamine hits from checking off real milestones, not just "worked on my goal today."
               </p>
             </div>
 
@@ -144,9 +147,9 @@ const LandingPage: React.FC = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-slate-900 mb-3">Smart Reminders</h3>
+              <h3 className="text-xl font-semibold text-slate-900 mb-3">Stay Accountable</h3>
               <p className="text-slate-600 leading-relaxed">
-                Never miss a deadline with intelligent notifications and personalized reminder systems.
+                Get nudged when you're falling behind. No more "I'll start Monday" excuses—your path keeps you honest and moving forward.
               </p>
             </div>
           </div>
@@ -157,66 +160,76 @@ const LandingPage: React.FC = () => {
       <section className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-              Track Progress Like Never Before
+            <div className="bg-blue-50 border border-blue-200 rounded-xl p-6 mb-8 max-w-2xl mx-auto">
+              <p className="text-lg text-blue-800 font-medium">
+                "I've been 'working on my career' for 2 years with nothing to show for it"
+              </p>
+              <p className="text-sm text-blue-600 mt-2">— Marcus, Stuck in Middle Management</p>
+            </div>
+            <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4">
+              Here's what Marcus sees now instead of endless to-do lists
             </h2>
-            <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-              Get detailed insights and analytics to keep you motivated and on track
-            </p>
           </div>
           
           <div className="bg-gradient-to-br from-emerald-50 to-blue-50 rounded-2xl p-8 shadow-2xl">
             <div className="bg-white rounded-xl p-6 shadow-lg">
-              {/* Mockup of progress dashboard */}
+              {/* Career progress dashboard */}
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-lg font-semibold text-slate-800">Progress Dashboard</h3>
-                <div className="text-sm text-slate-500">Last updated: 2 hours ago</div>
+                <h3 className="text-lg font-semibold text-slate-800">Executive Leadership Path</h3>
+                <div className="text-sm text-slate-500">Target: VP of Product by Dec 2025</div>
               </div>
               
               <div className="grid md:grid-cols-3 gap-6 mb-6">
                 <div className="bg-emerald-50 rounded-lg p-4">
-                  <div className="text-2xl font-bold text-emerald-600">73%</div>
-                  <div className="text-sm text-emerald-700">Goals Completed</div>
+                  <div className="text-2xl font-bold text-emerald-600">67%</div>
+                  <div className="text-sm text-emerald-700">Path Complete</div>
                 </div>
                 <div className="bg-blue-50 rounded-lg p-4">
-                  <div className="text-2xl font-bold text-blue-600">12</div>
-                  <div className="text-sm text-blue-700">Active Paths</div>
+                  <div className="text-2xl font-bold text-blue-600">$15K</div>
+                  <div className="text-sm text-blue-700">Salary Increase</div>
                 </div>
                 <div className="bg-purple-50 rounded-lg p-4">
-                  <div className="text-2xl font-bold text-purple-600">28</div>
-                  <div className="text-sm text-purple-700">Days Streak</div>
+                  <div className="text-2xl font-bold text-purple-600">8</div>
+                  <div className="text-sm text-purple-700">Months to Goal</div>
                 </div>
               </div>
               
-              {/* Progress bars */}
+              {/* Career milestone progress */}
               <div className="space-y-4">
                 <div>
                   <div className="flex justify-between text-sm text-slate-600 mb-2">
-                    <span>Career Development</span>
-                    <span>85%</span>
+                    <span>📚 Complete MBA Program</span>
+                    <span>92% (Graduating May 2025)</span>
                   </div>
                   <div className="w-full bg-slate-200 rounded-full h-2">
-                    <div className="bg-emerald-500 h-2 rounded-full" style={{width: '85%'}}></div>
+                    <div className="bg-emerald-500 h-2 rounded-full" style={{width: '92%'}}></div>
                   </div>
                 </div>
                 
                 <div>
                   <div className="flex justify-between text-sm text-slate-600 mb-2">
-                    <span>Health & Fitness</span>
-                    <span>62%</span>
+                    <span>👥 Lead Cross-Functional Team</span>
+                    <span>75% (Managing 8 people)</span>
                   </div>
                   <div className="w-full bg-slate-200 rounded-full h-2">
-                    <div className="bg-blue-500 h-2 rounded-full" style={{width: '62%'}}></div>
+                    <div className="bg-blue-500 h-2 rounded-full" style={{width: '75%'}}></div>
                   </div>
                 </div>
                 
                 <div>
                   <div className="flex justify-between text-sm text-slate-600 mb-2">
-                    <span>Financial Goals</span>
-                    <span>41%</span>
+                    <span>🎯 Launch Product Feature</span>
+                    <span>45% (Beta testing phase)</span>
                   </div>
                   <div className="w-full bg-slate-200 rounded-full h-2">
-                    <div className="bg-purple-500 h-2 rounded-full" style={{width: '41%'}}></div>
+                    <div className="bg-purple-500 h-2 rounded-full" style={{width: '45%'}}></div>
+                  </div>
+                </div>
+                
+                <div className="mt-6 p-4 bg-emerald-50 rounded-lg">
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
+                    <span className="text-sm text-emerald-700 font-medium">Next: Schedule VP coffee chat (Due: Next Friday)</span>
                   </div>
                 </div>
               </div>
@@ -228,11 +241,11 @@ const LandingPage: React.FC = () => {
       {/* Final CTA Section */}
       <section className="py-20 bg-gradient-to-br from-emerald-500 to-blue-600">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
-            Ready to Transform Your Goals?
+            Stop Setting Goals.
+            Stop Wishing. Start Building.
           </h2>
           <p className="text-xl text-emerald-100 mb-8 leading-relaxed">
-            Join thousands of achievers who've turned their dreams into reality with OnPathFlow.
+            Your career won't advance itself. But with the right path, it doesn't have to be overwhelming either.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
