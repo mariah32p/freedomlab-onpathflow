@@ -1,25 +1,30 @@
 {
   "name": "onpathflow-landing",
-  "version": "1.0.0",
-  "description": "OnPathFlow - Visual Goal Path Builder for Coaches",
-  "main": "index.html",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "dev": "npx serve . -p 5173",
-    "build": "echo 'No build needed for static HTML'",
-    "preview": "npx serve . -p 4173"
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
   },
   "dependencies": {
-    "stripe": "^17.7.0",
-    "@supabase/supabase-js": "^2.49.1",
-    "serve": "^14.2.1"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.26.1",
+    "@supabase/supabase-js": "^2.49.1"
   },
-  "devDependencies": {},
-  "keywords": [
-    "coaching",
-    "goal-tracking",
-    "progress-tracking",
-    "saas"
-  ],
-  "author": "OnPathFlow",
-  "license": "MIT"
+  "devDependencies": {
+    "@types/react": "^18.2.66",
+    "@types/react-dom": "^18.2.22",
+    "@typescript-eslint/eslint-plugin": "^7.2.0",
+    "@typescript-eslint/parser": "^7.2.0",
+    "@vitejs/plugin-react": "^4.2.1",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.6",
+    "typescript": "^5.2.2",
+    "vite": "^5.2.0"
+  }
 }
