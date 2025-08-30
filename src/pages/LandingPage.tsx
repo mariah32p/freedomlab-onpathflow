@@ -241,6 +241,7 @@ const LandingPage: React.FC = () => {
       {/* Final CTA Section */}
       <section className="py-20 bg-gradient-to-br from-emerald-500 to-blue-600">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
             Stop Setting Goals.
             Stop Wishing. Start Building.
           </h2>
