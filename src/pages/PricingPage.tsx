@@ -192,4 +192,4 @@ const PricingPage: React.FC = () => {
   );
 };
 
-export default LandingPage;
+export default PricingPage;
