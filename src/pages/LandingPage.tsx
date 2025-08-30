@@ -290,18 +290,6 @@ const LandingPage: React.FC = () => {
               Learn More
             </button>
           </div>
-          
-          {/* Trust indicators */}
-          <div className="mt-12 pt-8 border-t border-emerald-400/30">
-            <p className="text-emerald-100 text-sm mb-4">Trusted by goal-achievers worldwide</p>
-            <div className="flex justify-center items-center gap-8 opacity-70">
-              <div className="text-white font-semibold">10,000+ Users</div>
-              <div className="w-1 h-1 bg-white rounded-full"></div>
-              <div className="text-white font-semibold">50,000+ Goals Achieved</div>
-              <div className="w-1 h-1 bg-white rounded-full"></div>
-              <div className="text-white font-semibold">99% Success Rate</div>
-            </div>
-          </div>
         </div>
       </section>
 
