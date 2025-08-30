@@ -16,7 +16,10 @@ const Header: React.FC = () => {
               </svg>
             </div>
             <span className="text-2xl font-bold text-slate-800">OnPathFlow</span>
-            </Link>
+          </Link>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center space-x-8">
             <Link to="/signin" className="text-slate-600 hover:text-slate-900 font-medium">
               Sign In
             </Link>
@@ -39,7 +42,10 @@ const Header: React.FC = () => {
           </button>
         </div>
 
-              </Link>
+        {/* Mobile Navigation */}
+        {isMenuOpen && (
+          <div className="md:hidden">
+            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
               <Link to="/signin" className="text-slate-600 hover:text-slate-900 font-medium">
                 Sign In
               </Link>
