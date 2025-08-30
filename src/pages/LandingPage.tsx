@@ -35,6 +35,69 @@ const LandingPage: React.FC = () => {
         </div>
       </section>
 
+      {/* First Mockup Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+              Visualize Your Path to Success
+            </h2>
+            <p className="text-xl text-slate-600 max-w-2xl mx-auto">
+              See how OnPathFlow transforms complex goals into clear, actionable steps
+            </p>
+          </div>
+          
+          <div className="bg-gradient-to-br from-slate-50 to-blue-50 rounded-2xl p-8 shadow-2xl">
+            <div className="bg-white rounded-xl p-6 shadow-lg">
+              {/* Mockup of goal path builder */}
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-lg font-semibold text-slate-800">Launch My Startup</h3>
+                <div className="flex space-x-2">
+                  <div className="w-3 h-3 bg-red-400 rounded-full"></div>
+                  <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
+                  <div className="w-3 h-3 bg-green-400 rounded-full"></div>
+                </div>
+              </div>
+              
+              <div className="space-y-4">
+                {/* Goal path visualization */}
+                <div className="flex items-center space-x-4">
+                  <div className="w-4 h-4 bg-emerald-500 rounded-full"></div>
+                  <div className="flex-1 bg-emerald-100 rounded-lg p-3">
+                    <span className="text-emerald-800 font-medium">Market Research</span>
+                    <div className="text-sm text-emerald-600 mt-1">Completed • 2 weeks</div>
+                  </div>
+                </div>
+                
+                <div className="flex items-center space-x-4">
+                  <div className="w-4 h-4 bg-blue-500 rounded-full animate-pulse"></div>
+                  <div className="flex-1 bg-blue-100 rounded-lg p-3">
+                    <span className="text-blue-800 font-medium">Build MVP</span>
+                    <div className="text-sm text-blue-600 mt-1">In Progress • 4 weeks remaining</div>
+                  </div>
+                </div>
+                
+                <div className="flex items-center space-x-4">
+                  <div className="w-4 h-4 bg-slate-300 rounded-full"></div>
+                  <div className="flex-1 bg-slate-100 rounded-lg p-3">
+                    <span className="text-slate-600 font-medium">Launch Campaign</span>
+                    <div className="text-sm text-slate-500 mt-1">Pending • 6 weeks</div>
+                  </div>
+                </div>
+                
+                <div className="flex items-center space-x-4">
+                  <div className="w-4 h-4 bg-slate-300 rounded-full"></div>
+                  <div className="flex-1 bg-slate-100 rounded-lg p-3">
+                    <span className="text-slate-600 font-medium">Scale & Grow</span>
+                    <div className="text-sm text-slate-500 mt-1">Pending • 10 weeks</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Features Section */}
       <section className="py-20 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -85,6 +148,78 @@ const LandingPage: React.FC = () => {
               <p className="text-slate-600 leading-relaxed">
                 Never miss a deadline with intelligent notifications and personalized reminder systems.
               </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Second Mockup Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+              Track Progress Like Never Before
+            </h2>
+            <p className="text-xl text-slate-600 max-w-2xl mx-auto">
+              Get detailed insights and analytics to keep you motivated and on track
+            </p>
+          </div>
+          
+          <div className="bg-gradient-to-br from-emerald-50 to-blue-50 rounded-2xl p-8 shadow-2xl">
+            <div className="bg-white rounded-xl p-6 shadow-lg">
+              {/* Mockup of progress dashboard */}
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-lg font-semibold text-slate-800">Progress Dashboard</h3>
+                <div className="text-sm text-slate-500">Last updated: 2 hours ago</div>
+              </div>
+              
+              <div className="grid md:grid-cols-3 gap-6 mb-6">
+                <div className="bg-emerald-50 rounded-lg p-4">
+                  <div className="text-2xl font-bold text-emerald-600">73%</div>
+                  <div className="text-sm text-emerald-700">Goals Completed</div>
+                </div>
+                <div className="bg-blue-50 rounded-lg p-4">
+                  <div className="text-2xl font-bold text-blue-600">12</div>
+                  <div className="text-sm text-blue-700">Active Paths</div>
+                </div>
+                <div className="bg-purple-50 rounded-lg p-4">
+                  <div className="text-2xl font-bold text-purple-600">28</div>
+                  <div className="text-sm text-purple-700">Days Streak</div>
+                </div>
+              </div>
+              
+              {/* Progress bars */}
+              <div className="space-y-4">
+                <div>
+                  <div className="flex justify-between text-sm text-slate-600 mb-2">
+                    <span>Career Development</span>
+                    <span>85%</span>
+                  </div>
+                  <div className="w-full bg-slate-200 rounded-full h-2">
+                    <div className="bg-emerald-500 h-2 rounded-full" style={{width: '85%'}}></div>
+                  </div>
+                </div>
+                
+                <div>
+                  <div className="flex justify-between text-sm text-slate-600 mb-2">
+                    <span>Health & Fitness</span>
+                    <span>62%</span>
+                  </div>
+                  <div className="w-full bg-slate-200 rounded-full h-2">
+                    <div className="bg-blue-500 h-2 rounded-full" style={{width: '62%'}}></div>
+                  </div>
+                </div>
+                
+                <div>
+                  <div className="flex justify-between text-sm text-slate-600 mb-2">
+                    <span>Financial Goals</span>
+                    <span>41%</span>
+                  </div>
+                  <div className="w-full bg-slate-200 rounded-full h-2">
+                    <div className="bg-purple-500 h-2 rounded-full" style={{width: '41%'}}></div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
