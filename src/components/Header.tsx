@@ -20,14 +20,11 @@ const Header: React.FC = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <Link to="/" className="text-slate-600 hover:text-slate-900 font-medium">
-              Features
-            </Link>
-            <Link to="/" className="text-slate-600 hover:text-slate-900 font-medium">
+            <a href="#pricing" className="text-slate-600 hover:text-slate-900 font-medium">
               Pricing
-            </Link>
-            <Link to="/" className="text-slate-600 hover:text-slate-900 font-medium">
-              About
+            </a>
+            <Link to="/signin" className="text-slate-600 hover:text-slate-900 font-medium">
+              Sign In
             </Link>
             <Link 
               to="/signup" 
@@ -52,14 +49,11 @@ const Header: React.FC = () => {
         {isMenuOpen && (
           <div className="md:hidden py-4 border-t border-slate-200">
             <div className="flex flex-col space-y-4">
-              <Link to="/" className="text-slate-600 hover:text-slate-900 font-medium">
-                Features
-              </Link>
-              <Link to="/" className="text-slate-600 hover:text-slate-900 font-medium">
+              <a href="#pricing" className="text-slate-600 hover:text-slate-900 font-medium">
                 Pricing
-              </Link>
-              <Link to="/" className="text-slate-600 hover:text-slate-900 font-medium">
-                About
+              </a>
+              <Link to="/signin" className="text-slate-600 hover:text-slate-900 font-medium">
+                Sign In
               </Link>
               <Link 
                 to="/signup" 
