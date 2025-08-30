@@ -22,10 +22,7 @@ const LandingPage: React.FC = () => {
                 Start Free Trial
               </button>
               <button className="text-slate-600 hover:text-slate-900 font-semibold text-lg flex items-center gap-2">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h1m4 0h1m6-10V7a3 3 0 11-6 0V4a2 2 0 012-2h2a2 2 0 012 2v3.001M9 7h6" />
-                </svg>
-                Watch Demo
+                View Pricing
               </button>
             </div>
           </div>
@@ -35,78 +32,6 @@ const LandingPage: React.FC = () => {
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
           <div className="absolute -top-40 -right-40 w-80 h-80 bg-emerald-200 rounded-full opacity-20 blur-3xl"></div>
           <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-200 rounded-full opacity-20 blur-3xl"></div>
-        </div>
-      </section>
-
-      {/* First Mockup Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-              Visualize Your Journey
-            </h2>
-            <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-              See your goals come to life with our intuitive visual path builder
-            </p>
-          </div>
-          
-          {/* Mockup */}
-          <div className="relative max-w-5xl mx-auto">
-            <div className="bg-gradient-to-br from-slate-100 to-slate-200 rounded-2xl p-8 shadow-2xl">
-              <div className="bg-white rounded-xl p-6 shadow-lg">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-3 h-3 bg-red-400 rounded-full"></div>
-                  <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
-                  <div className="w-3 h-3 bg-green-400 rounded-full"></div>
-                  <div className="flex-1 bg-slate-100 rounded-lg h-8 ml-4"></div>
-                </div>
-                
-                {/* Goal Path Visualization */}
-                <div className="space-y-6">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-emerald-500 rounded-full flex items-center justify-center">
-                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
-                      </div>
-                      <div>
-                        <div className="h-4 bg-slate-200 rounded w-32 mb-2"></div>
-                        <div className="h-3 bg-slate-100 rounded w-24"></div>
-                      </div>
-                    </div>
-                    <div className="text-emerald-500 font-semibold">Complete</div>
-                  </div>
-                  
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center">
-                        <div className="w-3 h-3 bg-white rounded-full"></div>
-                      </div>
-                      <div>
-                        <div className="h-4 bg-slate-200 rounded w-40 mb-2"></div>
-                        <div className="h-3 bg-slate-100 rounded w-28"></div>
-                      </div>
-                    </div>
-                    <div className="text-blue-500 font-semibold">In Progress</div>
-                  </div>
-                  
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-slate-300 rounded-full flex items-center justify-center">
-                        <div className="w-3 h-3 bg-white rounded-full"></div>
-                      </div>
-                      <div>
-                        <div className="h-4 bg-slate-200 rounded w-36 mb-2"></div>
-                        <div className="h-3 bg-slate-100 rounded w-20"></div>
-                      </div>
-                    </div>
-                    <div className="text-slate-400 font-semibold">Pending</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -165,110 +90,6 @@ const LandingPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Second Mockup Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
-                Track Progress in Real-Time
-              </h2>
-              <p className="text-xl text-slate-600 mb-8 leading-relaxed">
-                Watch your goals come to life with our dynamic progress tracking. See exactly where you are, what's next, and celebrate every milestone along the way.
-              </p>
-              <div className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center">
-                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
-                  <span className="text-slate-700 font-medium">Real-time progress updates</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center">
-                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
-                  <span className="text-slate-700 font-medium">Milestone celebrations</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center">
-                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
-                  <span className="text-slate-700 font-medium">Detailed analytics dashboard</span>
-                </div>
-              </div>
-            </div>
-            
-            {/* Progress Dashboard Mockup */}
-            <div className="relative">
-              <div className="bg-gradient-to-br from-slate-100 to-slate-200 rounded-2xl p-6 shadow-2xl">
-                <div className="bg-white rounded-xl p-6">
-                  {/* Dashboard Header */}
-                  <div className="flex items-center justify-between mb-6">
-                    <h3 className="text-lg font-semibold text-slate-900">Goal Progress</h3>
-                    <div className="text-sm text-slate-500">Last 30 days</div>
-                  </div>
-                  
-                  {/* Progress Bars */}
-                  <div className="space-y-4">
-                    <div>
-                      <div className="flex justify-between items-center mb-2">
-                        <span className="text-sm font-medium text-slate-700">Launch Product</span>
-                        <span className="text-sm text-emerald-600 font-semibold">85%</span>
-                      </div>
-                      <div className="w-full bg-slate-200 rounded-full h-2">
-                        <div className="bg-emerald-500 h-2 rounded-full" style={{width: '85%'}}></div>
-                      </div>
-                    </div>
-                    
-                    <div>
-                      <div className="flex justify-between items-center mb-2">
-                        <span className="text-sm font-medium text-slate-700">Build Team</span>
-                        <span className="text-sm text-blue-600 font-semibold">60%</span>
-                      </div>
-                      <div className="w-full bg-slate-200 rounded-full h-2">
-                        <div className="bg-blue-500 h-2 rounded-full" style={{width: '60%'}}></div>
-                      </div>
-                    </div>
-                    
-                    <div>
-                      <div className="flex justify-between items-center mb-2">
-                        <span className="text-sm font-medium text-slate-700">Market Research</span>
-                        <span className="text-sm text-purple-600 font-semibold">40%</span>
-                      </div>
-                      <div className="w-full bg-slate-200 rounded-full h-2">
-                        <div className="bg-purple-500 h-2 rounded-full" style={{width: '40%'}}></div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Stats */}
-                  <div className="grid grid-cols-3 gap-4 mt-6 pt-6 border-t border-slate-200">
-                    <div className="text-center">
-                      <div className="text-2xl font-bold text-slate-900">12</div>
-                      <div className="text-xs text-slate-500">Goals Active</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-2xl font-bold text-emerald-600">8</div>
-                      <div className="text-xs text-slate-500">Completed</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-2xl font-bold text-blue-600">4</div>
-                      <div className="text-xs text-slate-500">In Progress</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Final CTA Section */}
       <section className="py-20 bg-gradient-to-br from-emerald-500 to-blue-600">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -284,10 +105,7 @@ const LandingPage: React.FC = () => {
               Start Your 7-Day Free Trial
             </button>
             <button className="text-white hover:text-emerald-100 font-semibold text-lg flex items-center gap-2">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              Learn More
+              View Pricing
             </button>
           </div>
         </div>
