@@ -19,15 +19,15 @@ const DemoPage: React.FC = () => {
         const next = (prev + 1) % 6;
         // Show modal for certain steps
         if (next === 1) {
-          setTimeout(() => showClientDetailModal(), 800);
+          setTimeout(() => showClientDetailModal(), 2000);
         } else if (next === 2) {
-          setTimeout(() => showPathBuilderModal(), 1000);
+          setTimeout(() => showPathBuilderModal(), 2500);
         } else if (next === 4) {
-          setTimeout(() => showCelebrationModal(), 800);
+          setTimeout(() => showCelebrationModal(), 2000);
         }
         return next;
       });
-    }, 2000);
+    }, 8000);
     
     return () => clearInterval(interval);
   }, [isAutoPlaying]);
