@@ -5,14 +5,29 @@ const DemoPage: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [celebrationVisible, setCelebrationVisible] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [modalContent, setModalContent] = useState<any>(null);
+  const [isTyping, setIsTyping] = useState(false);
+  const [typedText, setTypedText] = useState('');
 
   // Auto-advance demo steps
   useEffect(() => {
     if (!isAutoPlaying) return;
     
     const interval = setInterval(() => {
-      setCurrentStep(prev => (prev + 1) % 5);
-    }, 4000);
+      setCurrentStep(prev => {
+        const next = (prev + 1) % 5;
+        // Show modal for certain steps
+        if (next === 1) {
+          setTimeout(() => showClientDetailModal(), 1000);
+        } else if (next === 2) {
+          setTimeout(() => showPathBuilderModal(), 1000);
+        } else if (next === 4) {
+          setTimeout(() => showCelebrationModal(), 1000);
+        }
+        return next;
+      });
+    }, 6000);
     
     return () => clearInterval(interval);
   }, [isAutoPlaying]);
@@ -25,6 +40,58 @@ const DemoPage: React.FC = () => {
       return () => clearTimeout(timer);
     }
   }, [currentStep]);
+
+  // Typing animation effect
+  useEffect(() => {
+    if (!isTyping) return;
+    
+    const text = "Just passed my AWS exam with 847/1000! 🎉 The practice tests really helped. Already feeling more confident about cloud architecture discussions in interviews.";
+    let index = 0;
+    
+    const typeInterval = setInterval(() => {
+      if (index < text.length) {
+        setTypedText(text.slice(0, index + 1));
+        index++;
+      } else {
+        setIsTyping(false);
+        clearInterval(typeInterval);
+      }
+    }, 50);
+    
+    return () => clearInterval(typeInterval);
+  }, [isTyping]);
+
+  const showClientDetailModal = () => {
+    setModalContent({
+      type: 'client-detail',
+      title: 'Viewing Client Progress',
+      content: 'Let me show you Sarah\'s detailed progress. She\'s been crushing her milestones!'
+    });
+    setShowModal(true);
+    setTimeout(() => setShowModal(false), 3000);
+  };
+
+  const showPathBuilderModal = () => {
+    setModalContent({
+      type: 'path-builder',
+      title: 'Creating a New Goal Path',
+      content: 'Here\'s how I build custom milestone paths for my clients. Each path is tailored to their specific career goals.'
+    });
+    setShowModal(true);
+    setTimeout(() => setShowModal(false), 3500);
+  };
+
+  const showCelebrationModal = () => {
+    setModalContent({
+      type: 'celebration',
+      title: 'Client Milestone Completed!',
+      content: 'Sarah just completed her AWS certification! Watch how the system celebrates her achievement.'
+    });
+    setShowModal(true);
+    setIsTyping(true);
+    setTypedText('');
+    setTimeout(() => setShowModal(false), 4000);
+  };
 
   const steps = [
     'Coach Dashboard',
@@ -431,6 +498,313 @@ const DemoPage: React.FC = () => {
           <div className="bg-white rounded-lg p-4">
             <div className="flex items-start space-x-3">
               <MessageSquare className="w-5 h-5 text-blue-500 mt-0.5" />
+              <div className="flex-1">
+                {isTyping ? (
+                  <p className="text-slate-700 text-sm">{typedText}<span className="animate-pulse">|</span></p>
+                ) : (
+                  <p className="text-slate-700 text-sm">Just passed my AWS exam with 847/1000! 🎉 The practice tests really helped. Already feeling more confident about cloud architecture discussions in interviews.</p>
+                )}
+                <p className="text-slate-500 text-xs mt-1">Updated 2 hours ago</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderAnalytics = () => (
+    <div className="space-y-8">
+      {/* Analytics Header */}
+      <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-6">
+        <div className="flex items-center justify-between mb-6">
+          <h3 className="text-2xl font-semibold text-slate-800">Client Analytics</h3>
+          <div className="flex space-x-2">
+            <button className="px-4 py-2 bg-slate-100 text-slate-600 rounded-lg text-sm font-medium">Last 30 days</button>
+            <button className="px-4 py-2 bg-emerald-500 text-white rounded-lg text-sm font-medium">This quarter</button>
+          </div>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="text-center">
+            <div className="text-3xl font-bold text-emerald-600 mb-1">94%</div>
+            <div className="text-sm text-slate-600">Milestone Completion Rate</div>
+            <div className="text-xs text-emerald-600 mt-1">↗ +12% vs last quarter</div>
+          </div>
+          <div className="text-center">
+            <div className="text-3xl font-bold text-blue-600 mb-1">8.2</div>
+            <div className="text-sm text-slate-600">Avg Days per Milestone</div>
+            <div className="text-xs text-blue-600 mt-1">↗ 15% faster</div>
+          </div>
+          <div className="text-center">
+            <div className="text-3xl font-bold text-purple-600 mb-1">87%</div>
+            <div className="text-sm text-slate-600">Client Satisfaction</div>
+            <div className="text-xs text-purple-600 mt-1">↗ +5% this month</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Performance Leaderboard */}
+      <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-6">
+        <h3 className="text-xl font-semibold text-slate-800 mb-6">Top Performers This Month</h3>
+        
+        <div className="space-y-4">
+          {[
+            { name: 'Sarah Chen', avatar: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop', completed: 3, streak: 12, rank: 1 },
+            { name: 'Marcus Rodriguez', avatar: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop', completed: 2, streak: 8, rank: 2 },
+            { name: 'Emily Johnson', avatar: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop', completed: 2, streak: 5, rank: 3 }
+          ].map((client) => (
+            <div key={client.name} className="flex items-center justify-between p-4 bg-slate-50 rounded-xl hover:bg-slate-100 transition-colors duration-200">
+              <div className="flex items-center space-x-4">
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm ${
+                  client.rank === 1 ? 'bg-yellow-500' :
+                  client.rank === 2 ? 'bg-slate-400' :
+                  'bg-amber-600'
+                }`}>
+                  {client.rank}
+                </div>
+                <img 
+                  src={client.avatar}
+                  alt={client.name}
+                  className="w-10 h-10 rounded-full object-cover"
+                />
+                <span className="font-medium text-slate-800">{client.name}</span>
+              </div>
+              <div className="flex items-center space-x-6 text-sm">
+                <div className="text-center">
+                  <div className="font-bold text-emerald-600">{client.completed}</div>
+                  <div className="text-slate-500">Completed</div>
+                </div>
+                <div className="text-center">
+                  <div className="font-bold text-blue-600">{client.streak}</div>
+                  <div className="text-slate-500">Day Streak</div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Engagement Insights */}
+      <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-6">
+        <h3 className="text-xl font-semibold text-slate-800 mb-6">Engagement Insights</h3>
+        
+        <div className="grid md:grid-cols-2 gap-6">
+          <div className="bg-gradient-to-br from-emerald-50 to-emerald-100 rounded-xl p-6">
+            <h4 className="font-semibold text-emerald-800 mb-3">Most Active Times</h4>
+            <div className="space-y-2">
+              <div className="flex justify-between items-center">
+                <span className="text-emerald-700 text-sm">Tuesday evenings</span>
+                <div className="w-20 bg-emerald-200 rounded-full h-2">
+                  <div className="bg-emerald-500 h-2 rounded-full" style={{width: '85%'}}></div>
+                </div>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-emerald-700 text-sm">Sunday mornings</span>
+                <div className="w-20 bg-emerald-200 rounded-full h-2">
+                  <div className="bg-emerald-500 h-2 rounded-full" style={{width: '72%'}}></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6">
+            <h4 className="font-semibold text-blue-800 mb-3">Completion Patterns</h4>
+            <div className="space-y-2">
+              <div className="flex justify-between items-center">
+                <span className="text-blue-700 text-sm">Technical skills</span>
+                <div className="w-20 bg-blue-200 rounded-full h-2">
+                  <div className="bg-blue-500 h-2 rounded-full" style={{width: '92%'}}></div>
+                </div>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-blue-700 text-sm">Networking goals</span>
+                <div className="w-20 bg-blue-200 rounded-full h-2">
+                  <div className="bg-blue-500 h-2 rounded-full" style={{width: '68%'}}></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  const getCurrentView = () => {
+    switch (currentStep) {
+      case 0:
+        return renderDashboard();
+      case 1:
+        return renderClientProgress();
+      case 2:
+        return renderPathBuilder();
+      case 3:
+        return renderClientView();
+      case 4:
+        return renderProgressUpdate();
+      default:
+        return renderDashboard();
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-emerald-50">
+      {/* Demo Header */}
+      <header className="bg-white/80 backdrop-blur-lg border-b border-slate-200 sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center py-4">
+            <div className="flex items-center space-x-4">
+              <div className="w-10 h-10 bg-gradient-to-r from-emerald-500 to-blue-600 rounded-xl flex items-center justify-center">
+                <Target className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h1 className="text-2xl font-bold text-slate-800">OnPathFlow</h1>
+                <div className="flex items-center space-x-2">
+                  <span className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-2 py-1 rounded-full text-xs font-medium">PRO</span>
+                  <span className="text-slate-500 text-sm">Coach Dashboard</span>
+                </div>
+              </div>
+            </div>
+            
+            <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-2 bg-emerald-100 px-3 py-2 rounded-lg">
+                <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
+                <span className="text-emerald-700 text-sm font-medium">Live Demo</span>
+              </div>
+              <button 
+                onClick={() => setIsAutoPlaying(!isAutoPlaying)}
+                className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
+                  isAutoPlaying 
+                    ? 'bg-slate-200 text-slate-700 hover:bg-slate-300' 
+                    : 'bg-emerald-500 text-white hover:bg-emerald-600'
+                }`}
+              >
+                {isAutoPlaying ? 'Pause' : 'Play'}
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* Demo Navigation */}
+      <div className="bg-white border-b border-slate-200 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex items-center justify-between py-4">
+            <div className="flex space-x-1">
+              {steps.map((step, index) => (
+                <button
+                  key={index}
+                  onClick={() => {
+                    setCurrentStep(index);
+                    setIsAutoPlaying(false);
+                  }}
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                    currentStep === index
+                      ? 'bg-emerald-500 text-white shadow-lg'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                  }`}
+                >
+                  {step}
+                </button>
+              ))}
+            </div>
+            
+            <div className="flex items-center space-x-2">
+              <div className="flex space-x-1">
+                {steps.map((_, index) => (
+                  <div
+                    key={index}
+                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                      currentStep === index ? 'bg-emerald-500 w-6' : 'bg-slate-300'
+                    }`}
+                  ></div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="transition-all duration-500 ease-in-out">
+          {getCurrentView()}
+        </div>
+      </main>
+
+      {/* Modal Overlay */}
+      {showModal && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full transform animate-in zoom-in-95 duration-300">
+            <div className="p-6">
+              <div className="flex items-center space-x-3 mb-4">
+                <div className="w-10 h-10 bg-gradient-to-r from-emerald-500 to-blue-600 rounded-full flex items-center justify-center">
+                  {modalContent?.type === 'celebration' ? (
+                    <Trophy className="w-5 h-5 text-white" />
+                  ) : modalContent?.type === 'path-builder' ? (
+                    <Plus className="w-5 h-5 text-white" />
+                  ) : (
+                    <Eye className="w-5 h-5 text-white" />
+                  )}
+                </div>
+                <h3 className="text-xl font-semibold text-slate-800">{modalContent?.title}</h3>
+              </div>
+              <p className="text-slate-600 mb-6">{modalContent?.content}</p>
+              
+              {modalContent?.type === 'celebration' && (
+                <div className="bg-emerald-50 rounded-lg p-4 border border-emerald-200">
+                  <div className="flex items-center space-x-2 mb-2">
+                    <img 
+                      src="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop"
+                      alt="Sarah"
+                      className="w-8 h-8 rounded-full object-cover"
+                    />
+                    <span className="font-medium text-emerald-800">Sarah Chen</span>
+                    <span className="text-xs text-emerald-600 bg-emerald-100 px-2 py-1 rounded-full">Just now</span>
+                  </div>
+                  {isTyping ? (
+                    <p className="text-emerald-700 text-sm">{typedText}<span className="animate-pulse">|</span></p>
+                  ) : (
+                    <p className="text-emerald-700 text-sm">Just passed my AWS exam with 847/1000! 🎉 The practice tests really helped. Already feeling more confident about cloud architecture discussions in interviews.</p>
+                  )}
+                </div>
+              )}
+              
+              <div className="flex justify-end">
+                <button 
+                  onClick={() => setShowModal(false)}
+                  className="text-slate-500 hover:text-slate-700 text-sm font-medium"
+                >
+                  Continue Demo
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Demo Footer */}
+      <footer className="bg-white/80 backdrop-blur-lg border-t border-slate-200 mt-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="flex items-center justify-between">
+            <p className="text-slate-600 text-sm">
+              This is a live demo of OnPathFlow's coaching platform
+            </p>
+            <div className="flex items-center space-x-4 text-sm text-slate-500">
+              <span>Step {currentStep + 1} of {steps.length}</span>
+              <div className="flex items-center space-x-1">
+                <div className="w-1 h-1 bg-emerald-500 rounded-full animate-pulse"></div>
+                <span>Auto-advancing</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+};
+
+export default DemoPage;
               <div>
                 <p className="text-slate-700 text-sm">Scheduled exam for next Friday. Been studying 2 hours daily.</p>
                 <p className="text-slate-500 text-xs mt-1">Updated 2 hours ago</p>
