@@ -3,7 +3,7 @@ import { Users, Target, CheckCircle, Clock, TrendingUp, Settings, Plus, Eye, Mes
 
 const DemoPage: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(0);
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const [isAutoPlaying] = useState(true);
   const [celebrationVisible, setCelebrationVisible] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState<any>(null);
