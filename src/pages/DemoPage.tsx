@@ -27,7 +27,7 @@ const DemoPage: React.FC = () => {
         }
         return next;
       });
-    }, 4000);
+    }, 2000);
     
     return () => clearInterval(interval);
   }, [isAutoPlaying]);
