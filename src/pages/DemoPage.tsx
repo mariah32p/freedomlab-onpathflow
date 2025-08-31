@@ -863,20 +863,13 @@ const DemoPage: React.FC = () => {
             </div>
             
             <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-2 bg-emerald-100 px-3 py-2 rounded-lg">
-                <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
-                <span className="text-emerald-700 text-sm font-medium">Live Demo</span>
-              </div>
-              <button 
-                onClick={() => setIsAutoPlaying(!isAutoPlaying)}
-                className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
-                  isAutoPlaying 
-                    ? 'bg-slate-200 text-slate-700 hover:bg-slate-300' 
-                    : 'bg-emerald-500 text-white hover:bg-emerald-600'
-                }`}
-              >
-                {isAutoPlaying ? 'Pause' : 'Play'}
-              </button>
+              <Bell className="w-6 h-6 text-slate-400 hover:text-slate-600 cursor-pointer transition-colors duration-200" />
+              <Settings className="w-6 h-6 text-slate-400 hover:text-slate-600 cursor-pointer transition-colors duration-200" />
+              <img 
+                src="https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=80&h=80&fit=crop"
+                alt="Coach"
+                className="w-10 h-10 rounded-full object-cover ring-2 ring-emerald-500 shadow-lg"
+              />
             </div>
           </div>
         </div>
@@ -890,10 +883,6 @@ const DemoPage: React.FC = () => {
               {steps.map((step, index) => (
                 <button
                   key={index}
-                  onClick={() => {
-                    setCurrentStep(index);
-                    setIsAutoPlaying(false);
-                  }}
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                     currentStep === index
                       ? 'bg-emerald-500 text-white shadow-lg'
@@ -905,17 +894,13 @@ const DemoPage: React.FC = () => {
               ))}
             </div>
             
-            <div className="flex items-center space-x-2">
-              <div className="flex space-x-1">
-                {steps.map((_, index) => (
-                  <div
-                    key={index}
-                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                      currentStep === index ? 'bg-emerald-500 w-6' : 'bg-slate-300'
-                    }`}
-                  ></div>
-                ))}
-              </div>
+            <div className="text-sm text-slate-500">
+              {new Date().toLocaleDateString('en-US', { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+              })}
             </div>
           </div>
         </div>
@@ -969,9 +954,9 @@ const DemoPage: React.FC = () => {
               <div className="flex justify-end">
                 <button 
                   onClick={() => setShowModal(false)}
-                  className="text-slate-500 hover:text-slate-700 text-sm font-medium"
+                  className="opacity-0 pointer-events-none"
                 >
-                  Continue Demo
+                  Close
                 </button>
               </div>
             </div>
@@ -979,23 +964,6 @@ const DemoPage: React.FC = () => {
         </div>
       )}
 
-      {/* Demo Footer */}
-      <footer className="bg-white/80 backdrop-blur-lg border-t border-slate-200 mt-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex items-center justify-between">
-            <p className="text-slate-600 text-sm">
-              This is a live demo of OnPathFlow's coaching platform
-            </p>
-            <div className="flex items-center space-x-4 text-sm text-slate-500">
-              <span>Step {currentStep + 1} of {steps.length}</span>
-              <div className="flex items-center space-x-1">
-                <div className="w-1 h-1 bg-emerald-500 rounded-full animate-pulse"></div>
-                <span>Auto-advancing</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 };
