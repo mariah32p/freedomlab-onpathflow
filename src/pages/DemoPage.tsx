@@ -16,18 +16,18 @@ const DemoPage: React.FC = () => {
     
     const interval = setInterval(() => {
       setCurrentStep(prev => {
-        const next = (prev + 1) % 5;
+        const next = (prev + 1) % 6;
         // Show modal for certain steps
         if (next === 1) {
-          setTimeout(() => showClientDetailModal(), 1000);
+          setTimeout(() => showClientDetailModal(), 2000);
         } else if (next === 2) {
-          setTimeout(() => showPathBuilderModal(), 1000);
+          setTimeout(() => showPathBuilderModal(), 2500);
         } else if (next === 4) {
-          setTimeout(() => showCelebrationModal(), 1000);
+          setTimeout(() => showCelebrationModal(), 2000);
         }
         return next;
       });
-    }, 6000);
+    }, 8000);
     
     return () => clearInterval(interval);
   }, [isAutoPlaying]);
@@ -65,32 +65,32 @@ const DemoPage: React.FC = () => {
     setModalContent({
       type: 'client-detail',
       title: 'Viewing Client Progress',
-      content: 'Let me show you Sarah\'s detailed progress. She\'s been crushing her milestones!'
+      content: 'Let me show you Sarah\'s detailed progress. She\'s been absolutely crushing her milestones and maintaining an incredible 12-day streak!'
     });
     setShowModal(true);
-    setTimeout(() => setShowModal(false), 3000);
+    setTimeout(() => setShowModal(false), 4000);
   };
 
   const showPathBuilderModal = () => {
     setModalContent({
       type: 'path-builder',
       title: 'Creating a New Goal Path',
-      content: 'Here\'s how I build custom milestone paths for my clients. Each path is tailored to their specific career goals.'
+      content: 'Here\'s how I build custom milestone paths for my clients. Each path is carefully tailored to their specific career goals and timeline.'
     });
     setShowModal(true);
-    setTimeout(() => setShowModal(false), 3500);
+    setTimeout(() => setShowModal(false), 4500);
   };
 
   const showCelebrationModal = () => {
     setModalContent({
       type: 'celebration',
       title: 'Client Milestone Completed!',
-      content: 'Sarah just completed her AWS certification! Watch how the system celebrates her achievement.'
+      content: 'Sarah just completed her AWS certification! Watch how the system automatically celebrates her achievement and updates her progress.'
     });
     setShowModal(true);
     setIsTyping(true);
     setTypedText('');
-    setTimeout(() => setShowModal(false), 4000);
+    setTimeout(() => setShowModal(false), 5000);
   };
 
   const steps = [
@@ -98,7 +98,8 @@ const DemoPage: React.FC = () => {
     'Client Progress',
     'Path Builder',
     'Client View',
-    'Milestone Complete'
+    'Milestone Complete',
+    'Analytics'
   ];
 
   const mockClients = [
@@ -838,6 +839,8 @@ const DemoPage: React.FC = () => {
         return renderClientView();
       case 4:
         return renderProgressUpdate();
+      case 5:
+        return renderAnalytics();
       default:
         return renderDashboard();
     }
