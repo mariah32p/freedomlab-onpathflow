@@ -45,7 +45,7 @@ const DemoPage: React.FC = () => {
   useEffect(() => {
     if (!isTyping) return;
     
-    const text = "Just passed my AWS exam with 847/1000! 🎉 The practice tests really helped.";
+    const text = "Passed my AWS exam! 🎉 Score: 847/1000";
     let index = 0;
     
     const typeInterval = setInterval(() => {
