@@ -90,7 +90,7 @@ const DemoPage: React.FC = () => {
     setShowModal(true);
     setIsTyping(true);
     setTypedText('');
-    setTimeout(() => setShowModal(false), 5000);
+    setTimeout(() => setShowModal(false), 8000);
   };
 
   const steps = [
