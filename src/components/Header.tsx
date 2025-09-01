@@ -1,57 +1,75 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Target, Menu, X } from 'lucide-react';
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="bg-white shadow-sm">
+    <header className="bg-white shadow-sm sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center py-4">
+        <div className="flex justify-between items-center h-16 md:h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-emerald-500 rounded-full flex items-center justify-center">
-              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
-            </div>
-            <span className="text-2xl font-bold text-slate-800">OnPathFlow</span>
-          </Link>
+          <div className="flex items-center">            
+            <Link to="/" className="flex items-center space-x-3">
+              <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-r from-emerald-500 to-blue-600 rounded-xl flex items-center justify-center">
+                <Target className="w-5 h-5 md:w-6 md:h-6 text-white" />
+              </div>
+              <span className="text-xl md:text-2xl font-bold text-slate-800 whitespace-nowrap">OnPathFlow</span>
+            </Link>
+          </div>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <Link to="/signin" className="text-slate-600 hover:text-slate-900 font-medium">
-              Sign In
+            <Link to="/signin" className="text-slate-600 hover:text-slate-900 font-medium transition-colors duration-200">
+              Login
             </Link>
             <Link 
               to="/signup" 
-              className="bg-indigo-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-indigo-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl"
+             className="bg-emerald-500 text-white px-6 py-2.5 rounded-lg font-semibold hover:bg-emerald-600 transition-colors duration-200"
             >
               Start Free Trial
             </Link>
           </nav>
 
-          {/* Mobile menu button */}
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-2 rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-100"
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
+          {/* Mobile Navigation and CTA */}
+          <div className="md:hidden flex items-center space-x-2">
+            {/* Mobile hamburger menu */}
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="p-2 rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors duration-200 flex items-center justify-center"
+            >
+              {isMenuOpen ? (
+                <X className="w-5 h-5" />
+              ) : (
+                <Menu className="w-5 h-5" />
+              )}
+            </button>
+            
+            <Link 
+              to="/signup" 
+              className="bg-emerald-500 text-white px-4 py-2.5 rounded-lg font-semibold text-sm hover:bg-emerald-600 transition-colors duration-200 whitespace-nowrap"
+            >
+              Try Free
+            </Link>
+          </div>
         </div>
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-              <Link to="/signin" className="text-slate-600 hover:text-slate-900 font-medium">
-                Sign In
+          <div className="md:hidden border-t border-slate-200 bg-white">
+            <div className="px-4 py-4 space-y-3">
+              <Link 
+                to="/signin" 
+                className="block text-slate-600 hover:text-slate-900 font-medium py-2 transition-colors duration-200"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Login
               </Link>
               <Link 
                 to="/signup" 
-                className="bg-indigo-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-indigo-700 text-center"
+                className="block bg-emerald-500 text-white px-6 py-3 rounded-md font-semibold hover:bg-emerald-600 text-center transition-colors duration-200 mx-4"
+                onClick={() => setIsMenuOpen(false)}
               >
                 Start Free Trial
               </Link>
