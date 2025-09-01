@@ -60,7 +60,7 @@ const DashboardPage: React.FC = () => {
               <Settings className="w-6 h-6 text-slate-400 hover:text-slate-600 cursor-pointer transition-colors duration-200" />
               <button
                 onClick={handleSignOut}
-                className="flex items-center space-x-2 text-slate-600 hover:text-slate-900 transition-colors duration-200"
+                className="flex items-center space-x-2 text-slate-600 hover:text-slate-900 transition-colors duration-200 px-3 py-2 rounded-lg hover:bg-slate-100"
               >
                 <LogOut className="w-5 h-5" />
                 <span className="text-sm font-medium">Sign Out</span>
