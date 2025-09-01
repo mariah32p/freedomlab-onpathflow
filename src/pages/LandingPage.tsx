@@ -533,17 +533,17 @@ const LandingPage: React.FC = () => {
             <div className="bg-gradient-to-br from-emerald-50 to-emerald-100 rounded-2xl p-8 border border-emerald-200">
               <div className="flex items-center mb-6">
                 <img 
-                  src="https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop"
-                  alt="Jennifer Martinez"
+                  src="https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop"
+                  alt="Mariah W."
                   className="w-16 h-16 rounded-full object-cover mr-4"
                 />
                 <div>
-                  <h4 className="font-bold text-slate-900">Jennifer Martinez</h4>
-                  <p className="text-emerald-700 text-sm">Career Coach</p>
+                  <h4 className="font-bold text-slate-900">Mariah W.</h4>
+                  <p className="text-emerald-700 text-sm">Technology Consultant & Coach</p>
                 </div>
               </div>
               <p className="text-slate-700 leading-relaxed mb-4">
-                "OnPathFlow transformed how I work with clients. The visual progress tracking keeps them motivated, and I can see exactly where they need support. My client success rate has increased by 40%."
+                "As someone who coaches tech professionals, OnPathFlow's visual milestone system is perfect for breaking down complex career transitions. My clients love seeing their progress mapped out clearly, and I can track multiple career paths simultaneously."
               </p>
               <div className="flex text-yellow-400">
                 {[...Array(5)].map((_, i) => (
@@ -555,17 +555,17 @@ const LandingPage: React.FC = () => {
             <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-8 border border-blue-200">
               <div className="flex items-center mb-6">
                 <img 
-                  src="https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop"
-                  alt="Marcus Thompson"
+                  src="https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop"
+                  alt="Nathan R."
                   className="w-16 h-16 rounded-full object-cover mr-4"
                 />
                 <div>
-                  <h4 className="font-bold text-slate-900">Marcus Thompson</h4>
-                  <p className="text-blue-700 text-sm">Executive Coach</p>
+                  <h4 className="font-bold text-slate-900">Nathan R.</h4>
+                  <p className="text-blue-700 text-sm">Legal & Real Estate Coach</p>
                 </div>
               </div>
               <p className="text-slate-700 leading-relaxed mb-4">
-                "The milestone system is genius. My clients can see their progress clearly, and the celebration features keep them engaged. I've never had clients this motivated before."
+                "Working with professionals transitioning between legal and real estate careers, I needed a tool that could handle complex, multi-step goals. OnPathFlow's path builder makes it easy to create custom journeys for each client's unique situation."
               </p>
               <div className="flex text-yellow-400">
                 {[...Array(5)].map((_, i) => (
@@ -577,17 +577,17 @@ const LandingPage: React.FC = () => {
             <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-8 border border-purple-200">
               <div className="flex items-center mb-6">
                 <img 
-                  src="https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop"
-                  alt="Sarah Kim"
+                  src="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop"
+                  alt="Amber I."
                   className="w-16 h-16 rounded-full object-cover mr-4"
                 />
                 <div>
-                  <h4 className="font-bold text-slate-900">Sarah Kim</h4>
-                  <p className="text-purple-700 text-sm">Life Coach</p>
+                  <h4 className="font-bold text-slate-900">Amber I.</h4>
+                  <p className="text-purple-700 text-sm">Insurance & Design Coach</p>
                 </div>
               </div>
               <p className="text-slate-700 leading-relaxed mb-4">
-                "OnPathFlow made my coaching practice so much more effective. The analytics help me understand my clients better, and they love seeing their progress visualized."
+                "I coach professionals in both insurance and design - two very different fields. OnPathFlow's flexibility lets me create tailored milestone paths for each industry while tracking everything in one dashboard. The visual progress keeps my clients engaged across both sectors."
               </p>
               <div className="flex text-yellow-400">
                 {[...Array(5)].map((_, i) => (
