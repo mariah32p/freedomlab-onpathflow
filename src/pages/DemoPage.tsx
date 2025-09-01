@@ -5,8 +5,6 @@ const DemoPage: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isAutoPlaying] = useState(true);
   const [celebrationVisible, setCelebrationVisible] = useState(false);
-  const [showModal, setShowModal] = useState(false);
-  const [modalContent, setModalContent] = useState<any>(null);
   const [isTyping, setIsTyping] = useState(false);
   const [typedText, setTypedText] = useState('');
 
@@ -17,14 +15,6 @@ const DemoPage: React.FC = () => {
     const interval = setInterval(() => {
       setCurrentStep(prev => {
         const next = (prev + 1) % 6;
-        // Show modal for certain steps
-        if (next === 1) {
-          setTimeout(() => showClientDetailModal(), 2000);
-        } else if (next === 2) {
-          setTimeout(() => showPathBuilderModal(), 2500);
-        } else if (next === 4) {
-          setTimeout(() => showCelebrationModal(), 2000);
-        }
         return next;
       });
     }, 8000);
@@ -60,38 +50,6 @@ const DemoPage: React.FC = () => {
     
     return () => clearInterval(typeInterval);
   }, [isTyping]);
-
-  const showClientDetailModal = () => {
-    setModalContent({
-      type: 'client-detail',
-      title: 'Viewing Client Progress',
-      content: 'Let me show you Sarah\'s detailed progress. She\'s been absolutely crushing her milestones and maintaining an incredible 12-day streak!'
-    });
-    setShowModal(true);
-    setTimeout(() => setShowModal(false), 4000);
-  };
-
-  const showPathBuilderModal = () => {
-    setModalContent({
-      type: 'path-builder',
-      title: 'Creating a New Goal Path',
-      content: 'Here\'s how I build custom milestone paths for my clients. Each path is carefully tailored to their specific career goals and timeline.'
-    });
-    setShowModal(true);
-    setTimeout(() => setShowModal(false), 4500);
-  };
-
-  const showCelebrationModal = () => {
-    setModalContent({
-      type: 'celebration',
-      title: 'Client Milestone Completed!',
-      content: 'Sarah just completed her AWS certification! Watch how the system automatically celebrates her achievement and updates her progress.'
-    });
-    setShowModal(true);
-    setIsTyping(true);
-    setTypedText('');
-    setTimeout(() => setShowModal(false), 8000);
-  };
 
   const steps = [
     'Coach Dashboard',
@@ -916,56 +874,6 @@ const DemoPage: React.FC = () => {
         </div>
       </main>
 
-      {/* Modal Overlay */}
-      {showModal && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full transform animate-in zoom-in-95 duration-300">
-            <div className="p-6">
-              <div className="flex items-center space-x-3 mb-4">
-                <div className="w-10 h-10 bg-gradient-to-r from-emerald-500 to-blue-600 rounded-full flex items-center justify-center">
-                  {modalContent?.type === 'celebration' ? (
-                    <Trophy className="w-5 h-5 text-white" />
-                  ) : modalContent?.type === 'path-builder' ? (
-                    <Plus className="w-5 h-5 text-white" />
-                  ) : (
-                    <Eye className="w-5 h-5 text-white" />
-                  )}
-                </div>
-                <h3 className="text-xl font-semibold text-slate-800">{modalContent?.title}</h3>
-              </div>
-              <p className="text-slate-600 mb-6">{modalContent?.content}</p>
-              
-              {modalContent?.type === 'celebration' && (
-                <div className="bg-emerald-50 rounded-lg p-4 border border-emerald-200">
-                  <div className="flex items-center space-x-2 mb-2">
-                    <img 
-                      src="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop"
-                      alt="Sarah"
-                      className="w-8 h-8 rounded-full object-cover"
-                    />
-                    <span className="font-medium text-emerald-800">Sarah Chen</span>
-                    <span className="text-xs text-emerald-600 bg-emerald-100 px-2 py-1 rounded-full">Just now</span>
-                  </div>
-                  {isTyping ? (
-                    <p className="text-emerald-700 text-sm">{typedText}<span className="animate-pulse">|</span></p>
-                  ) : (
-                    <p className="text-emerald-700 text-sm">Just passed my AWS exam with 847/1000! 🎉 The practice tests really helped. Already feeling more confident about cloud architecture discussions in interviews.</p>
-                  )}
-                </div>
-              )}
-              
-              <div className="flex justify-end">
-                <button 
-                  onClick={() => setShowModal(false)}
-                  className="opacity-0 pointer-events-none"
-                >
-                  Close
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
 
     </div>
   );
