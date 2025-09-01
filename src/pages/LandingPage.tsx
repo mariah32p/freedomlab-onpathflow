@@ -1,9 +1,370 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Target } from 'lucide-react';
+import { Target, Users, CheckCircle, Clock, TrendingUp, Trophy, Bell, Settings, Star, MessageSquare } from 'lucide-react';
 import Header from '../components/Header';
 
 const LandingPage: React.FC = () => {
+  const [currentDemoStep, setCurrentDemoStep] = React.useState(0);
+  const [isAutoPlaying] = React.useState(true);
+
+  // Auto-advance demo steps
+  React.useEffect(() => {
+    if (!isAutoPlaying) return;
+    
+    const interval = setInterval(() => {
+      setCurrentDemoStep(prev => (prev + 1) % 3);
+    }, 4000);
+    
+    return () => clearInterval(interval);
+  }, [isAutoPlaying]);
+
+  const mockClients = [
+    {
+      id: 1,
+      name: 'Sarah Chen',
+      avatar: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop',
+      goal: 'Senior Software Engineer',
+      progress: 75,
+      engagement: 'high',
+      streak: 12,
+      completedMilestones: 6,
+      totalMilestones: 8
+    },
+    {
+      id: 2,
+      name: 'Marcus Rodriguez',
+      avatar: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop',
+      goal: 'VP of Product',
+      progress: 67,
+      engagement: 'high',
+      streak: 8,
+      completedMilestones: 4,
+      totalMilestones: 6
+    },
+    {
+      id: 3,
+      name: 'Emily Johnson',
+      avatar: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop',
+      goal: 'Start Consulting Business',
+      progress: 45,
+      engagement: 'medium',
+      streak: 5,
+      completedMilestones: 3,
+      totalMilestones: 7
+    }
+  ];
+
+  const sarahMilestones = [
+    {
+      id: 1,
+      title: 'Master React & TypeScript',
+      description: 'Complete advanced React course and build 2 TypeScript projects',
+      status: 'completed',
+      completedAt: '2024-12-15',
+      dueDate: '2024-12-20'
+    },
+    {
+      id: 2,
+      title: 'Build Portfolio Projects',
+      description: 'Create 3 impressive projects showcasing different skills',
+      status: 'completed',
+      completedAt: '2025-01-10',
+      dueDate: '2025-01-15'
+    },
+    {
+      id: 3,
+      title: 'Get AWS Certification',
+      description: 'Pass AWS Solutions Architect Associate exam',
+      status: 'in_progress',
+      progress: 80,
+      dueDate: '2025-01-25'
+    },
+    {
+      id: 4,
+      title: 'Network with Senior Engineers',
+      description: 'Connect with 5 senior engineers at target companies',
+      status: 'pending',
+      dueDate: '2025-02-01'
+    },
+    {
+      id: 5,
+      title: 'Apply to Target Companies',
+      description: 'Submit applications to Google, Meta, Netflix, and 2 others',
+      status: 'pending',
+      dueDate: '2025-02-15'
+    }
+  ];
+
+  const renderDashboard = () => (
+    <div className="space-y-6">
+      {/* Stats Overview */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="bg-gradient-to-br from-emerald-50 to-emerald-100 p-4 rounded-xl border border-emerald-200">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-emerald-600 text-xs font-medium">Total Clients</p>
+              <p className="text-2xl font-bold text-emerald-700">24</p>
+            </div>
+            <Users className="w-6 h-6 text-emerald-500" />
+          </div>
+        </div>
+        
+        <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-xl border border-blue-200">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-blue-600 text-xs font-medium">Active Paths</p>
+              <p className="text-2xl font-bold text-blue-700">47</p>
+            </div>
+            <Target className="w-6 h-6 text-blue-500" />
+          </div>
+        </div>
+        
+        <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-4 rounded-xl border border-purple-200">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-purple-600 text-xs font-medium">Completion Rate</p>
+              <p className="text-2xl font-bold text-purple-700">89%</p>
+            </div>
+            <TrendingUp className="w-6 h-6 text-purple-500" />
+          </div>
+        </div>
+        
+        <div className="bg-gradient-to-br from-amber-50 to-amber-100 p-4 rounded-xl border border-amber-200">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-amber-600 text-xs font-medium">Monthly Revenue</p>
+              <p className="text-2xl font-bold text-amber-700">$2,847</p>
+            </div>
+            <Trophy className="w-6 h-6 text-amber-500" />
+          </div>
+        </div>
+      </div>
+
+      {/* Recent Activity */}
+      <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+        <div className="p-4 border-b border-slate-200">
+          <h4 className="text-lg font-semibold text-slate-800">Recent Client Activity</h4>
+        </div>
+        <div className="divide-y divide-slate-100">
+          {mockClients.map((client) => (
+            <div key={client.id} className="p-4 hover:bg-slate-50 transition-colors duration-200">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-3">
+                  <img 
+                    src={client.avatar} 
+                    alt={client.name}
+                    className="w-10 h-10 rounded-full object-cover ring-2 ring-white shadow-sm"
+                  />
+                  <div>
+                    <h5 className="font-semibold text-slate-800 text-sm">{client.name}</h5>
+                    <p className="text-slate-600 text-xs">{client.goal}</p>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-4">
+                  <div className="text-center">
+                    <div className="text-lg font-bold text-slate-800">{client.progress}%</div>
+                    <div className="text-xs text-slate-500">Progress</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-lg font-bold text-emerald-600">{client.streak}</div>
+                    <div className="text-xs text-slate-500">Streak</div>
+                  </div>
+                  <div className={`px-2 py-1 rounded-full text-xs font-medium ${
+                    client.engagement === 'high' ? 'bg-emerald-100 text-emerald-700' :
+                    client.engagement === 'medium' ? 'bg-amber-100 text-amber-700' :
+                    'bg-red-100 text-red-700'
+                  }`}>
+                    {client.engagement}
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderClientProgress = () => (
+    <div className="space-y-6">
+      {/* Client Header */}
+      <div className="bg-gradient-to-r from-emerald-500 to-blue-600 rounded-xl p-6 text-white">
+        <div className="flex items-center space-x-4">
+          <img 
+            src="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop"
+            alt="Sarah Chen"
+            className="w-16 h-16 rounded-full object-cover ring-4 ring-white shadow-lg"
+          />
+          <div className="flex-1">
+            <h3 className="text-2xl font-bold mb-1">Sarah Chen</h3>
+            <p className="text-emerald-100">Senior Software Engineer Path</p>
+            <div className="flex items-center space-x-4 mt-2">
+              <div className="flex items-center space-x-1">
+                <Star className="w-4 h-4 text-yellow-300" />
+                <span className="text-sm">12-day streak</span>
+              </div>
+              <div className="flex items-center space-x-1">
+                <Target className="w-4 h-4 text-emerald-200" />
+                <span className="text-sm">75% complete</span>
+              </div>
+            </div>
+          </div>
+          <div className="text-right">
+            <div className="text-3xl font-bold">75%</div>
+            <div className="text-emerald-100 text-sm">Complete</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Milestone Progress */}
+      <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+        <div className="p-4 border-b border-slate-200">
+          <h4 className="text-lg font-semibold text-slate-800">Milestone Progress</h4>
+        </div>
+        <div className="p-4 space-y-4">
+          {sarahMilestones.slice(0, 3).map((milestone, index) => (
+            <div key={milestone.id} className="relative">
+              {index < 2 && (
+                <div className="absolute left-6 top-12 w-0.5 h-12 bg-slate-200"></div>
+              )}
+              <div className="flex items-start space-x-4">
+                <div className={`w-12 h-12 rounded-full flex items-center justify-center ${
+                  milestone.status === 'completed' ? 'bg-emerald-500' :
+                  milestone.status === 'in_progress' ? 'bg-blue-500' :
+                  'bg-slate-300'
+                }`}>
+                  {milestone.status === 'completed' ? (
+                    <CheckCircle className="w-6 h-6 text-white" />
+                  ) : milestone.status === 'in_progress' ? (
+                    <Clock className="w-6 h-6 text-white animate-pulse" />
+                  ) : (
+                    <div className="w-3 h-3 bg-white rounded-full"></div>
+                  )}
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center justify-between mb-1">
+                    <h5 className="font-semibold text-slate-800 text-sm">{milestone.title}</h5>
+                    <span className="text-xs text-slate-500">Due: {new Date(milestone.dueDate).toLocaleDateString()}</span>
+                  </div>
+                  <p className="text-slate-600 text-sm mb-2">{milestone.description}</p>
+                  
+                  {milestone.status === 'in_progress' && (
+                    <div className="mb-2">
+                      <div className="flex justify-between text-xs text-slate-600 mb-1">
+                        <span>Progress</span>
+                        <span>{milestone.progress}%</span>
+                      </div>
+                      <div className="w-full bg-slate-200 rounded-full h-2">
+                        <div 
+                          className="bg-blue-500 h-2 rounded-full transition-all duration-500" 
+                          style={{width: `${milestone.progress}%`}}
+                        ></div>
+                      </div>
+                    </div>
+                  )}
+                  
+                  {milestone.status === 'completed' && (
+                    <div className="bg-emerald-50 rounded-lg p-3 mt-2">
+                      <div className="flex items-start space-x-2">
+                        <MessageSquare className="w-4 h-4 text-emerald-400 mt-0.5" />
+                        <p className="text-xs text-emerald-700">
+                          {milestone.id === 1 ? 'Built a task manager and weather app. Feeling confident with hooks and TypeScript!' :
+                           'Finished my e-commerce site, chat app, and data visualization dashboard.'}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderAnalytics = () => (
+    <div className="space-y-6">
+      {/* Analytics Header */}
+      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+        <div className="flex items-center justify-between mb-6">
+          <h4 className="text-lg font-semibold text-slate-800">Client Analytics</h4>
+          <div className="flex space-x-2">
+            <button className="px-3 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium">Last 30 days</button>
+            <button className="px-3 py-1 bg-emerald-500 text-white rounded-lg text-xs font-medium">This quarter</button>
+          </div>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="text-center">
+            <div className="text-2xl font-bold text-emerald-600 mb-1">94%</div>
+            <div className="text-xs text-slate-600">Milestone Completion Rate</div>
+            <div className="text-xs text-emerald-600 mt-1">↗ +12% vs last quarter</div>
+          </div>
+          <div className="text-center">
+            <div className="text-2xl font-bold text-blue-600 mb-1">8.2</div>
+            <div className="text-xs text-slate-600">Avg Days per Milestone</div>
+            <div className="text-xs text-blue-600 mt-1">↗ 15% faster</div>
+          </div>
+          <div className="text-center">
+            <div className="text-2xl font-bold text-purple-600 mb-1">87%</div>
+            <div className="text-xs text-slate-600">Client Satisfaction</div>
+            <div className="text-xs text-purple-600 mt-1">↗ +5% this month</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Performance Leaderboard */}
+      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+        <h4 className="text-lg font-semibold text-slate-800 mb-4">Top Performers This Month</h4>
+        
+        <div className="space-y-3">
+          {mockClients.map((client) => (
+            <div key={client.name} className="flex items-center justify-between p-3 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors duration-200">
+              <div className="flex items-center space-x-3">
+                <div className={`w-6 h-6 rounded-full flex items-center justify-center text-white font-bold text-xs ${
+                  client.id === 1 ? 'bg-yellow-500' :
+                  client.id === 2 ? 'bg-slate-400' :
+                  'bg-amber-600'
+                }`}>
+                  {client.id}
+                </div>
+                <img 
+                  src={client.avatar}
+                  alt={client.name}
+                  className="w-8 h-8 rounded-full object-cover"
+                />
+                <span className="font-medium text-slate-800 text-sm">{client.name}</span>
+              </div>
+              <div className="flex items-center space-x-4 text-xs">
+                <div className="text-center">
+                  <div className="font-bold text-emerald-600">{client.completedMilestones}</div>
+                  <div className="text-slate-500">Completed</div>
+                </div>
+                <div className="text-center">
+                  <div className="font-bold text-blue-600">{client.streak}</div>
+                  <div className="text-slate-500">Streak</div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+
+  const getCurrentDemoView = () => {
+    switch (currentDemoStep) {
+      case 0:
+        return renderDashboard();
+      case 1:
+        return renderClientProgress();
+      case 2:
+        return renderAnalytics();
+      default:
+        return renderDashboard();
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white">
       <Header />
@@ -147,6 +508,37 @@ const LandingPage: React.FC = () => {
                         </div>
                       </div>
                     </div>
+                    
+                    <div className="flex items-center space-x-4">
+                      <Bell className="w-5 h-5 text-slate-400" />
+                      <Settings className="w-5 h-5 text-slate-400" />
+                      <img 
+                        src="https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=80&h=80&fit=crop"
+                        alt="Coach"
+                        className="w-8 h-8 rounded-full object-cover ring-2 ring-emerald-500 shadow-sm"
+                      />
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Demo Navigation */}
+                <div className="bg-white border-b border-slate-200 px-6 py-3">
+                  <div className="flex items-center justify-between">
+                    <div className="flex space-x-1">
+                      {['Dashboard', 'Client Progress', 'Analytics'].map((step, index) => (
+                        <button
+                          key={index}
+                          className={`px-3 py-1 rounded-lg text-sm font-medium transition-all duration-200 ${
+                            currentDemoStep === index
+                              ? 'bg-emerald-500 text-white shadow-sm'
+                              : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                          }`}
+                        >
+                          {step}
+                        </button>
+                      ))}
+                    </div>
+                    
                     <div className="flex space-x-2">
                       <div className="w-3 h-3 bg-red-400 rounded-full"></div>
                       <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
@@ -157,111 +549,12 @@ const LandingPage: React.FC = () => {
                 
                 {/* Demo Content */}
                 <div className="p-6">
-                  {/* Stats Overview */}
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                    <div className="bg-gradient-to-br from-emerald-50 to-emerald-100 p-4 rounded-xl border border-emerald-200">
-                      <div className="text-center">
-                        <div className="text-2xl font-bold text-emerald-700">24</div>
-                        <div className="text-emerald-600 text-sm">Total Clients</div>
-                      </div>
-                    </div>
-                    
-                    <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-xl border border-blue-200">
-                      <div className="text-center">
-                        <div className="text-2xl font-bold text-blue-700">47</div>
-                        <div className="text-blue-600 text-sm">Active Paths</div>
-                      </div>
-                    </div>
-                    
-                    <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-4 rounded-xl border border-purple-200">
-                      <div className="text-center">
-                        <div className="text-2xl font-bold text-purple-700">89%</div>
-                        <div className="text-purple-600 text-sm">Completion</div>
-                      </div>
-                    </div>
-                    
-                    <div className="bg-gradient-to-br from-amber-50 to-amber-100 p-4 rounded-xl border border-amber-200">
-                      <div className="text-center">
-                        <div className="text-2xl font-bold text-amber-700">$2,847</div>
-                        <div className="text-amber-600 text-sm">Revenue</div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Client Activity */}
-                  <div className="bg-slate-50 rounded-xl p-6">
-                    <h4 className="font-semibold text-slate-800 mb-4">Recent Client Activity</h4>
-                    <div className="space-y-4">
-                      <div className="flex items-center justify-between p-4 bg-white rounded-lg">
-                        <div className="flex items-center space-x-3">
-                          <img 
-                            src="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=60&h=60&fit=crop"
-                            alt="Sarah Chen"
-                            className="w-10 h-10 rounded-full object-cover"
-                          />
-                          <div>
-                            <div className="font-medium text-slate-800 text-sm">Sarah Chen</div>
-                            <div className="text-slate-600 text-xs">Senior Software Engineer</div>
-                          </div>
-                        </div>
-                        <div className="flex items-center space-x-4 text-xs">
-                          <div className="text-center">
-                            <div className="font-bold text-emerald-600">75%</div>
-                            <div className="text-slate-500">Progress</div>
-                          </div>
-                          <div className="text-center">
-                            <div className="font-bold text-blue-600">12</div>
-                            <div className="text-slate-500">Streak</div>
-                          </div>
-                          <div className="bg-emerald-100 text-emerald-700 px-2 py-1 rounded-full text-xs font-medium">
-                            High
-                          </div>
-                        </div>
-                      </div>
-                      
-                      <div className="flex items-center justify-between p-4 bg-white rounded-lg">
-                        <div className="flex items-center space-x-3">
-                          <img 
-                            src="https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=60&h=60&fit=crop"
-                            alt="Marcus Rodriguez"
-                            className="w-10 h-10 rounded-full object-cover"
-                          />
-                          <div>
-                            <div className="font-medium text-slate-800 text-sm">Marcus Rodriguez</div>
-                            <div className="text-slate-600 text-xs">VP of Product</div>
-                          </div>
-                        </div>
-                        <div className="flex items-center space-x-4 text-xs">
-                          <div className="text-center">
-                            <div className="font-bold text-emerald-600">67%</div>
-                            <div className="text-slate-500">Progress</div>
-                          </div>
-                          <div className="text-center">
-                            <div className="font-bold text-blue-600">8</div>
-                            <div className="text-slate-500">Streak</div>
-                          </div>
-                          <div className="bg-emerald-100 text-emerald-700 px-2 py-1 rounded-full text-xs font-medium">
-                            High
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                  <div className="transition-all duration-500 ease-in-out">
+                    {getCurrentDemoView()}
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          
-          <div className="text-center mt-12">
-            <Link 
-              to="/demo" 
-              className="inline-flex items-center bg-slate-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-slate-700 transition-colors duration-200"
-            >
-              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              Try Interactive Demo
-            </Link>
           </div>
         </div>
       </section>
