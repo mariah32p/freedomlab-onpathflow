@@ -615,7 +615,7 @@ const LandingPage: React.FC = () => {
               Start Your 7-Day Free Trial
             </Link>
             <p className="text-emerald-100 text-sm">
-              No credit card required • Cancel anytime • Full access during trial
+              Cancel anytime • Full access during trial
             </p>
           </div>
         </div>
