@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Target, CheckCircle, Users, TrendingUp } from 'lucide-react';
+import { Target, CheckCircle } from 'lucide-react';
 
 const GetStartedPage: React.FC = () => {
   const [selectedPlan, setSelectedPlan] = useState<'standard' | 'premium'>('premium');
