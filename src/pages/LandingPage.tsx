@@ -479,7 +479,7 @@ const LandingPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Demo Video Section */}
+      {/* Live Demo Section */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
@@ -487,79 +487,98 @@ const LandingPage: React.FC = () => {
               See OnPathFlow in Action
             </h2>
             <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-              Watch how coaches and clients use OnPathFlow to turn ambitious goals into clear, actionable paths
+              Watch how coaches use OnPathFlow to guide clients from goals to achievements
             </p>
           </div>
           
-          <div className="max-w-5xl mx-auto">
-            <div className="bg-gradient-to-br from-slate-100 to-blue-100 rounded-2xl p-8 shadow-2xl">
-              <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-                {/* Demo Header */}
-                <div className="bg-slate-50 px-6 py-4 border-b border-slate-200">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-8 h-8 bg-gradient-to-r from-emerald-500 to-blue-600 rounded-lg flex items-center justify-center">
-                        <Target className="w-5 h-5 text-white" />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-slate-800">OnPathFlow</h3>
-                        <div className="flex items-center space-x-2">
-                          <span className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-2 py-1 rounded-full text-xs font-medium">PRO</span>
-                          <span className="text-slate-500 text-sm">Coach Dashboard</span>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <div className="flex items-center space-x-4">
-                      <Bell className="w-5 h-5 text-slate-400" />
-                      <Settings className="w-5 h-5 text-slate-400" />
-                      <img 
-                        src="https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=80&h=80&fit=crop"
-                        alt="Coach"
-                        className="w-8 h-8 rounded-full object-cover ring-2 ring-emerald-500 shadow-sm"
-                      />
-                    </div>
+          <div className="max-w-6xl mx-auto">
+            {/* Browser Window */}
+            <div className="bg-slate-200 rounded-t-xl p-3">
+              {/* Browser Chrome */}
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-2">
+                  <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                  <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                  <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                </div>
+                <div className="flex-1 mx-4">
+                  <div className="bg-white rounded-md px-4 py-1 text-sm text-slate-600 text-center">
+                    https://app.onpathflow.com/dashboard
                   </div>
                 </div>
-                
-                {/* Demo Navigation */}
-                <div className="bg-white border-b border-slate-200 px-6 py-3">
-                  <div className="flex items-center justify-between">
-                    <div className="flex space-x-1">
-                      {['Dashboard', 'Client Progress', 'Analytics'].map((step, index) => (
-                        <button
-                          key={index}
-                          className={`px-3 py-1 rounded-lg text-sm font-medium transition-all duration-200 ${
-                            currentDemoStep === index
-                              ? 'bg-emerald-500 text-white shadow-sm'
-                              : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
-                          }`}
-                        >
-                          {step}
-                        </button>
-                      ))}
+                <div className="w-16"></div>
+              </div>
+            </div>
+            
+            {/* App Interface */}
+            <div className="bg-white shadow-2xl rounded-b-xl overflow-hidden">
+              {/* App Header */}
+              <header className="bg-white border-b border-slate-200 px-6 py-4">
+                <div className="flex justify-between items-center">
+                  <div className="flex items-center space-x-4">
+                    <div className="w-10 h-10 bg-gradient-to-r from-emerald-500 to-blue-600 rounded-xl flex items-center justify-center">
+                      <Target className="w-6 h-6 text-white" />
                     </div>
-                    
-                    <div className="flex space-x-2">
-                      <div className="w-3 h-3 bg-red-400 rounded-full"></div>
-                      <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
-                      <div className="w-3 h-3 bg-green-400 rounded-full"></div>
+                    <div>
+                      <h1 className="text-2xl font-bold text-slate-800">OnPathFlow</h1>
+                      <div className="flex items-center space-x-2">
+                        <span className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-2 py-1 rounded-full text-xs font-medium">PRO</span>
+                        <span className="text-slate-500 text-sm">Coach Dashboard</span>
+                      </div>
                     </div>
+                  </div>
+                  
+                  <div className="flex items-center space-x-4">
+                    <Bell className="w-6 h-6 text-slate-400 hover:text-slate-600 cursor-pointer transition-colors duration-200" />
+                    <Settings className="w-6 h-6 text-slate-400 hover:text-slate-600 cursor-pointer transition-colors duration-200" />
+                    <img 
+                      src="https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=80&h=80&fit=crop"
+                      alt="Coach"
+                      className="w-10 h-10 rounded-full object-cover ring-2 ring-emerald-500 shadow-lg"
+                    />
                   </div>
                 </div>
-                
-                {/* Demo Content */}
-                <div className="p-6">
-                  <div className="transition-all duration-500 ease-in-out">
-                    {getCurrentDemoView()}
+              </header>
+
+              {/* Demo Navigation */}
+              <div className="bg-white border-b border-slate-200 px-6 py-3">
+                <div className="flex items-center justify-between">
+                  <div className="flex space-x-1">
+                    {['Dashboard', 'Client Progress', 'Analytics'].map((step, index) => (
+                      <button
+                        key={index}
+                        className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                          currentDemoStep === index
+                            ? 'bg-emerald-500 text-white shadow-lg'
+                            : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                        }`}
+                      >
+                        {step}
+                      </button>
+                    ))}
                   </div>
+                  
+                  <div className="text-sm text-slate-500">
+                    {new Date().toLocaleDateString('en-US', { 
+                      weekday: 'long', 
+                      year: 'numeric', 
+                      month: 'long', 
+                      day: 'numeric' 
+                    })}
+                  </div>
+                </div>
+              </div>
+
+              {/* Demo Content */}
+              <div className="p-6 bg-gradient-to-br from-slate-50 via-blue-50 to-emerald-50 min-h-[600px]">
+                <div className="transition-all duration-500 ease-in-out">
+                  {getCurrentDemoView()}
                 </div>
               </div>
             </div>
           </div>
         </div>
       </section>
-
       {/* First Mockup Section */}
       <section className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
