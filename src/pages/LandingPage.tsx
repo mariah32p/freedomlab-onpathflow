@@ -745,9 +745,8 @@ const LandingPage: React.FC = () => {
 
             {/* Right Column - Interactive Demo */}
             <div className="relative">
-              {/* Desktop Demo */}
-              <div className="hidden md:block bg-white rounded-2xl shadow-2xl overflow-hidden border border-slate-200">
-                {/* Mock Browser Header */}
+              {/* Hero Mockup - Static Image */}
+              <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-slate-200">
                 <div className="bg-slate-100 px-4 py-3 flex items-center justify-between border-b border-slate-200">
                   <div className="flex items-center space-x-2">
                     <div className="w-3 h-3 bg-red-400 rounded-full"></div>
@@ -765,14 +764,163 @@ const LandingPage: React.FC = () => {
                     />
                   </div>
                 </div>
+                
+                {/* Static Hero Mockup Content */}
+                <div className="p-6 bg-gradient-to-br from-slate-50 to-blue-50">
+                  <div className="grid grid-cols-2 gap-4 mb-6">
+                    <div className="bg-emerald-50 p-4 rounded-xl border border-emerald-200">
+                      <div className="text-2xl font-bold text-emerald-700">24</div>
+                      <div className="text-sm text-emerald-600">Active Clients</div>
+                    </div>
+                    <div className="bg-blue-50 p-4 rounded-xl border border-blue-200">
+                      <div className="text-2xl font-bold text-blue-700">89%</div>
+                      <div className="text-sm text-blue-600">Success Rate</div>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-white rounded-xl p-4 shadow-sm">
+                    <h4 className="font-semibold text-slate-800 mb-3">Recent Activity</h4>
+                    <div className="space-y-3">
+                      <div className="flex items-center space-x-3">
+                        <img 
+                          src="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop"
+                          alt="Sarah"
+                          className="w-8 h-8 rounded-full object-cover"
+                        />
+                        <div className="flex-1">
+                          <div className="font-medium text-slate-800 text-sm">Sarah Chen</div>
+                          <div className="text-slate-600 text-xs">Completed AWS Certification</div>
+                        </div>
+                        <div className="text-emerald-600 font-bold text-sm">75%</div>
+                      </div>
+                      <div className="flex items-center space-x-3">
+                        <img 
+                          src="https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop"
+                          alt="Marcus"
+                          className="w-8 h-8 rounded-full object-cover"
+                        />
+                        <div className="flex-1">
+                          <div className="font-medium text-slate-800 text-sm">Marcus Rodriguez</div>
+                          <div className="text-slate-600 text-xs">Updated networking goals</div>
+                        </div>
+                        <div className="text-blue-600 font-bold text-sm">67%</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-                {/* Demo Navigation */}
-                <div className="bg-white border-b border-slate-200 px-4 py-2">
-                  <div className="flex space-x-1">
-                    {['Dashboard', 'Progress', 'Builder', 'Analytics'].map((step, index) => (
+      {/* Interactive Demo Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Demo Disclaimer */}
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center bg-gradient-to-r from-emerald-100 to-blue-100 text-slate-700 px-6 py-3 rounded-full text-lg font-semibold mb-6 border border-emerald-200">
+              <span className="w-3 h-3 bg-emerald-500 rounded-full mr-3 animate-pulse"></span>
+              Interactive Demo Below - Watch the Magic Happen ✨
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+              See OnPathFlow in Action
+            </h2>
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+              Watch how coaches use OnPathFlow to track client progress, build custom goal paths, and celebrate achievements in real-time.
+            </p>
+          </div>
+
+          {/* Desktop Demo */}
+          <div className="hidden md:block">
+            <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-slate-200 max-w-5xl mx-auto">
+              {/* Mock Browser Header */}
+              <div className="bg-slate-100 px-4 py-3 flex items-center justify-between border-b border-slate-200">
+                <div className="flex items-center space-x-2">
+                  <div className="w-3 h-3 bg-red-400 rounded-full"></div>
+                  <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
+                  <div className="w-3 h-3 bg-green-400 rounded-full"></div>
+                </div>
+                <div className="text-sm text-slate-600">https://onpathflow.com/dashboard</div>
+                <div className="flex items-center space-x-4">
+                  <Bell className="w-4 h-4 text-slate-400" />
+                  <Settings className="w-4 h-4 text-slate-400" />
+                  <img 
+                    src="https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=32&h=32&fit=crop"
+                    alt="User"
+                    className="w-6 h-6 rounded-full object-cover"
+                  />
+                </div>
+              </div>
+
+              {/* Demo Navigation */}
+              <div className="bg-white border-b border-slate-200 px-4 py-2">
+                <div className="flex space-x-1">
+                  {['Dashboard', 'Progress', 'Builder', 'Analytics'].map((step, index) => (
+                    <button
+                      key={index}
+                      className={`px-3 py-1 rounded-lg text-xs font-medium transition-all duration-200 ${
+                        currentDemoStep === index
+                          ? 'bg-emerald-500 text-white'
+                          : 'text-slate-600 hover:bg-slate-100'
+                      }`}
+                    >
+                      {step}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Demo Content */}
+              <div className="p-6 bg-gradient-to-br from-slate-50 to-blue-50 min-h-[500px]">
+                <div className="transition-all duration-500 ease-in-out">
+                  {getCurrentDemoView()}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Mobile Demo */}
+          <div className="md:hidden">
+            <div className="max-w-sm mx-auto">
+              <div className="bg-slate-800 rounded-t-2xl p-3">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-red-400 rounded-full"></div>
+                    <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
+                    <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                  </div>
+                  <div className="text-xs text-slate-300">onpathflow.com</div>
+                  <div className="w-4 h-4"></div>
+                </div>
+              </div>
+              
+              <div className="bg-white shadow-2xl overflow-hidden">
+                <header className="bg-white border-b border-slate-200 px-4 py-3">
+                  <div className="flex justify-between items-center">
+                    <div className="flex items-center space-x-2">
+                      <div className="w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center">
+                        <Target className="w-3 h-3 text-white" />
+                      </div>
+                      <span className="font-semibold text-slate-800 text-sm">OnPathFlow</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Bell className="w-4 h-4 text-slate-400" />
+                      <img 
+                        src="https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=24&h=24&fit=crop"
+                        alt="User"
+                        className="w-6 h-6 rounded-full object-cover"
+                      />
+                    </div>
+                  </div>
+                </header>
+
+                <div className="bg-white border-b border-slate-200 px-4 py-3">
+                  <div className="flex space-x-2 overflow-x-auto">
+                    {['Dashboard', 'Clients', 'Builder', 'Analytics'].map((step, index) => (
                       <button
                         key={index}
-                        className={`px-3 py-1 rounded-lg text-xs font-medium transition-all duration-200 ${
+                        className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 whitespace-nowrap ${
                           currentDemoStep === index
                             ? 'bg-emerald-500 text-white'
                             : 'text-slate-600 hover:bg-slate-100'
@@ -784,104 +932,14 @@ const LandingPage: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Demo Content */}
-                <div className="p-4 bg-gradient-to-br from-slate-50 to-blue-50 min-h-[400px]">
+                <div className="p-6 bg-gradient-to-br from-slate-50 to-blue-50 min-h-[500px]">
                   <div className="transition-all duration-500 ease-in-out">
-                    {getCurrentDemoView()}
+                    {getCurrentMobileDemoView()}
                   </div>
                 </div>
-              </div>
-
-              {/* Mobile Demo */}
-              <div className="md:hidden">
-                <div className="max-w-sm mx-auto">
-                  {/* Mobile Browser Window */}
-                  <div className="bg-slate-800 rounded-t-2xl p-3">
-                    {/* Mobile Browser Chrome */}
-                    <div className="flex items-center justify-between mb-2">
-                      <div className="flex items-center space-x-2">
-                        <div className="w-2 h-2 bg-red-400 rounded-full"></div>
-                        <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
-                        <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                      </div>
-                      <div className="text-xs text-slate-300">onpathflow.com</div>
-                      <div className="w-4 h-4"></div>
-                    </div>
-                  </div>
-                  
-                  {/* Mobile App Interface */}
-                  <div className="bg-white shadow-2xl overflow-hidden">
-                    {/* Mobile App Header */}
-                    <header className="bg-white border-b border-slate-200 px-4 py-3">
-                      <div className="flex justify-between items-center">
-                        <div className="flex items-center space-x-2">
-                          <div className="w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center">
-                            <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                            </svg>
-                          </div>
-                          <span className="font-semibold text-slate-800 text-sm">OnPathFlow</span>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <Bell className="w-4 h-4 text-slate-400" />
-                          <img 
-                            src="https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=24&h=24&fit=crop"
-                            alt="User"
-                            className="w-6 h-6 rounded-full object-cover"
-                          />
-                        </div>
-                      </div>
-                    </header>
-
-                    {/* Mobile Demo Navigation */}
-                    <div className="bg-white border-b border-slate-200 px-4 py-2">
-                      <div className="flex justify-between items-center">
-                        <div className="flex space-x-1">
-                          {['Dashboard', 'Clients', 'Builder', 'Analytics'].map((step, index) => (
-                            <button
-                              key={index}
-                              className={`px-2 py-1 rounded-md text-xs font-medium transition-all duration-200 ${
-                                currentDemoStep === index
-                                  ? 'bg-emerald-500 text-white'
-                                  : 'text-slate-600 hover:bg-slate-100'
-                              }`}
-                            >
-                              {step}
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Mobile Demo Content */}
-                    <div className="p-4 bg-gradient-to-br from-slate-50 to-blue-50 min-h-[400px]">
-                      <div className="transition-all duration-500 ease-in-out">
-                        {getCurrentMobileDemoView()}
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Mobile Browser Bottom */}
-                  <div className="bg-slate-800 rounded-b-2xl h-2"></div>
-                </div>
-              </div>
-
-              {/* Floating Elements */}
-              <div className="absolute -top-4 -right-4 bg-emerald-500 text-white px-3 py-1 rounded-full text-sm font-medium animate-bounce">
-                Live Demo
               </div>
               
-              {/* Progress Indicator */}
-              <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2">
-                <div className="bg-white rounded-lg px-4 py-2 shadow-lg border border-slate-200">
-                  <div className="flex items-center space-x-2">
-                    <span className="text-sm font-semibold text-slate-800">75%</span>
-                  </div>
-                  <div className="w-full bg-slate-200 rounded-full h-3 mt-1">
-                    <div className="bg-emerald-500 h-3 rounded-full transition-all duration-500" style={{width: '75%'}}></div>
-                  </div>
-                </div>
-              </div>
+              <div className="bg-slate-800 rounded-b-2xl h-2"></div>
             </div>
           </div>
         </div>
