@@ -589,25 +589,19 @@ const LandingPage: React.FC = () => {
                   <svg className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-500 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-sm sm:text-base text-slate-700">5 goal path templates</span>
+                  <span className="text-sm sm:text-base text-slate-700">Up to 5 goal paths per client</span>
                 </li>
                 <li className="flex items-center">
                   <svg className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-500 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-sm sm:text-base text-slate-700">Basic progress tracking</span>
+                  <span className="text-sm sm:text-base text-slate-700">Progress tracking & analytics</span>
                 </li>
                 <li className="flex items-center">
                   <svg className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-500 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-sm sm:text-base text-slate-700">Email notifications</span>
-                </li>
-                <li className="flex items-center">
-                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-500 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span className="text-sm sm:text-base text-slate-700">Mobile app access</span>
+                  <span className="text-sm sm:text-base text-slate-700">Milestone tracking & celebrations</span>
                 </li>
               </ul>
             </div>
@@ -648,31 +642,19 @@ const LandingPage: React.FC = () => {
                   <svg className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-500 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-sm sm:text-base text-slate-700">Unlimited goal path templates</span>
+                  <span className="text-sm sm:text-base text-slate-700">Unlimited goal paths per client</span>
                 </li>
                 <li className="flex items-center">
                   <svg className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-500 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-sm sm:text-base text-slate-700">Advanced analytics & insights</span>
+                  <span className="text-sm sm:text-base text-slate-700">Advanced analytics dashboard</span>
                 </li>
                 <li className="flex items-center">
                   <svg className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-500 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-sm sm:text-base text-slate-700">Team collaboration features</span>
-                </li>
-                <li className="flex items-center">
-                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-500 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span className="text-sm sm:text-base text-slate-700">Priority support</span>
-                </li>
-                <li className="flex items-center">
-                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-500 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span className="text-sm sm:text-base text-slate-700">Custom integrations</span>
+                  <span className="text-sm sm:text-base text-slate-700">Client performance leaderboards</span>
                 </li>
               </ul>
             </div>
