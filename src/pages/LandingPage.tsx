@@ -789,8 +789,8 @@ const LandingPage: React.FC = () => {
                   
                   <div className="bg-white/10 rounded-xl p-4">
                     <div className="flex justify-between items-center mb-2">
-                      <span className="text-white font-medium">Weight Loss Goal</span>
-                      <span className="text-emerald-200">18 lbs lost</span>
+                      <span className="text-white font-medium">Senior Manager Promotion</span>
+                      <span className="text-emerald-200">6 of 8 milestones</span>
                     </div>
                     <div className="w-full bg-white/20 rounded-full h-2">
                       <div className="bg-white h-2 rounded-full" style={{width: '72%'}}></div>
@@ -804,7 +804,7 @@ const LandingPage: React.FC = () => {
                     <div className="flex items-center justify-between p-3 bg-emerald-50 rounded-lg border border-emerald-200">
                       <div className="flex items-center space-x-3">
                         <CheckCircle className="w-5 h-5 text-emerald-500" />
-                        <span className="text-slate-700 text-sm font-medium">Week 3 Workout Complete</span>
+                        <span className="text-slate-700 text-sm font-medium">Leadership Course Complete</span>
                       </div>
                       <span className="text-emerald-600 text-xs font-medium">Just now</span>
                     </div>
@@ -812,7 +812,7 @@ const LandingPage: React.FC = () => {
                     <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg border border-blue-200">
                       <div className="flex items-center space-x-3">
                         <Clock className="w-5 h-5 text-blue-500" />
-                        <span className="text-slate-700 text-sm font-medium">Meal Prep Sunday</span>
+                        <span className="text-slate-700 text-sm font-medium">Team Presentation</span>
                       </div>
                       <span className="text-blue-600 text-xs font-medium">Tomorrow</span>
                     </div>
@@ -820,7 +820,7 @@ const LandingPage: React.FC = () => {
                     <div className="flex items-center justify-between p-3 bg-slate-50 rounded-lg border border-slate-200">
                       <div className="flex items-center space-x-3">
                         <Target className="w-5 h-5 text-slate-400" />
-                        <span className="text-slate-700 text-sm font-medium">Progress Photo</span>
+                        <span className="text-slate-700 text-sm font-medium">360 Feedback Review</span>
                       </div>
                       <span className="text-slate-500 text-xs font-medium">Pending</span>
                     </div>
