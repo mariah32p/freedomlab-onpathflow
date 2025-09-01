@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Target, CheckCircle } from 'lucide-react';
+import { CheckCircle } from 'lucide-react';
 import Header from '../components/Header';
 
 const GetStartedPage: React.FC = () => {
