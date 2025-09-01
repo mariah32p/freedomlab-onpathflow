@@ -230,7 +230,7 @@ const LandingPage: React.FC = () => {
               {/* CTA Button */}
               <div className="pt-2">
                 <Link 
-                  to="/signup" 
+                  to="/signup"
                   className="inline-block bg-emerald-500 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-base sm:text-lg hover:bg-emerald-600 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl"
                 >
                   Start Your Free Trial
