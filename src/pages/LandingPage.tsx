@@ -161,30 +161,19 @@ const LandingPage: React.FC = () => {
             
             {/* Mobile Phone Mockup */}
             <div className="md:hidden max-w-sm mx-auto">
-              <div className="bg-slate-900 rounded-3xl p-2 shadow-2xl">
-                {/* Phone Frame */}
-                <div className="bg-black rounded-2xl p-1">
-                  {/* Screen */}
-                  <div className="bg-white rounded-2xl overflow-hidden">
-                    {/* Phone Header */}
-                    <div className="bg-slate-800 px-4 py-3 flex items-center justify-between">
-                      <div className="flex items-center space-x-2">
-                        <div className="w-1 h-1 bg-slate-600 rounded-full"></div>
-                        <div className="w-1 h-1 bg-slate-600 rounded-full"></div>
-                        <div className="w-1 h-1 bg-slate-600 rounded-full"></div>
-                      </div>
-                      <span className="text-slate-300 text-xs">OnPathFlow</span>
-                      <div className="flex items-center space-x-1">
-                        <div className="w-3 h-2 border border-slate-500 rounded-sm"></div>
-                        <div className="w-1 h-1 bg-green-500 rounded-full"></div>
-                      </div>
-                    </div>
-                    
-                    {/* Demo Content - Mobile Optimized */}
-                    <div className="bg-gradient-to-br from-slate-50 to-blue-50 h-96 overflow-hidden">
-                      <DemoEmbed />
-                    </div>
+              {/* Simple mobile demo without phone frame */}
+              <div className="bg-white rounded-xl shadow-xl border border-slate-200 overflow-hidden">
+                {/* Mobile Demo Header */}
+                <div className="bg-gradient-to-r from-emerald-500 to-blue-600 px-4 py-3 text-white">
+                  <div className="flex items-center space-x-2">
+                    <Target className="w-5 h-5" />
+                    <span className="font-semibold">OnPathFlow Demo</span>
                   </div>
+                </div>
+                
+                {/* Demo Content */}
+                <div className="bg-gradient-to-br from-slate-50 to-blue-50 p-4">
+                  <DemoEmbed />
                 </div>
               </div>
             </div>
