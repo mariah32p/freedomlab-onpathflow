@@ -734,34 +734,30 @@ const LandingPage: React.FC = () => {
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="text-left">
+            <div className="text-center lg:text-left">
               <h1 className="text-5xl md:text-7xl font-bold text-slate-900 mb-6 leading-tight">
                 Help Your Clients 
                 <span className="bg-gradient-to-r from-emerald-500 to-blue-600 bg-clip-text text-transparent">Actually Achieve</span> Their Goals
               </h1>
-              <p className="text-xl md:text-2xl text-slate-600 mb-8 leading-relaxed">
+              <p className="text-lg md:text-xl text-slate-600 mb-8 leading-relaxed max-w-2xl mx-auto lg:mx-0">
                 The visual goal-setting platform that transforms how coaches guide clients from dreams to achievements. Build clear milestone paths, track progress, and celebrate every win together.
               </p>
               
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
+              <div className="flex flex-col items-center lg:items-start mb-6">
                 <Link 
                   to="/signup" 
-                  className="bg-emerald-500 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-emerald-600 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl"
+                  className="bg-emerald-500 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-emerald-600 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl mb-3"
                 >
                   Start Your 7-Day Free Trial
                 </Link>
-                <Link 
-                  to="/demo" 
-                  className="text-slate-600 hover:text-slate-900 font-medium flex items-center space-x-2 transition-colors duration-200"
-                >
-                  <Eye className="w-5 h-5" />
-                  <span>Watch Demo</span>
-                </Link>
+                <p className="text-slate-500 text-sm">
+                  7-day free trial • Cancel anytime
+                </p>
               </div>
             </div>
             
             {/* Right Side - Demo Mockup */}
-            <div className="relative">
+            <div className="relative mt-12 lg:mt-0">
               <div className="bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden transform rotate-2 hover:rotate-0 transition-transform duration-500">
                 {/* Browser Header */}
                 <div className="bg-slate-100 px-4 py-3 border-b border-slate-200 flex items-center justify-between">
