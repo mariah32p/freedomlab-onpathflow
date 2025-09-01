@@ -134,7 +134,8 @@ const LandingPage: React.FC = () => {
           </div>
           
           <div className="max-w-6xl mx-auto">
-            <div className="bg-slate-900 rounded-2xl shadow-2xl overflow-hidden">
+            {/* Desktop Browser Mockup */}
+            <div className="hidden md:block bg-slate-900 rounded-2xl shadow-2xl overflow-hidden">
               {/* Browser Header */}
               <div className="bg-slate-800 px-6 py-4 flex items-center justify-between">
                 <div className="flex items-center space-x-3">
@@ -155,6 +156,36 @@ const LandingPage: React.FC = () => {
               {/* Demo Content */}
               <div className="bg-gradient-to-br from-slate-50 to-blue-50">
                 <DemoEmbed />
+              </div>
+            </div>
+            
+            {/* Mobile Phone Mockup */}
+            <div className="md:hidden max-w-sm mx-auto">
+              <div className="bg-slate-900 rounded-3xl p-2 shadow-2xl">
+                {/* Phone Frame */}
+                <div className="bg-black rounded-2xl p-1">
+                  {/* Screen */}
+                  <div className="bg-white rounded-2xl overflow-hidden">
+                    {/* Phone Header */}
+                    <div className="bg-slate-800 px-4 py-3 flex items-center justify-between">
+                      <div className="flex items-center space-x-2">
+                        <div className="w-1 h-1 bg-slate-600 rounded-full"></div>
+                        <div className="w-1 h-1 bg-slate-600 rounded-full"></div>
+                        <div className="w-1 h-1 bg-slate-600 rounded-full"></div>
+                      </div>
+                      <span className="text-slate-300 text-xs">OnPathFlow</span>
+                      <div className="flex items-center space-x-1">
+                        <div className="w-3 h-2 border border-slate-500 rounded-sm"></div>
+                        <div className="w-1 h-1 bg-green-500 rounded-full"></div>
+                      </div>
+                    </div>
+                    
+                    {/* Demo Content - Mobile Optimized */}
+                    <div className="bg-gradient-to-br from-slate-50 to-blue-50 h-96 overflow-hidden">
+                      <DemoEmbed />
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
