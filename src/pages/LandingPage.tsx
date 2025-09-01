@@ -905,6 +905,11 @@ const LandingPage: React.FC = () => {
                       <div className="flex items-center space-x-2">
                         <span className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-2 py-1 rounded-full text-xs font-medium">PRO</span>
                         <span className="text-slate-500 text-sm">Coach Dashboard</span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Navigation Tabs */}
                   <div className="flex space-x-1">
                     {['Dashboard', 'Progress', 'Builder', 'Analytics'].map((step, index) => (
                       <button
