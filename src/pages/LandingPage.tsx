@@ -484,39 +484,6 @@ const LandingPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Social Proof */}
-      <section className="py-20 bg-gradient-to-br from-slate-50 to-blue-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
-              Trusted by Coaches Worldwide
-            </h2>
-            <p className="text-xl text-slate-600">
-              Join thousands of coaches who are transforming their clients' lives
-            </p>
-          </div>
-          
-          <div className="grid md:grid-cols-4 gap-8 text-center">
-            <div className="bg-white rounded-2xl p-8 shadow-lg border border-slate-200">
-              <div className="text-4xl font-bold text-emerald-600 mb-2">2,847</div>
-              <div className="text-slate-600">Active Coaches</div>
-            </div>
-            <div className="bg-white rounded-2xl p-8 shadow-lg border border-slate-200">
-              <div className="text-4xl font-bold text-blue-600 mb-2">89%</div>
-              <div className="text-slate-600">Goal Completion Rate</div>
-            </div>
-            <div className="bg-white rounded-2xl p-8 shadow-lg border border-slate-200">
-              <div className="text-4xl font-bold text-purple-600 mb-2">15,000+</div>
-              <div className="text-slate-600">Goals Achieved</div>
-            </div>
-            <div className="bg-white rounded-2xl p-8 shadow-lg border border-slate-200">
-              <div className="text-4xl font-bold text-amber-600 mb-2">4.9/5</div>
-              <div className="text-slate-600">Coach Rating</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Testimonials */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
