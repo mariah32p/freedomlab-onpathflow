@@ -9,7 +9,7 @@ interface RouteGuardProps {
 
 const RouteGuard: React.FC<RouteGuardProps> = ({ children }) => {
   const { user, loading: authLoading } = useAuth();
-  const { profile, loading: profileLoading, shouldRedirectToGetStarted } = useProfile();
+  const { loading: profileLoading, shouldRedirectToGetStarted } = useProfile();
 
   if (authLoading || profileLoading) {
     return (

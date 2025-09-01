@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Target, Users, TrendingUp, Settings, Bell, LogOut, CreditCard, Calendar, Star, Trophy } from 'lucide-react';
+import { Target, Users, TrendingUp, Settings, Bell, LogOut, Calendar, Trophy } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import { useProfile } from '../hooks/useProfile';
 
