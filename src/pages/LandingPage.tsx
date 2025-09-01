@@ -448,39 +448,17 @@ const LandingPage: React.FC = () => {
     }
   };
 
-  const getCurrentMobileDemoView = () => {
-    switch (currentDemoStep) {
-      case 0:
-        return renderMobileDashboard();
-      case 1:
-        return renderMobileClientProgress();
-      case 2:
-        return renderMobilePathBuilder();
-      case 3:
-        return renderMobileAnalytics();
-      default:
-        return renderMobileDashboard();
-    }
-  };
-
   const renderMobileDashboard = () => (
     <div className="space-y-4">
       {/* Mobile Stats */}
       <div className="grid grid-cols-2 gap-3">
-        <div className="bg-gradient-to-br from-emerald-50 to-emerald-100 p-3 rounded-xl border border-emerald-200">
-          <div className="text-center">
-            <Users className="w-5 h-5 text-emerald-500 mx-auto mb-1" />
-            <div className="text-lg font-bold text-emerald-700">24</div>
-            <div className="text-xs text-emerald-600">Clients</div>
-          </div>
+        <div className="bg-emerald-50 p-3 rounded-lg border border-emerald-200">
+          <div className="text-lg font-bold text-emerald-700">24</div>
+          <div className="text-xs text-emerald-600">Clients</div>
         </div>
-        
-        <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-3 rounded-xl border border-blue-200">
-          <div className="text-center">
-            <Target className="w-5 h-5 text-blue-500 mx-auto mb-1" />
-            <div className="text-lg font-bold text-blue-700">89%</div>
-            <div className="text-xs text-blue-600">Success Rate</div>
-          </div>
+        <div className="bg-blue-50 p-3 rounded-lg border border-blue-200">
+          <div className="text-lg font-bold text-blue-700">89%</div>
+          <div className="text-xs text-blue-600">Success Rate</div>
         </div>
       </div>
 
@@ -707,6 +685,21 @@ const LandingPage: React.FC = () => {
     </div>
   );
 
+  const getCurrentMobileDemoView = () => {
+    switch (currentDemoStep) {
+      case 0:
+        return renderMobileDashboard();
+      case 1:
+        return renderMobileClientProgress();
+      case 2:
+        return renderMobilePathBuilder();
+      case 3:
+        return renderMobileAnalytics();
+      default:
+        return renderMobileDashboard();
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white">
       <Header />
@@ -734,43 +727,105 @@ const LandingPage: React.FC = () => {
               
               <div className="mb-6">
                 <button className="bg-emerald-500 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-emerald-600 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl">
-                  Start Free Trial
+                  Start Your Free Trial
                 </button>
               </div>
               
-              <div className="flex flex-col sm:flex-row gap-4 text-slate-600 text-sm">
-                <div className="flex items-center justify-center lg:justify-start">
-                  <svg className="w-4 h-4 text-emerald-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  7-day free trial
+              <div className="flex items-center justify-center lg:justify-start space-x-6 text-sm text-slate-600">
+                <div className="flex items-center space-x-1">
+                  <CheckCircle className="w-4 h-4 text-emerald-500" />
+                  <span>No credit card required</span>
                 </div>
-                <div className="flex items-center justify-center lg:justify-start">
-                  <svg className="w-4 h-4 text-emerald-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  Cancel anytime
+                <div className="flex items-center space-x-1">
+                  <CheckCircle className="w-4 h-4 text-emerald-500" />
+                  <span>Setup in 5 minutes</span>
                 </div>
               </div>
             </div>
-            
-            {/* Right Column - Mockup */}
+
+            {/* Right Column - Interactive Demo */}
             <div className="relative">
-              <div className="bg-white rounded-2xl shadow-2xl p-6 border border-slate-200">
-                {/* Mockup Header */}
-                <div className="flex items-center justify-between mb-6">
-                  <h3 className="text-lg font-semibold text-slate-800">Senior Software Engineer Path</h3>
-                  <div className="flex space-x-2">
+              {/* Desktop Demo */}
+              <div className="hidden md:block bg-white rounded-2xl shadow-2xl overflow-hidden border border-slate-200">
+                {/* Mock Browser Header */}
+                <div className="bg-slate-100 px-4 py-3 flex items-center justify-between border-b border-slate-200">
+                  <div className="flex items-center space-x-2">
                     <div className="w-3 h-3 bg-red-400 rounded-full"></div>
                     <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
                     <div className="w-3 h-3 bg-green-400 rounded-full"></div>
                   </div>
+                  <div className="text-sm text-slate-600">onpathflow.com/dashboard</div>
+                  <div className="flex items-center space-x-4">
+                    <Bell className="w-4 h-4 text-slate-400" />
+                    <Settings className="w-4 h-4 text-slate-400" />
+                    <img 
+                      src="https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=32&h=32&fit=crop"
+                      alt="User"
+                      className="w-6 h-6 rounded-full object-cover"
+                    />
+                  </div>
                 </div>
-                
-                {/* Progress Overview */}
-                <div className="bg-gradient-to-r from-emerald-50 to-blue-50 rounded-lg p-4 mb-6">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm text-slate-600">Overall Progress</span>
+
+                {/* Demo Navigation */}
+                <div className="bg-white border-b border-slate-200 px-4 py-2">
+                  <div className="flex space-x-1">
+                    {['Dashboard', 'Progress', 'Builder', 'Analytics'].map((step, index) => (
+                      <button
+                        key={index}
+                        className={`px-3 py-1 rounded-lg text-xs font-medium transition-all duration-200 ${
+                          currentDemoStep === index
+                            ? 'bg-emerald-500 text-white'
+                            : 'text-slate-600 hover:bg-slate-100'
+                        }`}
+                      >
+                        {step}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Demo Content */}
+                <div className="p-4 bg-gradient-to-br from-slate-50 to-blue-50 min-h-[400px]">
+                  <div className="transition-all duration-500 ease-in-out">
+                    {getCurrentDemoView()}
+                  </div>
+                </div>
+              </div>
+
+              {/* Mobile Demo */}
+              <div className="md:hidden bg-slate-900 rounded-3xl p-2 shadow-2xl">
+                <div className="bg-white rounded-2xl overflow-hidden">
+                  {/* Mobile Header */}
+                  <div className="bg-gradient-to-r from-emerald-500 to-blue-600 px-4 py-3 text-white">
+                    <div className="flex items-center justify-between">
+                      <h3 className="font-semibold">OnPathFlow</h3>
+                      <div className="flex items-center space-x-2">
+                        <Bell className="w-4 h-4" />
+                        <img 
+                          src="https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=32&h=32&fit=crop"
+                          alt="User"
+                          className="w-6 h-6 rounded-full object-cover"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Mobile Demo Content */}
+                  <div className="p-4 bg-gradient-to-br from-slate-50 to-blue-50 min-h-[300px]">
+                    {getCurrentMobileDemoView()}
+                  </div>
+                </div>
+              </div>
+
+              {/* Floating Elements */}
+              <div className="absolute -top-4 -right-4 bg-emerald-500 text-white px-3 py-1 rounded-full text-sm font-medium animate-bounce">
+                Live Demo
+              </div>
+              
+              {/* Progress Indicator */}
+              <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2">
+                <div className="bg-white rounded-lg px-4 py-2 shadow-lg border border-slate-200">
+                  <div className="flex items-center space-x-2">
                     <span className="text-sm font-semibold text-slate-800">75%</span>
                   </div>
                   <div className="w-full bg-slate-200 rounded-full h-3">
@@ -799,80 +854,41 @@ const LandingPage: React.FC = () => {
                   <div className="flex items-center space-x-3">
                     <div className="w-4 h-4 bg-slate-300 rounded-full"></div>
                     <div className="flex-1 bg-slate-100 rounded-lg p-3">
-                      <span className="text-slate-600 font-medium text-sm">Get AWS Certification</span>
-                      <div className="text-xs text-slate-500 mt-1">📅 Upcoming</div>
+                      <span className="text-slate-600 font-medium text-sm">Apply to Companies</span>
+                      <div className="text-xs text-slate-500 mt-1">📅 Coming Next</div>
                     </div>
                   </div>
                 </div>
               </div>
-              
-              {/* Floating elements for visual appeal */}
-              <div className="absolute -top-4 -right-4 w-8 h-8 bg-emerald-200 rounded-full opacity-60"></div>
-              <div className="absolute -bottom-4 -left-4 w-6 h-6 bg-blue-200 rounded-full opacity-60"></div>
             </div>
           </div>
         </div>
-        
-        {/* Decorative elements */}
-        <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-          <div className="absolute -top-40 -right-40 w-80 h-80 bg-emerald-200 rounded-full opacity-20 blur-3xl"></div>
-          <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-200 rounded-full opacity-20 blur-3xl"></div>
-        </div>
       </section>
 
-      {/* Live Demo Section */}
+      {/* Interactive Demo Section */}
       <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            {/* Demo Disclaimer */}
-            <div className="inline-flex items-center bg-gradient-to-r from-emerald-100 to-blue-100 text-emerald-700 px-6 py-3 rounded-full text-sm font-semibold mb-6 border border-emerald-200">
-              <div className="w-2 h-2 bg-emerald-500 rounded-full mr-3 animate-pulse"></div>
-              ✨ Interactive Demo Below - Watch the Magic Happen
-            </div>
-            
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
               See OnPathFlow in Action
             </h2>
             <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-              Watch how coaches use OnPathFlow to guide clients from goals to achievements
+              Experience how our platform transforms vague goals into clear, actionable paths to success.
             </p>
           </div>
           
-          <div className="max-w-6xl mx-auto">
-            {/* Browser Window */}
-            <div className="bg-slate-200 rounded-t-xl p-3">
-              {/* Browser Chrome */}
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-2">
-                  <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                  <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                  <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                </div>
-                <div className="flex-1 mx-4">
-                  <div className="bg-white rounded-md px-4 py-1 text-sm text-slate-600 text-center">
-                    https://onpathflow.com/dashboard
-                  </div>
-                </div>
-                <div className="w-16"></div>
-              </div>
-            </div>
-            
-            {/* App Interface */}
-            <div className="bg-white shadow-2xl rounded-b-xl overflow-hidden">
-              {/* App Header */}
-              <header className="bg-white border-b border-slate-200 px-6 py-4">
-                <div className="flex justify-between items-center">
-                  <div className="flex items-center space-x-4">
-                    <div className="w-10 h-10 bg-gradient-to-r from-emerald-500 to-blue-600 rounded-xl flex items-center justify-center">
-                      <Target className="w-6 h-6 text-white" />
+          <div className="bg-gradient-to-br from-slate-50 to-blue-50 rounded-2xl p-8 shadow-2xl">
+            <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+              {/* Demo Header */}
+              <header className="bg-slate-100 px-6 py-4 border-b border-slate-200">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center">
+                      <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
                     </div>
-                    <div>
-                      <h1 className="text-2xl font-bold text-slate-800">OnPathFlow</h1>
-                      <div className="flex items-center space-x-2">
-                        <span className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-2 py-1 rounded-full text-xs font-medium">PRO</span>
-                        <span className="text-slate-500 text-sm">Coach Dashboard</span>
-                      </div>
-                    </div>
+                    <span className="text-lg font-semibold text-slate-800">OnPathFlow</span>
                   </div>
                   
                   <div className="flex items-center space-x-4">
@@ -926,6 +942,7 @@ const LandingPage: React.FC = () => {
           </div>
         </div>
       </section>
+
       {/* First Mockup Section */}
       <section className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
