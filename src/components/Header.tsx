@@ -38,7 +38,7 @@ const Header: React.FC = () => {
             </Link>
             <Link 
               to="/signup" 
-              className="bg-emerald-500 text-white px-6 py-3 rounded-md font-semibold text-base hover:bg-emerald-600 transition-colors duration-200 w-40 h-12 flex items-center justify-center"
+             className="bg-emerald-500 text-white px-6 py-2.5 rounded-lg font-semibold hover:bg-emerald-600 transition-colors duration-200"
             >
               Start Free Trial
             </Link>
