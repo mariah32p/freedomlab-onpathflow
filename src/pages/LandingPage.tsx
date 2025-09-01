@@ -10,11 +10,190 @@ const LandingPage: React.FC = () => {
   // Mobile demo animation
   React.useEffect(() => {
     const interval = setInterval(() => {
-      setMobileStep(prev => (prev + 1) % 3);
+      setMobileStep(prev => (prev + 1) % 4);
     }, 2500);
     
     return () => clearInterval(interval);
   }, []);
+
+  const renderMobileDemo = () => {
+    switch (mobileStep) {
+      case 0:
+        // Coach Dashboard
+        return (
+          <div className="p-4 space-y-4">
+            <div className="grid grid-cols-2 gap-3">
+              <div className="bg-emerald-50 p-3 rounded-lg text-center">
+                <div className="text-2xl font-bold text-emerald-600">24</div>
+                <div className="text-xs text-slate-600">Active Clients</div>
+              </div>
+              <div className="bg-blue-50 p-3 rounded-lg text-center">
+                <div className="text-2xl font-bold text-blue-600">89%</div>
+                <div className="text-xs text-slate-600">Success Rate</div>
+              </div>
+            </div>
+            
+            <div className="space-y-3">
+              {[
+                { name: 'Sarah Chen', progress: 75, avatar: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=60&h=60&fit=crop' },
+                { name: 'Marcus Rodriguez', progress: 67, avatar: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=60&h=60&fit=crop' },
+                { name: 'Emily Johnson', progress: 45, avatar: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=60&h=60&fit=crop' }
+              ].map((client, index) => (
+                <div key={index} className="bg-slate-50 rounded-lg p-3 flex items-center space-x-3">
+                  <img src={client.avatar} alt={client.name} className="w-8 h-8 rounded-full object-cover" />
+                  <div className="flex-1">
+                    <div className="font-medium text-slate-800 text-sm">{client.name}</div>
+                    <div className="w-full bg-slate-200 rounded-full h-1 mt-1">
+                      <div className="bg-emerald-500 h-1 rounded-full" style={{width: `${client.progress}%`}}></div>
+                    </div>
+                  </div>
+                  <div className="text-emerald-600 font-bold text-sm">{client.progress}%</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      
+      case 1:
+        // Client Progress View
+        return (
+          <div className="p-4 space-y-4">
+            <div className="bg-gradient-to-r from-emerald-500 to-blue-600 rounded-lg p-4 text-white">
+              <div className="flex items-center space-x-3">
+                <img 
+                  src="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=60&h=60&fit=crop"
+                  alt="Sarah"
+                  className="w-12 h-12 rounded-full object-cover ring-2 ring-white"
+                />
+                <div>
+                  <div className="font-bold">Sarah Chen</div>
+                  <div className="text-emerald-100 text-sm">Senior Engineer Path</div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="space-y-3">
+              {[
+                { title: 'Master React & TypeScript', status: 'completed' },
+                { title: 'Build Portfolio Projects', status: 'completed' },
+                { title: 'Get AWS Certification', status: 'in_progress' },
+                { title: 'Network with Engineers', status: 'pending' }
+              ].map((milestone, index) => (
+                <div key={index} className={`p-3 rounded-lg border ${
+                  milestone.status === 'completed' ? 'bg-emerald-50 border-emerald-200' :
+                  milestone.status === 'in_progress' ? 'bg-blue-50 border-blue-200' :
+                  'bg-slate-50 border-slate-200'
+                }`}>
+                  <div className="flex items-center space-x-2">
+                    {milestone.status === 'completed' ? (
+                      <CheckCircle className="w-4 h-4 text-emerald-500" />
+                    ) : milestone.status === 'in_progress' ? (
+                      <Clock className="w-4 h-4 text-blue-500 animate-pulse" />
+                    ) : (
+                      <div className="w-4 h-4 border-2 border-slate-300 rounded-full"></div>
+                    )}
+                    <span className="text-sm font-medium text-slate-800">{milestone.title}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      
+      case 2:
+        // Path Builder View
+        return (
+          <div className="p-4 space-y-4">
+            <div className="bg-white rounded-lg p-4 border border-slate-200">
+              <h3 className="font-semibold text-slate-800 mb-3">Create New Path</h3>
+              <div className="space-y-2">
+                <input 
+                  type="text" 
+                  value="Become Data Scientist"
+                  className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm"
+                  readOnly
+                />
+                <input 
+                  type="date" 
+                  value="2025-08-15"
+                  className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm"
+                  readOnly
+                />
+              </div>
+            </div>
+            
+            <div className="space-y-2">
+              {[
+                { title: 'Python Fundamentals', status: 'building' },
+                { title: 'SQL & Databases', status: 'planned' },
+                { title: 'Machine Learning', status: 'planned' },
+                { title: 'Portfolio Projects', status: 'planned' }
+              ].map((milestone, index) => (
+                <div key={index} className={`p-3 rounded-lg border-2 border-dashed ${
+                  milestone.status === 'building' ? 'border-emerald-300 bg-emerald-50' : 'border-slate-200 bg-slate-50'
+                }`}>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                      <div className={`w-2 h-2 rounded-full ${
+                        milestone.status === 'building' ? 'bg-emerald-500 animate-pulse' : 'bg-slate-300'
+                      }`}></div>
+                      <span className="text-sm font-medium text-slate-800">{milestone.title}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      
+      case 3:
+        // Analytics View
+        return (
+          <div className="p-4 space-y-4">
+            <div className="grid grid-cols-3 gap-3">
+              <div className="bg-emerald-50 p-3 rounded-lg text-center">
+                <div className="text-xl font-bold text-emerald-600">94%</div>
+                <div className="text-xs text-slate-600">Completion</div>
+              </div>
+              <div className="bg-blue-50 p-3 rounded-lg text-center">
+                <div className="text-xl font-bold text-blue-600">8.2</div>
+                <div className="text-xs text-slate-600">Avg Days</div>
+              </div>
+              <div className="bg-purple-50 p-3 rounded-lg text-center">
+                <div className="text-xl font-bold text-purple-600">87%</div>
+                <div className="text-xs text-slate-600">Satisfaction</div>
+              </div>
+            </div>
+            
+            <div className="bg-slate-50 rounded-lg p-4">
+              <h4 className="font-semibold text-slate-800 mb-3 text-sm">Top Performers</h4>
+              <div className="space-y-2">
+                {[
+                  { name: 'Sarah Chen', rank: 1, completed: 3 },
+                  { name: 'Marcus Rodriguez', rank: 2, completed: 2 },
+                  { name: 'Emily Johnson', rank: 3, completed: 2 }
+                ].map((client) => (
+                  <div key={client.name} className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                      <div className={`w-5 h-5 rounded-full flex items-center justify-center text-white font-bold text-xs ${
+                        client.rank === 1 ? 'bg-yellow-500' : client.rank === 2 ? 'bg-slate-400' : 'bg-amber-600'
+                      }`}>
+                        {client.rank}
+                      </div>
+                      <span className="text-sm font-medium text-slate-800">{client.name}</span>
+                    </div>
+                    <div className="text-emerald-600 font-bold text-sm">{client.completed} done</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        );
+      
+      default:
+        return null;
+    }
+  };
 
   return (
     <div className="min-h-screen bg-white font-montserrat">
@@ -181,90 +360,18 @@ const LandingPage: React.FC = () => {
                       <Target className="w-6 h-6" />
                       <span className="font-bold">OnPathFlow</span>
                     </div>
-                    <span className="bg-white/20 px-2 py-1 rounded-full text-xs">Coach View</span>
+                    <span className="bg-white/20 px-2 py-1 rounded-full text-xs">
+                      {mobileStep === 0 ? 'Dashboard' : 
+                       mobileStep === 1 ? 'Client View' : 
+                       mobileStep === 2 ? 'Path Builder' : 
+                       'Analytics'}
+                    </span>
                   </div>
                 </div>
                 
-                {/* Simple Stats */}
-                <div className="p-4 space-y-4">
-                  <div className="grid grid-cols-2 gap-3">
-                    <div className="bg-emerald-50 p-3 rounded-lg text-center">
-                      <div className="text-2xl font-bold text-emerald-600">24</div>
-                      <div className="text-xs text-slate-600">Active Clients</div>
-                    </div>
-                    <div className="bg-blue-50 p-3 rounded-lg text-center">
-                      <div className="text-2xl font-bold text-blue-600">89%</div>
-                      <div className="text-xs text-slate-600">Success Rate</div>
-                    </div>
-                  </div>
-                  
-                  {/* Client Progress Example */}
-                  <div className="bg-slate-50 rounded-lg p-4">
-                    <div className="flex items-center space-x-3 mb-3">
-                      <img 
-                        src="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=60&h=60&fit=crop"
-                        alt="Client"
-                        className="w-10 h-10 rounded-full object-cover"
-                      />
-                      <div className="flex-1">
-                        <div className="font-medium text-slate-800 text-sm">Sarah Chen</div>
-                        <div className="text-slate-600 text-xs">Senior Engineer Goal</div>
-                      </div>
-                      <div className="text-right">
-                        <div className="font-bold text-emerald-600 transition-all duration-500">
-                          {mobileStep === 0 ? '75%' : mobileStep === 1 ? '80%' : '85%'}
-                        </div>
-                        <div className="text-xs text-slate-500">Complete</div>
-                      </div>
-                    </div>
-                    
-                    <div className="w-full bg-slate-200 rounded-full h-2 mb-3">
-                      <div className="bg-emerald-500 h-2 rounded-full transition-all duration-1000" style={{
-                        width: mobileStep === 0 ? '75%' : mobileStep === 1 ? '80%' : '85%'
-                      }}></div>
-                    </div>
-                    
-                    <div className="flex items-center justify-between text-xs">
-                      <div className="flex items-center space-x-1">
-                        <Star className="w-3 h-3 text-yellow-500" />
-                        <span className="text-slate-600 transition-all duration-300">
-                          {mobileStep === 0 ? '12-day streak' : mobileStep === 1 ? '13-day streak' : '14-day streak'}
-                        </span>
-                      </div>
-                      <div className="flex items-center space-x-1">
-                        <CheckCircle className="w-3 h-3 text-emerald-500" />
-                        <span className="text-slate-600 transition-all duration-300">
-                          {mobileStep === 0 ? '6 of 8 done' : mobileStep === 1 ? '6 of 8 done' : '7 of 8 done'}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Current Milestone */}
-                  <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="font-medium text-blue-800 text-sm transition-all duration-300">
-                        {mobileStep === 0 ? 'AWS Certification' : mobileStep === 1 ? 'AWS Certification' : 'Network with Engineers'}
-                      </span>
-                      <span className={`px-2 py-1 rounded-full text-xs font-medium transition-all duration-300 ${
-                        mobileStep === 2 ? 'bg-emerald-500 text-white' : 'bg-blue-500 text-white'
-                      }`}>
-                        {mobileStep === 2 ? 'Completed' : 'In Progress'}
-                      </span>
-                    </div>
-                    <div className="w-full bg-blue-200 rounded-full h-2 mb-2">
-                      <div className={`h-2 rounded-full transition-all duration-1000 ${
-                        mobileStep === 2 ? 'bg-emerald-500' : 'bg-blue-500'
-                      }`} style={{
-                        width: mobileStep === 0 ? '80%' : mobileStep === 1 ? '95%' : '100%'
-                      }}></div>
-                    </div>
-                    <div className="text-blue-700 text-xs transition-all duration-300">
-                      {mobileStep === 0 ? 'Exam scheduled for Friday' : 
-                       mobileStep === 1 ? 'Taking exam now...' : 
-                       'Passed with 847/1000! 🎉'}
-                    </div>
-                  </div>
+                {/* Dynamic Content */}
+                <div className="transition-all duration-500 ease-in-out">
+                  {renderMobileDemo()}
                 </div>
               </div>
             </div>
