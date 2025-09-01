@@ -5,6 +5,17 @@ import Header from '../components/Header';
 import DemoEmbed from '../components/DemoEmbed';
 
 const LandingPage: React.FC = () => {
+  const [mobileStep, setMobileStep] = React.useState(0);
+  
+  // Mobile demo animation
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setMobileStep(prev => (prev + 1) % 3);
+    }, 2500);
+    
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="min-h-screen bg-white font-montserrat">
       <Header />
@@ -200,23 +211,31 @@ const LandingPage: React.FC = () => {
                         <div className="text-slate-600 text-xs">Senior Engineer Goal</div>
                       </div>
                       <div className="text-right">
-                        <div className="font-bold text-emerald-600">75%</div>
+                        <div className="font-bold text-emerald-600 transition-all duration-500">
+                          {mobileStep === 0 ? '75%' : mobileStep === 1 ? '80%' : '85%'}
+                        </div>
                         <div className="text-xs text-slate-500">Complete</div>
                       </div>
                     </div>
                     
                     <div className="w-full bg-slate-200 rounded-full h-2 mb-3">
-                      <div className="bg-emerald-500 h-2 rounded-full transition-all duration-1000" style={{width: '75%'}}></div>
+                      <div className="bg-emerald-500 h-2 rounded-full transition-all duration-1000" style={{
+                        width: mobileStep === 0 ? '75%' : mobileStep === 1 ? '80%' : '85%'
+                      }}></div>
                     </div>
                     
                     <div className="flex items-center justify-between text-xs">
                       <div className="flex items-center space-x-1">
                         <Star className="w-3 h-3 text-yellow-500" />
-                        <span className="text-slate-600">12-day streak</span>
+                        <span className="text-slate-600 transition-all duration-300">
+                          {mobileStep === 0 ? '12-day streak' : mobileStep === 1 ? '13-day streak' : '14-day streak'}
+                        </span>
                       </div>
                       <div className="flex items-center space-x-1">
                         <CheckCircle className="w-3 h-3 text-emerald-500" />
-                        <span className="text-slate-600">6 of 8 done</span>
+                        <span className="text-slate-600 transition-all duration-300">
+                          {mobileStep === 0 ? '6 of 8 done' : mobileStep === 1 ? '6 of 8 done' : '7 of 8 done'}
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -224,13 +243,27 @@ const LandingPage: React.FC = () => {
                   {/* Current Milestone */}
                   <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="font-medium text-blue-800 text-sm">AWS Certification</span>
-                      <span className="bg-blue-500 text-white px-2 py-1 rounded-full text-xs">In Progress</span>
+                      <span className="font-medium text-blue-800 text-sm transition-all duration-300">
+                        {mobileStep === 0 ? 'AWS Certification' : mobileStep === 1 ? 'AWS Certification' : 'Network with Engineers'}
+                      </span>
+                      <span className={`px-2 py-1 rounded-full text-xs font-medium transition-all duration-300 ${
+                        mobileStep === 2 ? 'bg-emerald-500 text-white' : 'bg-blue-500 text-white'
+                      }`}>
+                        {mobileStep === 2 ? 'Completed' : 'In Progress'}
+                      </span>
                     </div>
                     <div className="w-full bg-blue-200 rounded-full h-2 mb-2">
-                      <div className="bg-blue-500 h-2 rounded-full" style={{width: '80%'}}></div>
+                      <div className={`h-2 rounded-full transition-all duration-1000 ${
+                        mobileStep === 2 ? 'bg-emerald-500' : 'bg-blue-500'
+                      }`} style={{
+                        width: mobileStep === 0 ? '80%' : mobileStep === 1 ? '95%' : '100%'
+                      }}></div>
                     </div>
-                    <div className="text-blue-700 text-xs">Exam scheduled for Friday</div>
+                    <div className="text-blue-700 text-xs transition-all duration-300">
+                      {mobileStep === 0 ? 'Exam scheduled for Friday' : 
+                       mobileStep === 1 ? 'Taking exam now...' : 
+                       'Passed with 847/1000! 🎉'}
+                    </div>
                   </div>
                 </div>
               </div>
