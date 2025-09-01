@@ -757,11 +757,6 @@ const LandingPage: React.FC = () => {
                   <div className="flex items-center space-x-4">
                     <Bell className="w-4 h-4 text-slate-400" />
                     <Settings className="w-4 h-4 text-slate-400" />
-                    <img 
-                      src="https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=32&h=32&fit=crop"
-                      alt="User"
-                      className="w-6 h-6 rounded-full object-cover"
-                    />
                   </div>
                 </div>
                 
@@ -910,11 +905,6 @@ const LandingPage: React.FC = () => {
                       <div className="flex items-center space-x-2">
                         <span className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-2 py-1 rounded-full text-xs font-medium">PRO</span>
                         <span className="text-slate-500 text-sm">Coach Dashboard</span>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Navigation Tabs */}
                   <div className="flex space-x-1">
                     {['Dashboard', 'Progress', 'Builder', 'Analytics'].map((step, index) => (
                       <button
@@ -934,11 +924,6 @@ const LandingPage: React.FC = () => {
                   <div className="flex items-center space-x-3">
                     <Bell className="w-5 h-5 text-slate-400 hover:text-slate-600 cursor-pointer transition-colors duration-200" />
                     <Settings className="w-5 h-5 text-slate-400 hover:text-slate-600 cursor-pointer transition-colors duration-200" />
-                    <img 
-                      src="https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop"
-                      alt="Coach"
-                      className="w-8 h-8 rounded-full object-cover ring-2 ring-emerald-500 shadow-lg"
-                    />
                   </div>
                 </div>
               </div>
