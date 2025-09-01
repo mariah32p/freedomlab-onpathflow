@@ -917,6 +917,32 @@ const LandingPage: React.FC = () => {
 
               {/* Demo Content */}
               <div className="p-6 bg-gradient-to-br from-slate-50 to-blue-50 min-h-[500px]">
+                {/* Demo Header with Logo */}
+                <div className="flex items-center justify-between mb-6 pb-4 border-b border-slate-200">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-8 h-8 bg-gradient-to-r from-emerald-500 to-blue-600 rounded-xl flex items-center justify-center">
+                      <Target className="w-5 h-5 text-white" />
+                    </div>
+                    <div>
+                      <h1 className="text-xl font-bold text-slate-800">OnPathFlow</h1>
+                      <div className="flex items-center space-x-2">
+                        <span className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-2 py-1 rounded-full text-xs font-medium">PRO</span>
+                        <span className="text-slate-500 text-sm">Coach Dashboard</span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center space-x-3">
+                    <Bell className="w-5 h-5 text-slate-400 hover:text-slate-600 cursor-pointer transition-colors duration-200" />
+                    <Settings className="w-5 h-5 text-slate-400 hover:text-slate-600 cursor-pointer transition-colors duration-200" />
+                    <img 
+                      src="https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop"
+                      alt="Coach"
+                      className="w-8 h-8 rounded-full object-cover ring-2 ring-emerald-500 shadow-lg"
+                    />
+                  </div>
+                </div>
+                
                 <div className="transition-all duration-500 ease-in-out">
                   {getCurrentDemoView()}
                 </div>
@@ -943,13 +969,14 @@ const LandingPage: React.FC = () => {
                 <header className="bg-white border-b border-slate-200 px-4 py-3">
                   <div className="flex justify-between items-center">
                     <div className="flex items-center space-x-2">
-                      <div className="w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center">
-                        <Target className="w-3 h-3 text-white" />
+                      <div className="w-6 h-6 bg-gradient-to-r from-emerald-500 to-blue-600 rounded-lg flex items-center justify-center">
+                        <Target className="w-4 h-4 text-white" />
                       </div>
                       <span className="font-semibold text-slate-800 text-sm">OnPathFlow</span>
                     </div>
                     <div className="flex items-center space-x-2">
                       <Bell className="w-4 h-4 text-slate-400" />
+                      <Settings className="w-4 h-4 text-slate-400" />
                       <img 
                         src="https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=24&h=24&fit=crop"
                         alt="User"
@@ -960,6 +987,12 @@ const LandingPage: React.FC = () => {
                 </header>
 
                 <div className="bg-white border-b border-slate-200 px-4 py-3">
+                  <div className="flex items-center justify-between mb-2">
+                    <h2 className="text-sm font-semibold text-slate-800">Coach Dashboard</h2>
+                    <div className="flex items-center space-x-1">
+                      <span className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-2 py-1 rounded-full text-xs font-medium">PRO</span>
+                    </div>
+                  </div>
                   <div className="flex space-x-2 overflow-x-auto">
                     {['Dashboard', 'Clients', 'Builder', 'Analytics'].map((step, index) => (
                       <button
