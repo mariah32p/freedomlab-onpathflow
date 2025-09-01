@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Target, Users, CheckCircle, Clock, TrendingUp, Trophy, Bell, Settings, Star, MessageSquare } from 'lucide-react';
 import Header from '../components/Header';
 
@@ -777,9 +778,9 @@ const LandingPage: React.FC = () => {
             <button className="bg-white text-emerald-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-emerald-50 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl">
               Start Your 7-Day Free Trial
             </button>
-            <button className="text-white hover:text-emerald-100 font-semibold text-lg flex items-center gap-2">
+            <Link to="/pricing" className="text-white hover:text-emerald-100 font-semibold text-lg flex items-center gap-2">
               View Pricing
-            </button>
+            </Link>
           </div>
         </div>
       </section>
