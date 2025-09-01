@@ -200,13 +200,13 @@ const LandingPage: React.FC = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="pt-16 md:pt-20 pb-20 md:pb-32 bg-gradient-to-br from-slate-50 via-blue-50 to-emerald-50 relative overflow-hidden">
+      <section className="pt-12 sm:pt-16 md:pt-20 pb-16 sm:pb-20 md:pb-32 bg-gradient-to-br from-slate-50 via-blue-50 to-emerald-50 relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%23f1f5f9%22%20fill-opacity%3D%220.4%22%3E%3Ccircle%20cx%3D%2230%22%20cy%3D%2230%22%20r%3D%221%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-50"></div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
             {/* Left Side - Content */}
-            <div className="text-center lg:text-left space-y-6">
+            <div className="text-center lg:text-left space-y-4 sm:space-y-6">
               {/* Badge */}
               <div className="inline-flex items-center bg-emerald-100 text-emerald-700 px-4 py-2 rounded-full text-sm font-medium">
                 <span className="w-2 h-2 bg-emerald-500 rounded-full mr-2 animate-pulse"></span>
@@ -214,7 +214,7 @@ const LandingPage: React.FC = () => {
               </div>
               
               {/* Header */}
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-slate-900 leading-tight">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-slate-900 leading-tight">
                 Help Your Clients{' '}
                 <span className="bg-gradient-to-r from-emerald-500 to-blue-600 bg-clip-text text-transparent">
                   Actually Achieve
@@ -223,7 +223,7 @@ const LandingPage: React.FC = () => {
               </h1>
               
               {/* Description */}
-              <p className="text-lg sm:text-xl lg:text-2xl text-slate-600 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+              <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-slate-600 leading-relaxed max-w-2xl mx-auto lg:mx-0">
                 The visual goal-setting platform that transforms how coaches guide clients from dreams to achievements. Build clear milestone paths, track progress, and celebrate every win together.
               </p>
               
@@ -231,7 +231,7 @@ const LandingPage: React.FC = () => {
               <div className="pt-2">
                 <Link 
                   to="/signup" 
-                  className="inline-block bg-emerald-500 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-emerald-600 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl"
+                  className="inline-block bg-emerald-500 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-base sm:text-lg hover:bg-emerald-600 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl"
                 >
                   Start Your Free Trial
                 </Link>
@@ -244,7 +244,7 @@ const LandingPage: React.FC = () => {
             </div>
             
             {/* Right Side - Simple Mockup */}
-            <div className="relative mt-8 lg:mt-0">
+            <div className="relative mt-8 sm:mt-12 lg:mt-0">
               <div className="bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden max-w-sm mx-auto lg:max-w-none transform hover:scale-105 transition-transform duration-300">
                 {/* Header */}
                 <div className="bg-gradient-to-r from-emerald-500 to-blue-600 p-6 text-white">
@@ -312,13 +312,13 @@ const LandingPage: React.FC = () => {
       </section>
 
       {/* Live Demo Section */}
-      <section className="py-20 bg-white">
+      <section className="py-12 sm:py-16 md:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
+          <div className="text-center mb-8 sm:mb-12 md:mb-16">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 mb-4 sm:mb-6">
               See OnPathFlow in Action
             </h2>
-            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+            <p className="text-base sm:text-lg md:text-xl text-slate-600 max-w-3xl mx-auto px-4">
               Watch how coaches create milestone paths and track their clients' progress in real-time
             </p>
           </div>
@@ -380,25 +380,25 @@ const LandingPage: React.FC = () => {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-white">
+      <section className="py-12 sm:py-16 md:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
+          <div className="text-center mb-8 sm:mb-12 md:mb-16">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 mb-4 sm:mb-6">
               Everything You Need to Guide Your Clients
             </h2>
-            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+            <p className="text-base sm:text-lg md:text-xl text-slate-600 max-w-3xl mx-auto px-4">
               Powerful tools designed specifically for coaches who want to help their clients achieve real, measurable results
             </p>
           </div>
           
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {/* Feature 1 */}
-            <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-8 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+            <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-6 sm:p-8 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 sm:col-span-2 lg:col-span-1">
               <div className="w-16 h-16 bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-2xl flex items-center justify-center mb-6">
                 <Target className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-2xl font-bold text-slate-900 mb-4">Visual Path Builder</h3>
-              <p className="text-slate-600 mb-6 leading-relaxed">
+              <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-4">Visual Path Builder</h3>
+              <p className="text-slate-600 mb-4 sm:mb-6 leading-relaxed">
                 Create custom milestone paths for each client. Break down big goals into clear, actionable steps with due dates and progress tracking.
               </p>
               
@@ -426,12 +426,12 @@ const LandingPage: React.FC = () => {
             </div>
 
             {/* Feature 2 */}
-            <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-8 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+            <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-6 sm:p-8 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
               <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mb-6">
                 <Users className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-2xl font-bold text-slate-900 mb-4">Client Dashboard</h3>
-              <p className="text-slate-600 mb-6 leading-relaxed">
+              <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-4">Client Dashboard</h3>
+              <p className="text-slate-600 mb-4 sm:mb-6 leading-relaxed">
                 Monitor all your clients in one place. See their progress, engagement levels, streaks, and completion rates at a glance.
               </p>
               
@@ -454,12 +454,12 @@ const LandingPage: React.FC = () => {
             </div>
 
             {/* Feature 3 */}
-            <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-8 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+            <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-6 sm:p-8 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 sm:col-span-2 lg:col-span-1">
               <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mb-6">
                 <TrendingUp className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-2xl font-bold text-slate-900 mb-4">Progress Tracking & Analytics</h3>
-              <p className="text-slate-600 mb-6 leading-relaxed">
+              <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-4">Progress Tracking & Analytics</h3>
+              <p className="text-slate-600 mb-4 sm:mb-6 leading-relaxed">
                 Track client streaks, completion patterns, and engagement levels. See which clients need support and celebrate milestone achievements.
               </p>
               
@@ -485,24 +485,24 @@ const LandingPage: React.FC = () => {
       </section>
 
       {/* Testimonials */}
-      <section className="py-20 bg-white">
+      <section className="py-12 sm:py-16 md:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
+          <div className="text-center mb-8 sm:mb-12 md:mb-16">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 mb-4 sm:mb-6">
               What Coaches Are Saying
             </h2>
-            <p className="text-xl text-slate-600">
+            <p className="text-base sm:text-lg md:text-xl text-slate-600 px-4">
               Real results from real coaches using OnPathFlow
             </p>
           </div>
           
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-gradient-to-br from-emerald-50 to-emerald-100 rounded-2xl p-8 border border-emerald-200">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            <div className="bg-gradient-to-br from-emerald-50 to-emerald-100 rounded-2xl p-6 sm:p-8 border border-emerald-200 sm:col-span-2 lg:col-span-1">
               <div className="mb-6">
                 <h4 className="font-bold text-slate-900">Mariah W.</h4>
                 <p className="text-emerald-700 text-sm">Technology Consultant & Coach</p>
               </div>
-              <p className="text-slate-700 leading-relaxed mb-4">
+              <p className="text-sm sm:text-base text-slate-700 leading-relaxed mb-4">
                 "As someone who coaches tech professionals, OnPathFlow's visual milestone system is perfect for breaking down complex career transitions. My clients love seeing their progress mapped out clearly, and I can track multiple career paths simultaneously."
               </p>
               <div className="flex text-yellow-400">
@@ -512,12 +512,12 @@ const LandingPage: React.FC = () => {
               </div>
             </div>
 
-            <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-8 border border-blue-200">
+            <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-6 sm:p-8 border border-blue-200">
               <div className="mb-6">
                 <h4 className="font-bold text-slate-900">Nathan R.</h4>
                 <p className="text-blue-700 text-sm">Legal & Real Estate Coach</p>
               </div>
-              <p className="text-slate-700 leading-relaxed mb-4">
+              <p className="text-sm sm:text-base text-slate-700 leading-relaxed mb-4">
                 "Working with professionals transitioning between legal and real estate careers, I needed a tool that could handle complex, multi-step goals. OnPathFlow's path builder makes it easy to create custom journeys for each client's unique situation."
               </p>
               <div className="flex text-yellow-400">
@@ -527,12 +527,12 @@ const LandingPage: React.FC = () => {
               </div>
             </div>
 
-            <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-8 border border-purple-200">
+            <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-6 sm:p-8 border border-purple-200">
               <div className="mb-6">
                 <h4 className="font-bold text-slate-900">Amber I.</h4>
                 <p className="text-purple-700 text-sm">Insurance & Design Coach</p>
               </div>
-              <p className="text-slate-700 leading-relaxed mb-4">
+              <p className="text-sm sm:text-base text-slate-700 leading-relaxed mb-4">
                 "I coach professionals in both insurance and design - two very different fields. OnPathFlow's flexibility lets me create tailored milestone paths for each industry while tracking everything in one dashboard. The visual progress keeps my clients engaged across both sectors."
               </p>
               <div className="flex text-yellow-400">
@@ -546,50 +546,50 @@ const LandingPage: React.FC = () => {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-20 bg-gradient-to-br from-slate-50 to-blue-50">
+      <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-slate-50 to-blue-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
+          <div className="text-center mb-8 sm:mb-12 md:mb-16">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 mb-4 sm:mb-6">
               Frequently Asked Questions
             </h2>
-            <p className="text-xl text-slate-600">
+            <p className="text-base sm:text-lg md:text-xl text-slate-600 px-4">
               Everything you need to know about OnPathFlow
             </p>
           </div>
           
-          <div className="space-y-6">
-            <div className="bg-white rounded-2xl p-8 shadow-lg border border-slate-200">
-              <h3 className="text-xl font-bold text-slate-900 mb-4">
+          <div className="space-y-4 sm:space-y-6">
+            <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-lg border border-slate-200">
+              <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-3 sm:mb-4">
                 How does the visual path builder work?
               </h3>
-              <p className="text-slate-600 leading-relaxed">
+              <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
                 Simply create a goal for your client, then break it down into specific milestones with due dates. Your clients can see their entire journey laid out visually, track their progress, and celebrate each completed step.
               </p>
             </div>
             
-            <div className="bg-white rounded-2xl p-8 shadow-lg border border-slate-200">
-              <h3 className="text-xl font-bold text-slate-900 mb-4">
+            <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-lg border border-slate-200">
+              <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-3 sm:mb-4">
                 Can I track multiple clients at once?
               </h3>
-              <p className="text-slate-600 leading-relaxed">
+              <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
                 Absolutely! Your coach dashboard shows all your clients' progress in one place. You can see who's on track, who might need extra support, and celebrate wins across your entire client base.
               </p>
             </div>
             
-            <div className="bg-white rounded-2xl p-8 shadow-lg border border-slate-200">
-              <h3 className="text-xl font-bold text-slate-900 mb-4">
+            <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-lg border border-slate-200">
+              <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-3 sm:mb-4">
                 What happens during the 7-day free trial?
               </h3>
-              <p className="text-slate-600 leading-relaxed">
+              <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
                 You get full access to all features - create unlimited goal paths, track client progress, and use all the analytics tools. No restrictions, no hidden fees. Cancel anytime before the trial ends.
               </p>
             </div>
             
-            <div className="bg-white rounded-2xl p-8 shadow-lg border border-slate-200">
-              <h3 className="text-xl font-bold text-slate-900 mb-4">
+            <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-lg border border-slate-200">
+              <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-3 sm:mb-4">
                 How do clients access their progress?
               </h3>
-              <p className="text-slate-600 leading-relaxed">
+              <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
                 Each client gets their own beautiful dashboard where they can see their goal paths, update their progress, add notes, and celebrate completed milestones. It's designed to keep them motivated and engaged.
               </p>
             </div>
@@ -598,19 +598,19 @@ const LandingPage: React.FC = () => {
       </section>
 
       {/* Final CTA */}
-      <section className="py-20 bg-gradient-to-r from-emerald-500 to-blue-600">
+      <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-r from-emerald-500 to-blue-600">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 sm:mb-6">
             Ready to Transform Your Coaching Practice?
           </h2>
-          <p className="text-xl text-emerald-100 mb-8 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-emerald-100 mb-6 sm:mb-8 max-w-2xl mx-auto px-4">
             Join thousands of coaches who are helping their clients achieve more with OnPathFlow's visual goal-setting platform.
           </p>
           
-          <div className="space-y-4">
+          <div className="space-y-3 sm:space-y-4">
             <Link 
               to="/signup" 
-              className="inline-block bg-white text-emerald-600 px-8 py-4 rounded-xl font-bold text-lg hover:bg-emerald-50 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl"
+              className="inline-block bg-white text-emerald-600 px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-bold text-base sm:text-lg hover:bg-emerald-50 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl"
             >
               Start Your 7-Day Free Trial
             </Link>
