@@ -1,22 +1,46 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Target, Users, CheckCircle, Clock, TrendingUp, Trophy, Bell, Settings, Star, MessageSquare } from 'lucide-react';
+import { Target, Users, CheckCircle, Clock, TrendingUp, Trophy, Bell, Settings, Star, MessageSquare, ArrowRight, Play, Zap, Shield, BarChart3, Smartphone, Globe, ChevronDown } from 'lucide-react';
 import Header from '../components/Header';
 
 const LandingPage: React.FC = () => {
   const [currentDemoStep, setCurrentDemoStep] = React.useState(0);
-  const [isAutoPlaying] = React.useState(true);
+  const [isAutoPlaying, setIsAutoPlaying] = React.useState(false);
+  const [demoInView, setDemoInView] = React.useState(false);
+  const [expandedFaq, setExpandedFaq] = React.useState<number | null>(null);
 
-  // Auto-advance demo steps
+  // Intersection Observer for demo section
   React.useEffect(() => {
-    if (!isAutoPlaying) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setDemoInView(true);
+          setIsAutoPlaying(true);
+        } else {
+          setIsAutoPlaying(false);
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    const demoSection = document.getElementById('demo-section');
+    if (demoSection) {
+      observer.observe(demoSection);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  // Auto-advance demo steps when in view
+  React.useEffect(() => {
+    if (!isAutoPlaying || !demoInView) return;
     
     const interval = setInterval(() => {
       setCurrentDemoStep(prev => (prev + 1) % 4);
-    }, 5000);
+    }, 4000);
     
     return () => clearInterval(interval);
-  }, [isAutoPlaying]);
+  }, [isAutoPlaying, demoInView]);
 
   const mockClients = [
     {
@@ -707,172 +731,68 @@ const LandingPage: React.FC = () => {
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-br from-slate-50 to-blue-50 pt-16 pb-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left Column - Content */}
-            <div className="text-center lg:text-left">
-              {/* Badge */}
-              <div className="inline-flex items-center bg-emerald-100 text-emerald-700 px-4 py-2 rounded-full text-sm font-medium mb-6">
-                <span className="w-2 h-2 bg-emerald-500 rounded-full mr-2"></span>
-                7-Day Free Trial Available
-              </div>
-              
-              <h1 className="text-4xl md:text-6xl font-bold text-slate-900 mb-6 leading-tight">
-                Build Your Path to
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-blue-600"> Success</span>
-              </h1>
-              
-              <p className="text-xl text-slate-600 mb-8 leading-relaxed">
-                Transform your goals into clear, actionable paths. OnPathFlow helps you visualize, plan, and achieve your objectives with our intuitive goal mapping platform.
-              </p>
-              
-              <div className="mb-6">
-                <button className="bg-emerald-500 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-emerald-600 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl">
-                  Start Your Free Trial
-                </button>
-              </div>
-              
-              <div className="flex items-center justify-center lg:justify-start space-x-6 text-sm text-slate-600">
-                <div className="flex items-center space-x-1">
-                  <CheckCircle className="w-4 h-4 text-emerald-500" />
-                  <span>7-day free trial</span>
-                </div>
-                <div className="flex items-center space-x-1">
-                  <CheckCircle className="w-4 h-4 text-emerald-500" />
-                  <span>Cancel anytime</span>
-                </div>
-              </div>
+          <div className="text-center">
+            {/* Badge */}
+            <div className="inline-flex items-center bg-emerald-100 text-emerald-700 px-4 py-2 rounded-full text-sm font-medium mb-6">
+              <span className="w-2 h-2 bg-emerald-500 rounded-full mr-2"></span>
+              7-Day Free Trial Available
             </div>
-
-            {/* Right Column - Interactive Demo */}
-            <div className="relative">
-              {/* Hero Mockup - Enhanced */}
-              <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-slate-200">
-                <div className="bg-slate-100 px-4 py-3 flex items-center justify-between border-b border-slate-200">
-                  <div className="flex items-center space-x-2">
-                    <div className="w-3 h-3 bg-red-400 rounded-full"></div>
-                    <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
-                    <div className="w-3 h-3 bg-green-400 rounded-full"></div>
-                  </div>
-                  <div className="text-sm text-slate-600">onpathflow.com/dashboard</div>
-                  <div className="flex items-center space-x-4">
-                    <Bell className="w-4 h-4 text-slate-400" />
-                    <Settings className="w-4 h-4 text-slate-400" />
-                  </div>
-                </div>
-                
-                {/* Enhanced Hero Mockup Content */}
-                <div className="p-6 bg-gradient-to-br from-slate-50 to-blue-50">
-                  {/* Header with greeting */}
-                  <div className="mb-6">
-                    <h3 className="text-xl font-bold text-slate-800 mb-1">Good morning, Jennifer! 👋</h3>
-                    <p className="text-slate-600 text-sm">Here's your coaching dashboard overview</p>
-                  </div>
-                  
-                  {/* Stats Grid */}
-                  <div className="grid grid-cols-2 gap-4 mb-6">
-                    <div className="bg-emerald-50 p-4 rounded-xl border border-emerald-200">
-                      <div className="flex items-center justify-between mb-2">
-                        <Users className="w-5 h-5 text-emerald-500" />
-                        <span className="text-xs text-emerald-600 bg-emerald-100 px-2 py-1 rounded-full">+3 this week</span>
-                      </div>
-                      <div className="text-2xl font-bold text-emerald-700">24</div>
-                      <div className="text-sm text-emerald-600">Active Clients</div>
-                    </div>
-                    <div className="bg-blue-50 p-4 rounded-xl border border-blue-200">
-                      <div className="flex items-center justify-between mb-2">
-                        <TrendingUp className="w-5 h-5 text-blue-500" />
-                        <span className="text-xs text-blue-600 bg-blue-100 px-2 py-1 rounded-full">↗ +12%</span>
-                      </div>
-                      <div className="text-2xl font-bold text-blue-700">89%</div>
-                      <div className="text-sm text-blue-600">Success Rate</div>
-                    </div>
-                  </div>
-                  
-                  {/* Recent Achievements */}
-                  <div className="bg-gradient-to-r from-emerald-500 to-blue-600 rounded-xl p-4 text-white mb-4">
-                    <div className="flex items-center space-x-3">
-                      <Trophy className="w-6 h-6 text-yellow-300" />
-                      <div>
-                        <div className="font-semibold">Sarah just completed her AWS certification! 🎉</div>
-                        <div className="text-emerald-100 text-sm">3 more clients achieved major milestones this week</div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Client Activity */}
-                  <div className="bg-white rounded-xl p-4 shadow-sm">
-                    <div className="flex items-center justify-between mb-3">
-                      <h4 className="font-semibold text-slate-800">Client Progress</h4>
-                      <span className="text-xs text-slate-500">Live updates</span>
-                    </div>
-                    <div className="space-y-3">
-                      <div className="flex items-center space-x-3">
-                        <img 
-                          src="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop"
-                          alt="Sarah"
-                          className="w-8 h-8 rounded-full object-cover"
-                        />
-                        <div className="flex-1">
-                          <div className="font-medium text-slate-800 text-sm">Sarah Chen</div>
-                          <div className="text-slate-600 text-xs">Senior Engineer Path • 12-day streak</div>
-                        </div>
-                        <div className="text-right">
-                          <div className="text-emerald-600 font-bold text-sm">75%</div>
-                          <div className="w-12 bg-slate-200 rounded-full h-1">
-                            <div className="bg-emerald-500 h-1 rounded-full" style={{width: '75%'}}></div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="flex items-center space-x-3">
-                        <img 
-                          src="https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop"
-                          alt="Marcus"
-                          className="w-8 h-8 rounded-full object-cover"
-                        />
-                        <div className="flex-1">
-                          <div className="font-medium text-slate-800 text-sm">Marcus Rodriguez</div>
-                          <div className="text-slate-600 text-xs">VP Product Path • 8-day streak</div>
-                        </div>
-                        <div className="text-right">
-                          <div className="text-blue-600 font-bold text-sm">67%</div>
-                          <div className="w-12 bg-slate-200 rounded-full h-1">
-                            <div className="bg-blue-500 h-1 rounded-full" style={{width: '67%'}}></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+            
+            <h1 className="text-4xl md:text-6xl font-bold text-slate-900 mb-6 leading-tight max-w-4xl mx-auto">
+              Stop Setting Goals That Never Get Achieved
+            </h1>
+            
+            <p className="text-xl text-slate-600 mb-8 leading-relaxed max-w-3xl mx-auto">
+              Turn your biggest ambitions into clear, actionable milestone paths. OnPathFlow helps coaches and individuals break down overwhelming goals into achievable daily wins.
+            </p>
+            
+            <div className="mb-8">
+              <Link to="/signup" className="inline-flex items-center bg-emerald-500 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-emerald-600 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl">
+                Start Your Free Trial
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </Link>
+            </div>
+            
+            <div className="flex items-center justify-center space-x-6 text-sm text-slate-600">
+              <div className="flex items-center space-x-1">
+                <CheckCircle className="w-4 h-4 text-emerald-500" />
+                <span>7-day free trial</span>
               </div>
-              
-              {/* Floating Elements for Visual Interest */}
-              <div className="absolute -top-4 -right-4 w-8 h-8 bg-emerald-500 rounded-full opacity-20 animate-pulse"></div>
-              <div className="absolute -bottom-6 -left-6 w-12 h-12 bg-blue-500 rounded-full opacity-10 animate-bounce"></div>
+              <div className="flex items-center space-x-1">
+                <CheckCircle className="w-4 h-4 text-emerald-500" />
+                <span>No credit card required</span>
+              </div>
+              <div className="flex items-center space-x-1">
+                <CheckCircle className="w-4 h-4 text-emerald-500" />
+                <span>Cancel anytime</span>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Interactive Demo Section */}
-      <section className="py-20 bg-white">
+      {/* Demo Video Section */}
+      <section id="demo-section" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Demo Disclaimer */}
+          {/* Demo Header */}
           <div className="text-center mb-12">
             <div className="inline-flex items-center bg-gradient-to-r from-emerald-100 to-blue-100 text-slate-700 px-6 py-3 rounded-full text-lg font-semibold mb-6 border border-emerald-200">
-              <span className="w-3 h-3 bg-emerald-500 rounded-full mr-3 animate-pulse"></span>
-              Interactive Demo Below - Watch the Magic Happen ✨
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+              <Play className="w-5 h-5 mr-3 text-emerald-600" />
               See OnPathFlow in Action
+            </div>
+            <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-4">
+              Watch Goals Transform Into Reality
             </h2>
             <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-              Watch how coaches use OnPathFlow to track client progress, build custom goal paths, and celebrate achievements in real-time.
+              See how coaches use OnPathFlow to track client progress, build custom goal paths, and celebrate achievements in real-time.
             </p>
           </div>
 
           {/* Desktop Demo */}
           <div className="hidden md:block">
-            <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-slate-200 max-w-5xl mx-auto">
+            <div className={`bg-white rounded-2xl shadow-2xl overflow-hidden border border-slate-200 max-w-5xl mx-auto transition-all duration-1000 ${
+              demoInView ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform translate-y-8'
+            }`}>
               {/* Mock Browser Header */}
               <div className="bg-slate-100 px-4 py-3 flex items-center justify-between border-b border-slate-200">
                 <div className="flex items-center space-x-2">
@@ -935,7 +855,9 @@ const LandingPage: React.FC = () => {
           </div>
 
           {/* Mobile Demo */}
-          <div className="md:hidden">
+          <div className={`md:hidden transition-all duration-1000 ${
+            demoInView ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform translate-y-8'
+          }`}>
             <div className="max-w-sm mx-auto">
               <div className="bg-slate-800 rounded-t-2xl p-3">
                 <div className="flex items-center justify-between mb-2">
@@ -966,11 +888,6 @@ const LandingPage: React.FC = () => {
                     <div className="flex items-center space-x-2">
                       <Bell className="w-4 h-4 text-slate-400" />
                       <Settings className="w-4 h-4 text-slate-400" />
-                      <img 
-                        src="https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=24&h=24&fit=crop"
-                        alt="User"
-                        className="w-6 h-6 rounded-full object-cover"
-                      />
                     </div>
                   </div>
                   
@@ -1003,6 +920,544 @@ const LandingPage: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* Key Features Section */}
+      <section className="py-20 bg-gradient-to-br from-slate-50 to-blue-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-4">
+              Everything You Need to Achieve Your Goals
+            </h2>
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+              Powerful features designed to turn your biggest dreams into step-by-step reality.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {/* Visual Goal Mapping */}
+            <div className="bg-white rounded-2xl p-8 shadow-lg border border-slate-200 hover:shadow-xl transition-shadow duration-300">
+              <div className="w-12 h-12 bg-gradient-to-r from-emerald-500 to-blue-600 rounded-xl flex items-center justify-center mb-6">
+                <Target className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-slate-900 mb-4">Visual Goal Mapping</h3>
+              <p className="text-slate-600 mb-6">
+                Transform overwhelming goals into clear, visual milestone paths. See exactly what needs to happen and when.
+              </p>
+              <div className="bg-slate-50 rounded-lg p-4">
+                <div className="space-y-2">
+                  <div className="flex items-center space-x-2">
+                    <div className="w-3 h-3 bg-emerald-500 rounded-full"></div>
+                    <span className="text-sm text-slate-700">Complete certification</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-3 h-3 bg-blue-500 rounded-full animate-pulse"></div>
+                    <span className="text-sm text-slate-700">Build portfolio projects</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-3 h-3 bg-slate-300 rounded-full"></div>
+                    <span className="text-sm text-slate-500">Apply to companies</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Smart Progress Tracking */}
+            <div className="bg-white rounded-2xl p-8 shadow-lg border border-slate-200 hover:shadow-xl transition-shadow duration-300">
+              <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-600 rounded-xl flex items-center justify-center mb-6">
+                <BarChart3 className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-slate-900 mb-4">Smart Progress Tracking</h3>
+              <p className="text-slate-600 mb-6">
+                Automatic progress updates, streak tracking, and intelligent insights to keep you motivated and on track.
+              </p>
+              <div className="bg-slate-50 rounded-lg p-4">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm text-slate-700">Weekly Progress</span>
+                  <span className="text-sm font-bold text-emerald-600">87%</span>
+                </div>
+                <div className="w-full bg-slate-200 rounded-full h-2">
+                  <div className="bg-gradient-to-r from-emerald-500 to-blue-500 h-2 rounded-full" style={{width: '87%'}}></div>
+                </div>
+                <div className="flex items-center justify-between mt-2 text-xs text-slate-500">
+                  <span>12-day streak 🔥</span>
+                  <span>3 milestones this week</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Team Collaboration */}
+            <div className="bg-white rounded-2xl p-8 shadow-lg border border-slate-200 hover:shadow-xl transition-shadow duration-300">
+              <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mb-6">
+                <Users className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-slate-900 mb-4">Team Collaboration</h3>
+              <p className="text-slate-600 mb-6">
+                Perfect for coaches, mentors, and teams. Share progress, celebrate wins, and stay accountable together.
+              </p>
+              <div className="bg-slate-50 rounded-lg p-4">
+                <div className="flex items-center space-x-2 mb-2">
+                  <img src="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=24&h=24&fit=crop" alt="" className="w-6 h-6 rounded-full" />
+                  <span className="text-sm text-slate-700">Sarah completed AWS cert! 🎉</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <img src="https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=24&h=24&fit=crop" alt="" className="w-6 h-6 rounded-full" />
+                  <span className="text-sm text-slate-700">Marcus started networking milestone</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Interactive Demo */}
+          <div className="mt-16">
+            {/* Desktop Demo */}
+            <div className="hidden md:block">
+              <div className={`bg-white rounded-2xl shadow-2xl overflow-hidden border border-slate-200 max-w-5xl mx-auto transition-all duration-1000 ${
+                demoInView ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform translate-y-8'
+              }`}>
+                {/* Mock Browser Header */}
+                <div className="bg-slate-100 px-4 py-3 flex items-center justify-between border-b border-slate-200">
+                  <div className="flex items-center space-x-2">
+                    <div className="w-3 h-3 bg-red-400 rounded-full"></div>
+                    <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
+                    <div className="w-3 h-3 bg-green-400 rounded-full"></div>
+                  </div>
+                  <div className="text-sm text-slate-600">https://onpathflow.com/dashboard</div>
+                  <div></div>
+                </div>
+
+                {/* Demo Navigation */}
+                <div className="bg-white border-b border-slate-200 px-6 py-4">
+                  <div className="flex items-center justify-between">
+                    {/* Logo and Title */}
+                    <div className="flex items-center space-x-3">
+                      <div className="w-8 h-8 bg-gradient-to-r from-emerald-500 to-blue-600 rounded-xl flex items-center justify-center">
+                        <Target className="w-5 h-5 text-white" />
+                      </div>
+                      <div>
+                        <h1 className="text-xl font-bold text-slate-800">OnPathFlow</h1>
+                        <div className="flex items-center space-x-2">
+                          <span className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-2 py-1 rounded-full text-xs font-medium">PRO</span>
+                          <span className="text-slate-500 text-sm">Coach Dashboard</span>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    {/* Navigation Tabs */}
+                    <div className="flex space-x-1">
+                      {['Dashboard', 'Progress', 'Builder', 'Analytics'].map((step, index) => (
+                        <button
+                          key={index}
+                          className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                            currentDemoStep === index
+                              ? 'bg-emerald-500 text-white'
+                              : 'text-slate-600 hover:bg-slate-100'
+                          }`}
+                        >
+                          {step}
+                        </button>
+                      ))}
+                    </div>
+                    
+                    {/* User Profile */}
+                    <div className="flex items-center space-x-3">
+                      <Bell className="w-5 h-5 text-slate-400 hover:text-slate-600 cursor-pointer transition-colors duration-200" />
+                      <Settings className="w-5 h-5 text-slate-400 hover:text-slate-600 cursor-pointer transition-colors duration-200" />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Demo Content */}
+                <div className="p-6 bg-gradient-to-br from-slate-50 to-blue-50 min-h-[500px]">                
+                  <div className="transition-all duration-500 ease-in-out">
+                    {getCurrentDemoView()}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Mobile Demo */}
+            <div className={`md:hidden transition-all duration-1000 ${
+              demoInView ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform translate-y-8'
+            }`}>
+              <div className="max-w-sm mx-auto">
+                <div className="bg-slate-800 rounded-t-2xl p-3">
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center space-x-2">
+                      <div className="w-2 h-2 bg-red-400 rounded-full"></div>
+                      <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
+                      <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                    </div>
+                    <div className="text-xs text-slate-300">onpathflow.com</div>
+                    <div className="w-4 h-4"></div>
+                  </div>
+                </div>
+                
+                <div className="bg-white shadow-2xl overflow-hidden">
+                  <header className="bg-white border-b border-slate-200 px-4 py-4">
+                    <div className="flex justify-between items-center mb-3">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-6 h-6 bg-gradient-to-r from-emerald-500 to-blue-600 rounded-lg flex items-center justify-center">
+                          <Target className="w-4 h-4 text-white" />
+                        </div>
+                        <div>
+                          <span className="font-bold text-slate-800 text-sm">OnPathFlow</span>
+                          <div className="flex items-center space-x-1">
+                            <span className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-1.5 py-0.5 rounded-full text-xs font-medium">PRO</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Bell className="w-4 h-4 text-slate-400" />
+                        <Settings className="w-4 h-4 text-slate-400" />
+                      </div>
+                    </div>
+                    
+                    {/* Mobile Navigation Tabs */}
+                    <div className="flex space-x-2 overflow-x-auto">
+                      {['Dashboard', 'Clients', 'Builder', 'Analytics'].map((step, index) => (
+                        <button
+                          key={index}
+                          className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 whitespace-nowrap ${
+                            currentDemoStep === index
+                              ? 'bg-emerald-500 text-white'
+                              : 'text-slate-600 hover:bg-slate-100'
+                          }`}
+                        >
+                          {step}
+                        </button>
+                      ))}
+                    </div>
+                  </header>
+
+                  <div className="p-6 bg-gradient-to-br from-slate-50 to-blue-50 min-h-[500px]">
+                    <div className="transition-all duration-500 ease-in-out">
+                      {getCurrentMobileDemoView()}
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="bg-slate-800 rounded-b-2xl h-2"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Social Proof Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-4">
+              Trusted by Goal Achievers Worldwide
+            </h2>
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+              Join thousands of coaches, entrepreneurs, and ambitious individuals who've transformed their goals into reality.
+            </p>
+          </div>
+
+          {/* Stats */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
+            <div className="text-center">
+              <div className="text-4xl font-bold text-emerald-600 mb-2">10,000+</div>
+              <div className="text-slate-600">Goals Achieved</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl font-bold text-blue-600 mb-2">2,500+</div>
+              <div className="text-slate-600">Active Users</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl font-bold text-purple-600 mb-2">94%</div>
+              <div className="text-slate-600">Success Rate</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl font-bold text-amber-600 mb-2">4.9/5</div>
+              <div className="text-slate-600">User Rating</div>
+            </div>
+          </div>
+
+          {/* Testimonials */}
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="bg-gradient-to-br from-emerald-50 to-emerald-100 rounded-2xl p-8 border border-emerald-200">
+              <div className="flex items-center space-x-1 mb-4">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-5 h-5 text-yellow-500 fill-current" />
+                ))}
+              </div>
+              <p className="text-slate-700 mb-6 italic">
+                "OnPathFlow completely changed how I approach my career goals. I went from feeling overwhelmed to having a clear roadmap. Landed my dream job in 6 months!"
+              </p>
+              <div className="flex items-center space-x-3">
+                <img 
+                  src="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=60&h=60&fit=crop"
+                  alt="Sarah Chen"
+                  className="w-12 h-12 rounded-full object-cover"
+                />
+                <div>
+                  <div className="font-semibold text-slate-800">Sarah Chen</div>
+                  <div className="text-slate-600 text-sm">Senior Software Engineer at Google</div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-8 border border-blue-200">
+              <div className="flex items-center space-x-1 mb-4">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-5 h-5 text-yellow-500 fill-current" />
+                ))}
+              </div>
+              <p className="text-slate-700 mb-6 italic">
+                "As a coach, OnPathFlow has revolutionized how I work with clients. The visual progress tracking keeps everyone motivated and accountable."
+              </p>
+              <div className="flex items-center space-x-3">
+                <img 
+                  src="https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=60&h=60&fit=crop"
+                  alt="Jennifer Martinez"
+                  className="w-12 h-12 rounded-full object-cover"
+                />
+                <div>
+                  <div className="font-semibold text-slate-800">Jennifer Martinez</div>
+                  <div className="text-slate-600 text-sm">Executive Coach & Consultant</div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-8 border border-purple-200">
+              <div className="flex items-center space-x-1 mb-4">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-5 h-5 text-yellow-500 fill-current" />
+                ))}
+              </div>
+              <p className="text-slate-700 mb-6 italic">
+                "Finally, a tool that makes goal setting actually work. The milestone breakdown feature is genius - no more overwhelming to-do lists!"
+              </p>
+              <div className="flex items-center space-x-3">
+                <img 
+                  src="https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=60&h=60&fit=crop"
+                  alt="Marcus Rodriguez"
+                  className="w-12 h-12 rounded-full object-cover"
+                />
+                <div>
+                  <div className="font-semibold text-slate-800">Marcus Rodriguez</div>
+                  <div className="text-slate-600 text-sm">VP of Product at Startup</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing Section */}
+      <section className="py-20 bg-gradient-to-br from-slate-50 to-blue-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-4">
+              Simple, Transparent Pricing
+            </h2>
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+              Start with a 7-day free trial. No hidden fees, cancel anytime.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {/* Basic Plan */}
+            <div className="bg-white border-2 border-slate-200 rounded-2xl p-8 hover:border-slate-300 transition-colors duration-200">
+              <div className="text-center">
+                <h3 className="text-2xl font-bold text-slate-900 mb-2">Basic</h3>
+                <p className="text-slate-600 mb-6">Perfect for getting started</p>
+                
+                <div className="mb-8">
+                  <span className="text-5xl font-bold text-slate-900">$9</span>
+                  <span className="text-slate-600 text-lg">/month</span>
+                </div>
+
+                <Link to="/signup" className="block w-full bg-slate-600 text-white py-3 px-6 rounded-xl font-semibold hover:bg-slate-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl mb-8 text-center">
+                  Start 7-Day Free Trial
+                </Link>
+              </div>
+
+              <ul className="space-y-4">
+                <li className="flex items-center">
+                  <CheckCircle className="w-5 h-5 text-emerald-500 mr-3" />
+                  <span className="text-slate-700">Up to 5 goal paths</span>
+                </li>
+                <li className="flex items-center">
+                  <CheckCircle className="w-5 h-5 text-emerald-500 mr-3" />
+                  <span className="text-slate-700">Basic progress tracking</span>
+                </li>
+                <li className="flex items-center">
+                  <CheckCircle className="w-5 h-5 text-emerald-500 mr-3" />
+                  <span className="text-slate-700">Email reminders</span>
+                </li>
+                <li className="flex items-center">
+                  <CheckCircle className="w-5 h-5 text-emerald-500 mr-3" />
+                  <span className="text-slate-700">Mobile app access</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Pro Plan */}
+            <div className="bg-gradient-to-br from-emerald-50 to-blue-50 border-2 border-emerald-500 rounded-2xl p-8 relative">
+              <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                <span className="bg-emerald-500 text-white px-4 py-2 rounded-full text-sm font-semibold">
+                  Most Popular
+                </span>
+              </div>
+              
+              <div className="text-center">
+                <h3 className="text-2xl font-bold text-slate-900 mb-2">Pro</h3>
+                <p className="text-slate-600 mb-6">For serious goal achievers</p>
+                
+                <div className="mb-8">
+                  <span className="text-5xl font-bold text-slate-900">$29</span>
+                  <span className="text-slate-600 text-lg">/month</span>
+                </div>
+
+                <Link to="/signup" className="block w-full bg-emerald-500 text-white py-3 px-6 rounded-xl font-semibold hover:bg-emerald-600 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl mb-8 text-center">
+                  Start 7-Day Free Trial
+                </Link>
+              </div>
+
+              <ul className="space-y-4">
+                <li className="flex items-center">
+                  <CheckCircle className="w-5 h-5 text-emerald-500 mr-3" />
+                  <span className="text-slate-700">Unlimited goal paths</span>
+                </li>
+                <li className="flex items-center">
+                  <CheckCircle className="w-5 h-5 text-emerald-500 mr-3" />
+                  <span className="text-slate-700">Advanced analytics & insights</span>
+                </li>
+                <li className="flex items-center">
+                  <CheckCircle className="w-5 h-5 text-emerald-500 mr-3" />
+                  <span className="text-slate-700">Smart AI recommendations</span>
+                </li>
+                <li className="flex items-center">
+                  <CheckCircle className="w-5 h-5 text-emerald-500 mr-3" />
+                  <span className="text-slate-700">Team collaboration</span>
+                </li>
+                <li className="flex items-center">
+                  <CheckCircle className="w-5 h-5 text-emerald-500 mr-3" />
+                  <span className="text-slate-700">Priority support</span>
+                </li>
+                <li className="flex items-center">
+                  <CheckCircle className="w-5 h-5 text-emerald-500 mr-3" />
+                  <span className="text-slate-700">Custom integrations</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-4">
+              Frequently Asked Questions
+            </h2>
+            <p className="text-xl text-slate-600">
+              Everything you need to know about OnPathFlow
+            </p>
+          </div>
+          
+          <div className="space-y-4">
+            {[
+              {
+                question: "How does the free trial work?",
+                answer: "Start your 7-day free trial with full access to all Pro features. We'll ask for your payment method upfront, but you won't be charged until the trial ends. Cancel anytime during the trial with no charges."
+              },
+              {
+                question: "What makes OnPathFlow different from other goal-setting apps?",
+                answer: "OnPathFlow focuses on visual milestone mapping and real-time progress tracking. Unlike simple to-do apps, we help you break down complex goals into achievable paths with built-in accountability and celebration features."
+              },
+              {
+                question: "Can I use OnPathFlow for team goals?",
+                answer: "Absolutely! OnPathFlow is perfect for coaches, managers, and teams. Share progress, collaborate on milestones, and celebrate achievements together. Pro plans include advanced team features."
+              },
+              {
+                question: "How does the coaching feature work?",
+                answer: "Coaches can create custom goal paths for clients, track their progress in real-time, and provide feedback directly within the platform. Clients get their own dashboard to update progress and communicate with their coach."
+              },
+              {
+                question: "Can I change plans later?",
+                answer: "Yes! You can upgrade or downgrade your plan at any time from your account settings. Changes take effect immediately with prorated billing."
+              },
+              {
+                question: "What happens to my data if I cancel?",
+                answer: "Your data is safely stored for 30 days after cancellation, giving you time to export or reactivate your account. We never delete your progress without warning."
+              }
+            ].map((faq, index) => (
+              <div key={index} className="bg-slate-50 rounded-xl border border-slate-200 overflow-hidden">
+                <button
+                  onClick={() => setExpandedFaq(expandedFaq === index ? null : index)}
+                  className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-slate-100 transition-colors duration-200"
+                >
+                  <h3 className="text-lg font-semibold text-slate-900">{faq.question}</h3>
+                  <ChevronDown className={`w-5 h-5 text-slate-500 transition-transform duration-200 ${
+                    expandedFaq === index ? 'transform rotate-180' : ''
+                  }`} />
+                </button>
+                {expandedFaq === index && (
+                  <div className="px-6 pb-4">
+                    <p className="text-slate-600 leading-relaxed">{faq.answer}</p>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA Section */}
+      <section className="py-20 bg-gradient-to-r from-emerald-500 to-blue-600">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
+            Ready to Turn Your Goals Into Reality?
+          </h2>
+          <p className="text-xl text-emerald-100 mb-8 max-w-2xl mx-auto">
+            Join thousands of successful goal achievers who've transformed their dreams into step-by-step action plans.
+          </p>
+          
+          <div className="mb-8">
+            <Link to="/signup" className="inline-flex items-center bg-white text-emerald-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-emerald-50 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl">
+              Start Your Free Trial Today
+              <ArrowRight className="w-5 h-5 ml-2" />
+            </Link>
+          </div>
+          
+          <div className="flex items-center justify-center space-x-6 text-sm text-emerald-100">
+            <div className="flex items-center space-x-1">
+              <CheckCircle className="w-4 h-4 text-emerald-200" />
+              <span>7-day free trial</span>
+            </div>
+            <div className="flex items-center space-x-1">
+              <CheckCircle className="w-4 h-4 text-emerald-200" />
+              <span>No setup fees</span>
+            </div>
+            <div className="flex items-center space-x-1">
+              <CheckCircle className="w-4 h-4 text-emerald-200" />
+              <span>Cancel anytime</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-slate-900 py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <div className="flex items-center space-x-3 mb-4 md:mb-0">
+              <div className="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center">
+                <Target className="w-5 h-5 text-white" />
+              </div>
+              <span className="text-xl font-bold text-white">OnPathFlow</span>
+            </div>
+            <div className="text-slate-400 text-sm">
+              © 2025 OnPathFlow. All rights reserved.
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };
