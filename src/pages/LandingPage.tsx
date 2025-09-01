@@ -898,27 +898,9 @@ const LandingPage: React.FC = () => {
               </div>
 
               {/* Demo Navigation */}
-              <div className="bg-white border-b border-slate-200 px-4 py-2">
-                <div className="flex space-x-1">
-                  {['Dashboard', 'Progress', 'Builder', 'Analytics'].map((step, index) => (
-                    <button
-                      key={index}
-                      className={`px-3 py-1 rounded-lg text-xs font-medium transition-all duration-200 ${
-                        currentDemoStep === index
-                          ? 'bg-emerald-500 text-white'
-                          : 'text-slate-600 hover:bg-slate-100'
-                      }`}
-                    >
-                      {step}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Demo Content */}
-              <div className="p-6 bg-gradient-to-br from-slate-50 to-blue-50 min-h-[500px]">
-                {/* Demo Header with Logo */}
-                <div className="flex items-center justify-between mb-6 pb-4 border-b border-slate-200">
+              <div className="bg-white border-b border-slate-200 px-6 py-4">
+                <div className="flex items-center justify-between">
+                  {/* Logo and Title */}
                   <div className="flex items-center space-x-3">
                     <div className="w-8 h-8 bg-gradient-to-r from-emerald-500 to-blue-600 rounded-xl flex items-center justify-center">
                       <Target className="w-5 h-5 text-white" />
@@ -932,6 +914,23 @@ const LandingPage: React.FC = () => {
                     </div>
                   </div>
                   
+                  {/* Navigation Tabs */}
+                  <div className="flex space-x-1">
+                    {['Dashboard', 'Progress', 'Builder', 'Analytics'].map((step, index) => (
+                      <button
+                        key={index}
+                        className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                          currentDemoStep === index
+                            ? 'bg-emerald-500 text-white'
+                            : 'text-slate-600 hover:bg-slate-100'
+                        }`}
+                      >
+                        {step}
+                      </button>
+                    ))}
+                  </div>
+                  
+                  {/* User Profile */}
                   <div className="flex items-center space-x-3">
                     <Bell className="w-5 h-5 text-slate-400 hover:text-slate-600 cursor-pointer transition-colors duration-200" />
                     <Settings className="w-5 h-5 text-slate-400 hover:text-slate-600 cursor-pointer transition-colors duration-200" />
@@ -942,7 +941,10 @@ const LandingPage: React.FC = () => {
                     />
                   </div>
                 </div>
-                
+              </div>
+
+              {/* Demo Content */}
+              <div className="p-6 bg-gradient-to-br from-slate-50 to-blue-50 min-h-[500px]">                
                 <div className="transition-all duration-500 ease-in-out">
                   {getCurrentDemoView()}
                 </div>
@@ -966,13 +968,18 @@ const LandingPage: React.FC = () => {
               </div>
               
               <div className="bg-white shadow-2xl overflow-hidden">
-                <header className="bg-white border-b border-slate-200 px-4 py-3">
-                  <div className="flex justify-between items-center">
-                    <div className="flex items-center space-x-2">
+                <header className="bg-white border-b border-slate-200 px-4 py-4">
+                  <div className="flex justify-between items-center mb-3">
+                    <div className="flex items-center space-x-3">
                       <div className="w-6 h-6 bg-gradient-to-r from-emerald-500 to-blue-600 rounded-lg flex items-center justify-center">
                         <Target className="w-4 h-4 text-white" />
                       </div>
-                      <span className="font-semibold text-slate-800 text-sm">OnPathFlow</span>
+                      <div>
+                        <span className="font-bold text-slate-800 text-sm">OnPathFlow</span>
+                        <div className="flex items-center space-x-1">
+                          <span className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-1.5 py-0.5 rounded-full text-xs font-medium">PRO</span>
+                        </div>
+                      </div>
                     </div>
                     <div className="flex items-center space-x-2">
                       <Bell className="w-4 h-4 text-slate-400" />
@@ -984,20 +991,13 @@ const LandingPage: React.FC = () => {
                       />
                     </div>
                   </div>
-                </header>
-
-                <div className="bg-white border-b border-slate-200 px-4 py-3">
-                  <div className="flex items-center justify-between mb-2">
-                    <h2 className="text-sm font-semibold text-slate-800">Coach Dashboard</h2>
-                    <div className="flex items-center space-x-1">
-                      <span className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-2 py-1 rounded-full text-xs font-medium">PRO</span>
-                    </div>
-                  </div>
+                  
+                  {/* Mobile Navigation Tabs */}
                   <div className="flex space-x-2 overflow-x-auto">
                     {['Dashboard', 'Clients', 'Builder', 'Analytics'].map((step, index) => (
                       <button
                         key={index}
-                        className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 whitespace-nowrap ${
+                        className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 whitespace-nowrap ${
                           currentDemoStep === index
                             ? 'bg-emerald-500 text-white'
                             : 'text-slate-600 hover:bg-slate-100'
@@ -1007,7 +1007,7 @@ const LandingPage: React.FC = () => {
                       </button>
                     ))}
                   </div>
-                </div>
+                </header>
 
                 <div className="p-6 bg-gradient-to-br from-slate-50 to-blue-50 min-h-[500px]">
                   <div className="transition-all duration-500 ease-in-out">
