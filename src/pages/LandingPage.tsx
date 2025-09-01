@@ -12,8 +12,8 @@ const LandingPage: React.FC = () => {
     if (!isAutoPlaying) return;
     
     const interval = setInterval(() => {
-      setCurrentDemoStep(prev => (prev + 1) % 3);
-    }, 4000);
+      setCurrentDemoStep(prev => (prev + 1) % 4);
+    }, 5000);
     
     return () => clearInterval(interval);
   }, [isAutoPlaying]);
@@ -353,6 +353,86 @@ const LandingPage: React.FC = () => {
     </div>
   );
 
+  const renderPathBuilder = () => (
+    <div className="space-y-6">
+      {/* Path Builder Header */}
+      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+        <div className="flex items-center justify-between mb-6">
+          <h3 className="text-xl font-semibold text-slate-800">Create New Goal Path</h3>
+          <button className="bg-emerald-500 text-white px-4 py-2 rounded-lg font-medium hover:bg-emerald-600 transition-colors duration-200">
+            Save Template
+          </button>
+        </div>
+        
+        <div className="grid md:grid-cols-2 gap-6">
+          <div>
+            <label className="block text-sm font-medium text-slate-700 mb-2">Goal Title</label>
+            <input 
+              type="text" 
+              value="Become a Data Scientist"
+              className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+              readOnly
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-slate-700 mb-2">Target Date</label>
+            <input 
+              type="date" 
+              value="2025-08-15"
+              className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+              readOnly
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Milestone Builder */}
+      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+        <h4 className="text-lg font-semibold text-slate-800 mb-6">Build Your Milestones</h4>
+        
+        <div className="space-y-4">
+          {[
+            { title: 'Complete Python Fundamentals Course', weeks: 4, status: 'building' },
+            { title: 'Learn SQL & Database Design', weeks: 3, status: 'planned' },
+            { title: 'Master Pandas & NumPy', weeks: 6, status: 'planned' },
+            { title: 'Build 3 Data Analysis Projects', weeks: 8, status: 'planned' },
+            { title: 'Get Kaggle Competition Experience', weeks: 4, status: 'planned' }
+          ].map((milestone, index) => (
+            <div key={index} className={`p-4 rounded-xl border-2 border-dashed transition-all duration-300 ${
+              milestone.status === 'building' ? 'border-emerald-300 bg-emerald-50' : 'border-slate-200 bg-slate-50'
+            }`}>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-3">
+                  <div className={`w-3 h-3 rounded-full ${
+                    milestone.status === 'building' ? 'bg-emerald-500 animate-pulse' : 'bg-slate-300'
+                  }`}></div>
+                  <span className="font-medium text-slate-800">{milestone.title}</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <span className="text-sm text-slate-500">{milestone.weeks} weeks</span>
+                  {milestone.status === 'building' && (
+                    <div className="flex space-x-1">
+                      <div className="w-2 h-2 bg-emerald-500 rounded-full animate-bounce"></div>
+                      <div className="w-2 h-2 bg-emerald-500 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
+                      <div className="w-2 h-2 bg-emerald-500 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+          
+          <button className="w-full p-4 border-2 border-dashed border-slate-300 rounded-xl text-slate-500 hover:border-emerald-300 hover:text-emerald-600 hover:bg-emerald-50 transition-all duration-200 flex items-center justify-center space-x-2">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+            </svg>
+            <span>Add Another Milestone</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+
   const getCurrentDemoView = () => {
     switch (currentDemoStep) {
       case 0:
@@ -360,6 +440,8 @@ const LandingPage: React.FC = () => {
       case 1:
         return renderClientProgress();
       case 2:
+        return renderPathBuilder();
+      case 3:
         return renderAnalytics();
       default:
         return renderDashboard();
@@ -503,7 +585,7 @@ const LandingPage: React.FC = () => {
                 </div>
                 <div className="flex-1 mx-4">
                   <div className="bg-white rounded-md px-4 py-1 text-sm text-slate-600 text-center">
-                    https://app.onpathflow.com/dashboard
+                    https://onpathflow.com/dashboard
                   </div>
                 </div>
                 <div className="w-16"></div>
@@ -544,7 +626,7 @@ const LandingPage: React.FC = () => {
               <div className="bg-white border-b border-slate-200 px-6 py-3">
                 <div className="flex items-center justify-between">
                   <div className="flex space-x-1">
-                    {['Dashboard', 'Client Progress', 'Analytics'].map((step, index) => (
+                    {['Dashboard', 'Client Progress', 'Path Builder', 'Analytics'].map((step, index) => (
                       <button
                         key={index}
                         className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
