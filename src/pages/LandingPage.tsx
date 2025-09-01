@@ -115,6 +115,155 @@ const LandingPage: React.FC = () => {
         </div>
       </section>
 
+      {/* Demo Video Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+              See OnPathFlow in Action
+            </h2>
+            <p className="text-xl text-slate-600 max-w-2xl mx-auto">
+              Watch how coaches and clients use OnPathFlow to turn ambitious goals into clear, actionable paths
+            </p>
+          </div>
+          
+          <div className="max-w-5xl mx-auto">
+            <div className="bg-gradient-to-br from-slate-100 to-blue-100 rounded-2xl p-8 shadow-2xl">
+              <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+                {/* Demo Header */}
+                <div className="bg-slate-50 px-6 py-4 border-b border-slate-200">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-8 h-8 bg-gradient-to-r from-emerald-500 to-blue-600 rounded-lg flex items-center justify-center">
+                        <Target className="w-5 h-5 text-white" />
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-slate-800">OnPathFlow</h3>
+                        <div className="flex items-center space-x-2">
+                          <span className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-2 py-1 rounded-full text-xs font-medium">PRO</span>
+                          <span className="text-slate-500 text-sm">Coach Dashboard</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex space-x-2">
+                      <div className="w-3 h-3 bg-red-400 rounded-full"></div>
+                      <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
+                      <div className="w-3 h-3 bg-green-400 rounded-full"></div>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Demo Content */}
+                <div className="p-6">
+                  {/* Stats Overview */}
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                    <div className="bg-gradient-to-br from-emerald-50 to-emerald-100 p-4 rounded-xl border border-emerald-200">
+                      <div className="text-center">
+                        <div className="text-2xl font-bold text-emerald-700">24</div>
+                        <div className="text-emerald-600 text-sm">Total Clients</div>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-xl border border-blue-200">
+                      <div className="text-center">
+                        <div className="text-2xl font-bold text-blue-700">47</div>
+                        <div className="text-blue-600 text-sm">Active Paths</div>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-4 rounded-xl border border-purple-200">
+                      <div className="text-center">
+                        <div className="text-2xl font-bold text-purple-700">89%</div>
+                        <div className="text-purple-600 text-sm">Completion</div>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-gradient-to-br from-amber-50 to-amber-100 p-4 rounded-xl border border-amber-200">
+                      <div className="text-center">
+                        <div className="text-2xl font-bold text-amber-700">$2,847</div>
+                        <div className="text-amber-600 text-sm">Revenue</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Client Activity */}
+                  <div className="bg-slate-50 rounded-xl p-6">
+                    <h4 className="font-semibold text-slate-800 mb-4">Recent Client Activity</h4>
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between p-4 bg-white rounded-lg">
+                        <div className="flex items-center space-x-3">
+                          <img 
+                            src="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=60&h=60&fit=crop"
+                            alt="Sarah Chen"
+                            className="w-10 h-10 rounded-full object-cover"
+                          />
+                          <div>
+                            <div className="font-medium text-slate-800 text-sm">Sarah Chen</div>
+                            <div className="text-slate-600 text-xs">Senior Software Engineer</div>
+                          </div>
+                        </div>
+                        <div className="flex items-center space-x-4 text-xs">
+                          <div className="text-center">
+                            <div className="font-bold text-emerald-600">75%</div>
+                            <div className="text-slate-500">Progress</div>
+                          </div>
+                          <div className="text-center">
+                            <div className="font-bold text-blue-600">12</div>
+                            <div className="text-slate-500">Streak</div>
+                          </div>
+                          <div className="bg-emerald-100 text-emerald-700 px-2 py-1 rounded-full text-xs font-medium">
+                            High
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className="flex items-center justify-between p-4 bg-white rounded-lg">
+                        <div className="flex items-center space-x-3">
+                          <img 
+                            src="https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=60&h=60&fit=crop"
+                            alt="Marcus Rodriguez"
+                            className="w-10 h-10 rounded-full object-cover"
+                          />
+                          <div>
+                            <div className="font-medium text-slate-800 text-sm">Marcus Rodriguez</div>
+                            <div className="text-slate-600 text-xs">VP of Product</div>
+                          </div>
+                        </div>
+                        <div className="flex items-center space-x-4 text-xs">
+                          <div className="text-center">
+                            <div className="font-bold text-emerald-600">67%</div>
+                            <div className="text-slate-500">Progress</div>
+                          </div>
+                          <div className="text-center">
+                            <div className="font-bold text-blue-600">8</div>
+                            <div className="text-slate-500">Streak</div>
+                          </div>
+                          <div className="bg-emerald-100 text-emerald-700 px-2 py-1 rounded-full text-xs font-medium">
+                            High
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="text-center mt-12">
+            <Link 
+              to="/demo" 
+              className="inline-flex items-center bg-slate-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-slate-700 transition-colors duration-200"
+            >
+              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              Try Interactive Demo
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* First Mockup Section */}
       <section className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
