@@ -161,19 +161,77 @@ const LandingPage: React.FC = () => {
             
             {/* Mobile Phone Mockup */}
             <div className="md:hidden max-w-sm mx-auto">
-              {/* Simple mobile demo without phone frame */}
-              <div className="bg-white rounded-xl shadow-xl border border-slate-200 overflow-hidden">
-                {/* Mobile Demo Header */}
-                <div className="bg-gradient-to-r from-emerald-500 to-blue-600 px-4 py-3 text-white">
-                  <div className="flex items-center space-x-2">
-                    <Target className="w-5 h-5" />
-                    <span className="font-semibold">OnPathFlow Demo</span>
+              {/* Simple Mobile Demo */}
+              <div className="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
+                {/* Header */}
+                <div className="bg-gradient-to-r from-emerald-500 to-blue-600 p-4 text-white">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                      <Target className="w-6 h-6" />
+                      <span className="font-bold">OnPathFlow</span>
+                    </div>
+                    <span className="bg-white/20 px-2 py-1 rounded-full text-xs">Coach View</span>
                   </div>
                 </div>
                 
-                {/* Demo Content */}
-                <div className="bg-gradient-to-br from-slate-50 to-blue-50 p-4">
-                  <DemoEmbed />
+                {/* Simple Stats */}
+                <div className="p-4 space-y-4">
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="bg-emerald-50 p-3 rounded-lg text-center">
+                      <div className="text-2xl font-bold text-emerald-600">24</div>
+                      <div className="text-xs text-slate-600">Active Clients</div>
+                    </div>
+                    <div className="bg-blue-50 p-3 rounded-lg text-center">
+                      <div className="text-2xl font-bold text-blue-600">89%</div>
+                      <div className="text-xs text-slate-600">Success Rate</div>
+                    </div>
+                  </div>
+                  
+                  {/* Client Progress Example */}
+                  <div className="bg-slate-50 rounded-lg p-4">
+                    <div className="flex items-center space-x-3 mb-3">
+                      <img 
+                        src="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=60&h=60&fit=crop"
+                        alt="Client"
+                        className="w-10 h-10 rounded-full object-cover"
+                      />
+                      <div className="flex-1">
+                        <div className="font-medium text-slate-800 text-sm">Sarah Chen</div>
+                        <div className="text-slate-600 text-xs">Senior Engineer Goal</div>
+                      </div>
+                      <div className="text-right">
+                        <div className="font-bold text-emerald-600">75%</div>
+                        <div className="text-xs text-slate-500">Complete</div>
+                      </div>
+                    </div>
+                    
+                    <div className="w-full bg-slate-200 rounded-full h-2 mb-3">
+                      <div className="bg-emerald-500 h-2 rounded-full transition-all duration-1000" style={{width: '75%'}}></div>
+                    </div>
+                    
+                    <div className="flex items-center justify-between text-xs">
+                      <div className="flex items-center space-x-1">
+                        <Star className="w-3 h-3 text-yellow-500" />
+                        <span className="text-slate-600">12-day streak</span>
+                      </div>
+                      <div className="flex items-center space-x-1">
+                        <CheckCircle className="w-3 h-3 text-emerald-500" />
+                        <span className="text-slate-600">6 of 8 done</span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Current Milestone */}
+                  <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="font-medium text-blue-800 text-sm">AWS Certification</span>
+                      <span className="bg-blue-500 text-white px-2 py-1 rounded-full text-xs">In Progress</span>
+                    </div>
+                    <div className="w-full bg-blue-200 rounded-full h-2 mb-2">
+                      <div className="bg-blue-500 h-2 rounded-full" style={{width: '80%'}}></div>
+                    </div>
+                    <div className="text-blue-700 text-xs">Exam scheduled for Friday</div>
+                  </div>
                 </div>
               </div>
             </div>
