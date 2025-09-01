@@ -736,11 +736,11 @@ const LandingPage: React.FC = () => {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="text-left">
               <h1 className="text-5xl md:text-7xl font-bold text-slate-900 mb-6 leading-tight">
-                Stop Setting Goals That 
-                <span className="bg-gradient-to-r from-emerald-500 to-blue-600 bg-clip-text text-transparent"> Never Get Achieved</span>
+                Help Your Clients 
+                <span className="bg-gradient-to-r from-emerald-500 to-blue-600 bg-clip-text text-transparent">Actually Achieve</span> Their Goals
               </h1>
-              <p className="text-xl md:text-2xl text-slate-600 mb-8 max-w-3xl mx-auto leading-relaxed">
-                Transform vague aspirations into clear, actionable milestone paths. Track progress, celebrate wins, and actually reach your biggest goals.
+              <p className="text-xl md:text-2xl text-slate-600 mb-8 leading-relaxed">
+                The visual goal-setting platform that transforms how coaches guide clients from dreams to achievements. Build clear milestone paths, track progress, and celebrate every win together.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
