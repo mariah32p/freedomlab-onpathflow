@@ -157,16 +157,6 @@ const LandingPage: React.FC = () => {
                 <DemoPage />
               </div>
             </div>
-            
-            <div className="text-center mt-12">
-              <Link 
-                to="/demo" 
-                className="inline-flex items-center bg-emerald-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-emerald-600 transition-colors duration-200 space-x-2"
-              >
-                <Eye className="w-5 h-5" />
-                <span>Try Interactive Demo</span>
-              </Link>
-            </div>
           </div>
         </div>
       </section>
