@@ -565,6 +565,12 @@ const LandingPage: React.FC = () => {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
+            {/* Demo Disclaimer */}
+            <div className="inline-flex items-center bg-gradient-to-r from-emerald-100 to-blue-100 text-emerald-700 px-6 py-3 rounded-full text-sm font-semibold mb-6 border border-emerald-200">
+              <div className="w-2 h-2 bg-emerald-500 rounded-full mr-3 animate-pulse"></div>
+              ✨ Interactive Demo Below - Watch the Magic Happen
+            </div>
+            
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
               See OnPathFlow in Action
             </h2>
