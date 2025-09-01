@@ -881,10 +881,7 @@ const LandingPage: React.FC = () => {
                   <div className="w-3 h-3 bg-green-400 rounded-full"></div>
                 </div>
                 <div className="text-sm text-slate-600">https://onpathflow.com/dashboard</div>
-                <div className="flex items-center space-x-4">
-                  <Bell className="w-4 h-4 text-slate-400" />
-                  <Settings className="w-4 h-4 text-slate-400" />
-                </div>
+                <div></div>
               </div>
 
               {/* Demo Navigation */}
