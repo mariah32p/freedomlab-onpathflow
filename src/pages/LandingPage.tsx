@@ -884,11 +884,6 @@ const LandingPage: React.FC = () => {
                 <div className="flex items-center space-x-4">
                   <Bell className="w-4 h-4 text-slate-400" />
                   <Settings className="w-4 h-4 text-slate-400" />
-                  <img 
-                    src="https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=32&h=32&fit=crop"
-                    alt="User"
-                    className="w-6 h-6 rounded-full object-cover"
-                  />
                 </div>
               </div>
 
