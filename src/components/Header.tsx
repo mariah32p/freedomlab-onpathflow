@@ -10,24 +10,12 @@ const Header: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 md:h-20">
           {/* Logo */}
-          <div className="flex items-center">
-            {/* Mobile hamburger menu */}
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden p-2 mr-2 rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors duration-200"
-            >
-              {isMenuOpen ? (
-                <X className="w-6 h-6" />
-              ) : (
-                <Menu className="w-6 h-6" />
-              )}
-            </button>
-            
-            <Link to="/" className="flex items-center space-x-3 max-w-[120px] md:max-w-none">
+          <div className="flex items-center">            
+            <Link to="/" className="flex items-center space-x-3">
               <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-r from-emerald-500 to-blue-600 rounded-xl flex items-center justify-center">
                 <Target className="w-5 h-5 md:w-6 md:h-6 text-white" />
               </div>
-              <span className="text-xl md:text-2xl font-bold text-slate-800">OnPathFlow</span>
+              <span className="text-xl md:text-2xl font-bold text-slate-800 whitespace-nowrap">OnPathFlow</span>
             </Link>
           </div>
 
@@ -44,11 +32,23 @@ const Header: React.FC = () => {
             </Link>
           </nav>
 
-          {/* Mobile CTA Button */}
-          <div className="md:hidden">
+          {/* Mobile Navigation and CTA */}
+          <div className="md:hidden flex items-center space-x-2">
+            {/* Mobile hamburger menu */}
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="p-2 rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors duration-200 flex items-center justify-center"
+            >
+              {isMenuOpen ? (
+                <X className="w-5 h-5" />
+              ) : (
+                <Menu className="w-5 h-5" />
+              )}
+            </button>
+            
             <Link 
               to="/signup" 
-              className="bg-emerald-500 text-white px-4 py-2.5 rounded-md font-semibold text-sm hover:bg-emerald-600 transition-colors duration-200 min-h-[44px] flex items-center justify-center"
+              className="bg-emerald-500 text-white px-4 py-2.5 rounded-lg font-semibold text-sm hover:bg-emerald-600 transition-colors duration-200 whitespace-nowrap"
             >
               Try Free
             </Link>
