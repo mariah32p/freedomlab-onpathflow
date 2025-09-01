@@ -545,6 +545,141 @@ const LandingPage: React.FC = () => {
         </div>
       </section>
 
+      {/* Pricing Section */}
+      <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-slate-50 to-blue-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-8 sm:mb-12 md:mb-16">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 mb-4 sm:mb-6">
+              Simple, Transparent Pricing
+            </h2>
+            <p className="text-base sm:text-lg md:text-xl text-slate-600 max-w-3xl mx-auto px-4">
+              Start with a 7-day free trial. No hidden fees, cancel anytime.
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 gap-6 sm:gap-8 max-w-4xl mx-auto">
+            
+            {/* Standard Plan */}
+            <div className="bg-white border-2 border-slate-200 rounded-2xl p-6 sm:p-8 hover:border-slate-300 transition-colors duration-200">
+              <div className="text-center">
+                <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-2">Standard</h3>
+                <p className="text-slate-600 mb-4 sm:mb-6">Perfect for getting started</p>
+                
+                <div className="mb-6 sm:mb-8">
+                  <span className="text-4xl sm:text-5xl font-bold text-slate-900">$29</span>
+                  <span className="text-slate-600 text-base sm:text-lg">/month</span>
+                </div>
+
+                <Link 
+                  to="/signup"
+                  className="block w-full bg-slate-600 text-white py-3 px-6 rounded-xl font-semibold hover:bg-slate-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl mb-6 sm:mb-8 text-center"
+                >
+                  Start 7-Day Free Trial
+                </Link>
+              </div>
+
+              <ul className="space-y-3 sm:space-y-4">
+                <li className="flex items-center">
+                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-500 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-sm sm:text-base text-slate-700">Up to 10 clients</span>
+                </li>
+                <li className="flex items-center">
+                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-500 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-sm sm:text-base text-slate-700">5 goal path templates</span>
+                </li>
+                <li className="flex items-center">
+                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-500 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-sm sm:text-base text-slate-700">Basic progress tracking</span>
+                </li>
+                <li className="flex items-center">
+                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-500 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-sm sm:text-base text-slate-700">Email notifications</span>
+                </li>
+                <li className="flex items-center">
+                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-500 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-sm sm:text-base text-slate-700">Mobile app access</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Premium Plan */}
+            <div className="bg-gradient-to-br from-emerald-50 to-blue-50 border-2 border-emerald-500 rounded-2xl p-6 sm:p-8 relative">
+              <div className="absolute -top-3 sm:-top-4 left-1/2 transform -translate-x-1/2">
+                <span className="bg-emerald-500 text-white px-3 sm:px-4 py-1 sm:py-2 rounded-full text-xs sm:text-sm font-semibold">
+                  Most Popular
+                </span>
+              </div>
+              
+              <div className="text-center">
+                <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-2">Premium</h3>
+                <p className="text-slate-600 mb-4 sm:mb-6">For serious coaches</p>
+                
+                <div className="mb-6 sm:mb-8">
+                  <span className="text-4xl sm:text-5xl font-bold text-slate-900">$49</span>
+                  <span className="text-slate-600 text-base sm:text-lg">/month</span>
+                </div>
+
+                <Link 
+                  to="/signup"
+                  className="block w-full bg-emerald-500 text-white py-3 px-6 rounded-xl font-semibold hover:bg-emerald-600 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl mb-6 sm:mb-8 text-center"
+                >
+                  Start 7-Day Free Trial
+                </Link>
+              </div>
+
+              <ul className="space-y-3 sm:space-y-4">
+                <li className="flex items-center">
+                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-500 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-sm sm:text-base text-slate-700">Unlimited clients</span>
+                </li>
+                <li className="flex items-center">
+                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-500 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-sm sm:text-base text-slate-700">Unlimited goal path templates</span>
+                </li>
+                <li className="flex items-center">
+                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-500 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-sm sm:text-base text-slate-700">Advanced analytics & insights</span>
+                </li>
+                <li className="flex items-center">
+                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-500 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-sm sm:text-base text-slate-700">Team collaboration features</span>
+                </li>
+                <li className="flex items-center">
+                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-500 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-sm sm:text-base text-slate-700">Priority support</span>
+                </li>
+                <li className="flex items-center">
+                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-500 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-sm sm:text-base text-slate-700">Custom integrations</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* FAQ Section */}
       <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-slate-50 to-blue-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
