@@ -451,166 +451,261 @@ const LandingPage: React.FC = () => {
   const getCurrentMobileDemoView = () => {
     switch (currentDemoStep) {
       case 0:
-        return (
-          <div className="space-y-4">
-            {/* Mobile Stats */}
-            <div className="grid grid-cols-2 gap-3">
-              <div className="bg-emerald-50 p-3 rounded-lg border border-emerald-200">
-                <div className="text-lg font-bold text-emerald-700">24</div>
-                <div className="text-xs text-emerald-600">Clients</div>
-              </div>
-              <div className="bg-blue-50 p-3 rounded-lg border border-blue-200">
-                <div className="text-lg font-bold text-blue-700">89%</div>
-                <div className="text-xs text-blue-600">Success</div>
-              </div>
-            </div>
-            
-            {/* Mobile Client List */}
-            <div className="bg-white rounded-lg shadow-sm border border-slate-200">
-              <div className="p-3 border-b border-slate-200">
-                <h4 className="font-semibold text-slate-800 text-sm">Recent Activity</h4>
-              </div>
-              <div className="space-y-2 p-3">
-                {mockClients.slice(0, 2).map((client) => (
-                  <div key={client.id} className="flex items-center space-x-3">
-                    <img 
-                      src={client.avatar} 
-                      alt={client.name}
-                      className="w-8 h-8 rounded-full object-cover"
-                    />
-                    <div className="flex-1">
-                      <div className="font-medium text-slate-800 text-sm">{client.name}</div>
-                      <div className="text-xs text-slate-500">{client.progress}% complete</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        );
+        return renderMobileDashboard();
       case 1:
-        return (
-          <div className="space-y-4">
-            {/* Mobile Client Header */}
-            <div className="bg-gradient-to-r from-emerald-500 to-blue-600 rounded-lg p-4 text-white">
-              <div className="flex items-center space-x-3">
-                <img 
-                  src="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=60&h=60&fit=crop"
-                  alt="Sarah Chen"
-                  className="w-12 h-12 rounded-full object-cover ring-2 ring-white"
-                />
-                <div>
-                  <h3 className="font-bold">Sarah Chen</h3>
-                  <p className="text-emerald-100 text-sm">75% complete</p>
-                </div>
-              </div>
-            </div>
-            
-            {/* Mobile Milestones */}
-            <div className="space-y-3">
-              {sarahMilestones.slice(0, 2).map((milestone) => (
-                <div key={milestone.id} className="bg-white rounded-lg p-3 shadow-sm border border-slate-200">
-                  <div className="flex items-start space-x-3">
-                    <div className={`w-6 h-6 rounded-full flex items-center justify-center ${
-                      milestone.status === 'completed' ? 'bg-emerald-500' : 'bg-blue-500'
-                    }`}>
-                      {milestone.status === 'completed' ? (
-                        <CheckCircle className="w-4 h-4 text-white" />
-                      ) : (
-                        <Clock className="w-4 h-4 text-white" />
-                      )}
-                    </div>
-                    <div className="flex-1">
-                      <h5 className="font-medium text-slate-800 text-sm">{milestone.title}</h5>
-                      <p className="text-xs text-slate-600 mt-1">{milestone.description}</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        );
+        return renderMobileClientProgress();
       case 2:
-        return (
-          <div className="space-y-4">
-            {/* Mobile Path Builder */}
-            <div className="bg-white rounded-lg p-4 shadow-sm border border-slate-200">
-              <h3 className="font-semibold text-slate-800 mb-3">New Goal Path</h3>
-              <input 
-                type="text" 
-                value="Data Scientist"
-                className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm"
-                readOnly
-              />
-            </div>
-            
-            {/* Mobile Milestones */}
-            <div className="space-y-2">
-              {[
-                'Python Course',
-                'SQL & Databases', 
-                'Pandas & NumPy'
-              ].map((milestone, index) => (
-                <div key={index} className={`p-3 rounded-lg border-2 border-dashed ${
-                  index === 0 ? 'border-emerald-300 bg-emerald-50' : 'border-slate-200 bg-slate-50'
-                }`}>
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium text-slate-800">{milestone}</span>
-                    {index === 0 && (
-                      <div className="flex space-x-1">
-                        <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-bounce"></div>
-                        <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
-                        <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        );
+        return renderMobilePathBuilder();
       case 3:
-        return (
-          <div className="space-y-4">
-            {/* Mobile Analytics */}
-            <div className="bg-white rounded-lg p-4 shadow-sm border border-slate-200">
-              <h4 className="font-semibold text-slate-800 mb-3">Analytics</h4>
-              <div className="grid grid-cols-2 gap-3">
-                <div className="text-center">
-                  <div className="text-xl font-bold text-emerald-600">94%</div>
-                  <div className="text-xs text-slate-600">Completion</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-xl font-bold text-blue-600">8.2</div>
-                  <div className="text-xs text-slate-600">Avg Days</div>
-                </div>
-              </div>
-            </div>
-            
-            {/* Mobile Leaderboard */}
-            <div className="space-y-2">
-              {mockClients.slice(0, 2).map((client, index) => (
-                <div key={client.id} className="bg-white rounded-lg p-3 shadow-sm border border-slate-200">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-2">
-                      <div className={`w-5 h-5 rounded-full flex items-center justify-center text-white font-bold text-xs ${
-                        index === 0 ? 'bg-yellow-500' : 'bg-slate-400'
-                      }`}>
-                        {index + 1}
-                      </div>
-                      <span className="font-medium text-slate-800 text-sm">{client.name}</span>
-                    </div>
-                    <div className="text-xs text-emerald-600 font-bold">{client.completedMilestones}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        );
+        return renderMobileAnalytics();
       default:
-        return getCurrentMobileDemoView();
+        return renderMobileDashboard();
     }
   };
+
+  const renderMobileDashboard = () => (
+    <div className="space-y-4">
+      {/* Mobile Stats */}
+      <div className="grid grid-cols-2 gap-3">
+        <div className="bg-gradient-to-br from-emerald-50 to-emerald-100 p-3 rounded-xl border border-emerald-200">
+          <div className="text-center">
+            <Users className="w-5 h-5 text-emerald-500 mx-auto mb-1" />
+            <div className="text-lg font-bold text-emerald-700">24</div>
+            <div className="text-xs text-emerald-600">Clients</div>
+          </div>
+        </div>
+        
+        <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-3 rounded-xl border border-blue-200">
+          <div className="text-center">
+            <Target className="w-5 h-5 text-blue-500 mx-auto mb-1" />
+            <div className="text-lg font-bold text-blue-700">89%</div>
+            <div className="text-xs text-blue-600">Success Rate</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Client List */}
+      <div className="bg-white rounded-xl shadow-sm border border-slate-200">
+        <div className="p-3 border-b border-slate-200">
+          <h4 className="font-semibold text-slate-800 text-sm">Active Clients</h4>
+        </div>
+        <div className="divide-y divide-slate-100">
+          {mockClients.slice(0, 2).map((client) => (
+            <div key={client.id} className="p-3">
+              <div className="flex items-center space-x-3">
+                <img 
+                  src={client.avatar} 
+                  alt={client.name}
+                  className="w-8 h-8 rounded-full object-cover"
+                />
+                <div className="flex-1">
+                  <h5 className="font-medium text-slate-800 text-sm">{client.name}</h5>
+                  <p className="text-slate-600 text-xs">{client.goal}</p>
+                </div>
+                <div className="text-right">
+                  <div className="text-sm font-bold text-emerald-600">{client.progress}%</div>
+                  <div className="text-xs text-slate-500">{client.streak} day streak</div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderMobileClientProgress = () => (
+    <div className="space-y-4">
+      {/* Mobile Client Header */}
+      <div className="bg-gradient-to-r from-emerald-500 to-blue-600 rounded-xl p-4 text-white">
+        <div className="flex items-center space-x-3">
+          <img 
+            src="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop"
+            alt="Sarah Chen"
+            className="w-12 h-12 rounded-full object-cover ring-2 ring-white"
+          />
+          <div className="flex-1">
+            <h3 className="font-bold">Sarah Chen</h3>
+            <p className="text-emerald-100 text-sm">Senior Engineer Path</p>
+            <div className="flex items-center space-x-2 mt-1">
+              <Star className="w-3 h-3 text-yellow-300" />
+              <span className="text-xs">12-day streak</span>
+            </div>
+          </div>
+          <div className="text-right">
+            <div className="text-2xl font-bold">75%</div>
+            <div className="text-emerald-100 text-xs">Complete</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Milestones */}
+      <div className="bg-white rounded-xl shadow-sm border border-slate-200">
+        <div className="p-3 border-b border-slate-200">
+          <h4 className="font-semibold text-slate-800 text-sm">Current Milestones</h4>
+        </div>
+        <div className="p-3 space-y-3">
+          {sarahMilestones.slice(0, 3).map((milestone) => (
+            <div key={milestone.id} className="flex items-start space-x-3">
+              <div className={`w-6 h-6 rounded-full flex items-center justify-center mt-1 ${
+                milestone.status === 'completed' ? 'bg-emerald-500' :
+                milestone.status === 'in_progress' ? 'bg-blue-500' :
+                'bg-slate-300'
+              }`}>
+                {milestone.status === 'completed' ? (
+                  <CheckCircle className="w-3 h-3 text-white" />
+                ) : milestone.status === 'in_progress' ? (
+                  <Clock className="w-3 h-3 text-white animate-pulse" />
+                ) : (
+                  <div className="w-2 h-2 bg-white rounded-full"></div>
+                )}
+              </div>
+              <div className="flex-1">
+                <h5 className="font-medium text-slate-800 text-sm">{milestone.title}</h5>
+                <p className="text-slate-600 text-xs">{milestone.description}</p>
+                
+                {milestone.status === 'in_progress' && (
+                  <div className="mt-2">
+                    <div className="w-full bg-slate-200 rounded-full h-1">
+                      <div 
+                        className="bg-blue-500 h-1 rounded-full transition-all duration-500" 
+                        style={{width: `${milestone.progress}%`}}
+                      ></div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderMobilePathBuilder = () => (
+    <div className="space-y-4">
+      {/* Mobile Path Builder */}
+      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-4">
+        <h3 className="font-semibold text-slate-800 mb-4">Create Goal Path</h3>
+        
+        <div className="space-y-3">
+          <div>
+            <label className="block text-xs font-medium text-slate-700 mb-1">Goal Title</label>
+            <input 
+              type="text" 
+              value="Become a Data Scientist"
+              className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm"
+              readOnly
+            />
+          </div>
+          <div>
+            <label className="block text-xs font-medium text-slate-700 mb-1">Target Date</label>
+            <input 
+              type="date" 
+              value="2025-08-15"
+              className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm"
+              readOnly
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Milestone Builder */}
+      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-4">
+        <h4 className="font-semibold text-slate-800 mb-3 text-sm">Build Milestones</h4>
+        
+        <div className="space-y-2">
+          {[
+            { title: 'Python Fundamentals', weeks: 4, status: 'building' },
+            { title: 'SQL & Databases', weeks: 3, status: 'planned' },
+            { title: 'Data Analysis Projects', weeks: 8, status: 'planned' }
+          ].map((milestone, index) => (
+            <div key={index} className={`p-3 rounded-lg border transition-all duration-300 ${
+              milestone.status === 'building' ? 'border-emerald-300 bg-emerald-50' : 'border-slate-200 bg-slate-50'
+            }`}>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-2">
+                  <div className={`w-2 h-2 rounded-full ${
+                    milestone.status === 'building' ? 'bg-emerald-500 animate-pulse' : 'bg-slate-300'
+                  }`}></div>
+                  <span className="font-medium text-slate-800 text-sm">{milestone.title}</span>
+                </div>
+                <span className="text-xs text-slate-500">{milestone.weeks}w</span>
+              </div>
+            </div>
+          ))}
+          
+          <button className="w-full p-3 border border-dashed border-slate-300 rounded-lg text-slate-500 text-sm flex items-center justify-center space-x-1">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+            </svg>
+            <span>Add Milestone</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderMobileAnalytics = () => (
+    <div className="space-y-4">
+      {/* Mobile Analytics */}
+      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-4">
+        <h4 className="font-semibold text-slate-800 mb-3 text-sm">Performance</h4>
+        
+        <div className="grid grid-cols-3 gap-3 mb-4">
+          <div className="text-center">
+            <div className="text-lg font-bold text-emerald-600">94%</div>
+            <div className="text-xs text-slate-600">Completion</div>
+          </div>
+          <div className="text-center">
+            <div className="text-lg font-bold text-blue-600">8.2</div>
+            <div className="text-xs text-slate-600">Avg Days</div>
+          </div>
+          <div className="text-center">
+            <div className="text-lg font-bold text-purple-600">87%</div>
+            <div className="text-xs text-slate-600">Satisfaction</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Top Performers */}
+      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-4">
+        <h4 className="font-semibold text-slate-800 mb-3 text-sm">Top Performers</h4>
+        
+        <div className="space-y-2">
+          {mockClients.slice(0, 3).map((client) => (
+            <div key={client.name} className="flex items-center justify-between p-2 bg-slate-50 rounded-lg">
+              <div className="flex items-center space-x-2">
+                <div className={`w-5 h-5 rounded-full flex items-center justify-center text-white font-bold text-xs ${
+                  client.id === 1 ? 'bg-yellow-500' :
+                  client.id === 2 ? 'bg-slate-400' :
+                  'bg-amber-600'
+                }`}>
+                  {client.id}
+                </div>
+                <img 
+                  src={client.avatar}
+                  alt={client.name}
+                  className="w-6 h-6 rounded-full object-cover"
+                />
+                <span className="font-medium text-slate-800 text-xs">{client.name}</span>
+              </div>
+              <div className="flex items-center space-x-2 text-xs">
+                <div className="text-center">
+                  <div className="font-bold text-emerald-600">{client.completedMilestones}</div>
+                  <div className="text-slate-500">Done</div>
+                </div>
+                <div className="text-center">
+                  <div className="font-bold text-blue-600">{client.streak}</div>
+                  <div className="text-slate-500">Streak</div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
 
   return (
     <div className="min-h-screen bg-white">
@@ -743,8 +838,7 @@ const LandingPage: React.FC = () => {
             </p>
           </div>
           
-          {/* Desktop Demo */}
-          <div className="max-w-6xl mx-auto hidden md:block">
+          <div className="max-w-6xl mx-auto">
             {/* Browser Window */}
             <div className="bg-slate-200 rounded-t-xl p-3">
               {/* Browser Chrome */}
@@ -826,79 +920,6 @@ const LandingPage: React.FC = () => {
               <div className="p-6 bg-gradient-to-br from-slate-50 via-blue-50 to-emerald-50 min-h-[600px]">
                 <div className="transition-all duration-500 ease-in-out">
                   {getCurrentDemoView()}
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          {/* Mobile Demo */}
-          <div className="max-w-sm mx-auto md:hidden">
-            {/* Mobile Browser Window */}
-            <div className="bg-slate-800 rounded-t-2xl p-2">
-              {/* Mobile Chrome */}
-              <div className="flex items-center justify-between mb-2">
-                <div className="flex items-center space-x-1">
-                  <div className="w-2 h-2 bg-red-500 rounded-full"></div>
-                  <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
-                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                </div>
-                <div className="flex-1 mx-2">
-                  <div className="bg-slate-700 rounded-md px-2 py-1 text-xs text-slate-300 text-center">
-                    onpathflow.com
-                  </div>
-                </div>
-                <div className="w-8"></div>
-              </div>
-            </div>
-            
-            {/* Mobile App Interface */}
-            <div className="bg-white shadow-2xl rounded-b-2xl overflow-hidden">
-              {/* Mobile App Header */}
-              <header className="bg-white border-b border-slate-200 px-4 py-3">
-                <div className="flex justify-between items-center">
-                  <div className="flex items-center space-x-2">
-                    <div className="w-8 h-8 bg-gradient-to-r from-emerald-500 to-blue-600 rounded-lg flex items-center justify-center">
-                      <Target className="w-4 h-4 text-white" />
-                    </div>
-                    <div>
-                      <h1 className="text-lg font-bold text-slate-800">OnPathFlow</h1>
-                      <span className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-2 py-0.5 rounded-full text-xs font-medium">PRO</span>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-center space-x-2">
-                    <Bell className="w-5 h-5 text-slate-400" />
-                    <img 
-                      src="https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=60&h=60&fit=crop"
-                      alt="Coach"
-                      className="w-8 h-8 rounded-full object-cover ring-2 ring-emerald-500"
-                    />
-                  </div>
-                </div>
-              </header>
-
-              {/* Mobile Demo Navigation */}
-              <div className="bg-white border-b border-slate-200 px-4 py-2">
-                <div className="flex space-x-1 overflow-x-auto">
-                  {['Dashboard', 'Clients', 'Builder', 'Analytics'].map((step, index) => (
-                    <button
-                      key={index}
-                      className={`px-3 py-1 rounded-lg text-xs font-medium transition-all duration-200 whitespace-nowrap ${
-                        currentDemoStep === index
-                          ? 'bg-emerald-500 text-white'
-                          : 'text-slate-600 bg-slate-100'
-                      }`}
-                    >
-                      {step}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Mobile Demo Content */}
-              <div className="p-4 bg-gradient-to-br from-slate-50 to-emerald-50 min-h-[500px]">
-                <div className="transition-all duration-500 ease-in-out">
-                  {getCurrentMobileDemoView()}
                 </div>
               </div>
             </div>
