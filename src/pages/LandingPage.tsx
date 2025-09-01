@@ -734,18 +734,18 @@ const LandingPage: React.FC = () => {
               <div className="flex items-center justify-center lg:justify-start space-x-6 text-sm text-slate-600">
                 <div className="flex items-center space-x-1">
                   <CheckCircle className="w-4 h-4 text-emerald-500" />
-                  <span>No credit card required</span>
+                  <span>7-day free trial</span>
                 </div>
                 <div className="flex items-center space-x-1">
                   <CheckCircle className="w-4 h-4 text-emerald-500" />
-                  <span>Setup in 5 minutes</span>
+                  <span>Cancel anytime</span>
                 </div>
               </div>
             </div>
 
             {/* Right Column - Interactive Demo */}
             <div className="relative">
-              {/* Hero Mockup - Static Image */}
+              {/* Hero Mockup - Enhanced */}
               <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-slate-200">
                 <div className="bg-slate-100 px-4 py-3 flex items-center justify-between border-b border-slate-200">
                   <div className="flex items-center space-x-2">
@@ -765,21 +765,51 @@ const LandingPage: React.FC = () => {
                   </div>
                 </div>
                 
-                {/* Static Hero Mockup Content */}
+                {/* Enhanced Hero Mockup Content */}
                 <div className="p-6 bg-gradient-to-br from-slate-50 to-blue-50">
+                  {/* Header with greeting */}
+                  <div className="mb-6">
+                    <h3 className="text-xl font-bold text-slate-800 mb-1">Good morning, Jennifer! 👋</h3>
+                    <p className="text-slate-600 text-sm">Here's your coaching dashboard overview</p>
+                  </div>
+                  
+                  {/* Stats Grid */}
                   <div className="grid grid-cols-2 gap-4 mb-6">
                     <div className="bg-emerald-50 p-4 rounded-xl border border-emerald-200">
+                      <div className="flex items-center justify-between mb-2">
+                        <Users className="w-5 h-5 text-emerald-500" />
+                        <span className="text-xs text-emerald-600 bg-emerald-100 px-2 py-1 rounded-full">+3 this week</span>
+                      </div>
                       <div className="text-2xl font-bold text-emerald-700">24</div>
                       <div className="text-sm text-emerald-600">Active Clients</div>
                     </div>
                     <div className="bg-blue-50 p-4 rounded-xl border border-blue-200">
+                      <div className="flex items-center justify-between mb-2">
+                        <TrendingUp className="w-5 h-5 text-blue-500" />
+                        <span className="text-xs text-blue-600 bg-blue-100 px-2 py-1 rounded-full">↗ +12%</span>
+                      </div>
                       <div className="text-2xl font-bold text-blue-700">89%</div>
                       <div className="text-sm text-blue-600">Success Rate</div>
                     </div>
                   </div>
                   
+                  {/* Recent Achievements */}
+                  <div className="bg-gradient-to-r from-emerald-500 to-blue-600 rounded-xl p-4 text-white mb-4">
+                    <div className="flex items-center space-x-3">
+                      <Trophy className="w-6 h-6 text-yellow-300" />
+                      <div>
+                        <div className="font-semibold">Sarah just completed her AWS certification! 🎉</div>
+                        <div className="text-emerald-100 text-sm">3 more clients achieved major milestones this week</div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Client Activity */}
                   <div className="bg-white rounded-xl p-4 shadow-sm">
-                    <h4 className="font-semibold text-slate-800 mb-3">Recent Activity</h4>
+                    <div className="flex items-center justify-between mb-3">
+                      <h4 className="font-semibold text-slate-800">Client Progress</h4>
+                      <span className="text-xs text-slate-500">Live updates</span>
+                    </div>
                     <div className="space-y-3">
                       <div className="flex items-center space-x-3">
                         <img 
@@ -789,9 +819,14 @@ const LandingPage: React.FC = () => {
                         />
                         <div className="flex-1">
                           <div className="font-medium text-slate-800 text-sm">Sarah Chen</div>
-                          <div className="text-slate-600 text-xs">Completed AWS Certification</div>
+                          <div className="text-slate-600 text-xs">Senior Engineer Path • 12-day streak</div>
                         </div>
-                        <div className="text-emerald-600 font-bold text-sm">75%</div>
+                        <div className="text-right">
+                          <div className="text-emerald-600 font-bold text-sm">75%</div>
+                          <div className="w-12 bg-slate-200 rounded-full h-1">
+                            <div className="bg-emerald-500 h-1 rounded-full" style={{width: '75%'}}></div>
+                          </div>
+                        </div>
                       </div>
                       <div className="flex items-center space-x-3">
                         <img 
@@ -801,14 +836,23 @@ const LandingPage: React.FC = () => {
                         />
                         <div className="flex-1">
                           <div className="font-medium text-slate-800 text-sm">Marcus Rodriguez</div>
-                          <div className="text-slate-600 text-xs">Updated networking goals</div>
+                          <div className="text-slate-600 text-xs">VP Product Path • 8-day streak</div>
                         </div>
-                        <div className="text-blue-600 font-bold text-sm">67%</div>
+                        <div className="text-right">
+                          <div className="text-blue-600 font-bold text-sm">67%</div>
+                          <div className="w-12 bg-slate-200 rounded-full h-1">
+                            <div className="bg-blue-500 h-1 rounded-full" style={{width: '67%'}}></div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
+              
+              {/* Floating Elements for Visual Interest */}
+              <div className="absolute -top-4 -right-4 w-8 h-8 bg-emerald-500 rounded-full opacity-20 animate-pulse"></div>
+              <div className="absolute -bottom-6 -left-6 w-12 h-12 bg-blue-500 rounded-full opacity-10 animate-bounce"></div>
             </div>
           </div>
         </div>
