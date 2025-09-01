@@ -408,6 +408,53 @@ const LandingPage: React.FC = () => {
             />
           </div>
         </div>
+      </div>
+
+      {/* Milestone Builder */}
+      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+        <h4 className="text-lg font-semibold text-slate-800 mb-4">Build Your Milestone Path</h4>
+        
+        <div className="space-y-4">
+          {[
+            { title: 'Python Fundamentals', weeks: 4, status: 'building' },
+            { title: 'SQL & Database Management', weeks: 3, status: 'planned' },
+            { title: 'Data Analysis with Pandas', weeks: 6, status: 'planned' },
+            { title: 'Machine Learning Basics', weeks: 8, status: 'planned' },
+            { title: 'Build Portfolio Projects', weeks: 10, status: 'planned' }
+          ].map((milestone, index) => (
+            <div key={index} className={`p-4 rounded-lg border transition-all duration-300 ${
+              milestone.status === 'building' ? 'border-emerald-300 bg-emerald-50' : 'border-slate-200 bg-slate-50'
+            }`}>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-3">
+                  <div className={`w-3 h-3 rounded-full ${
+                    milestone.status === 'building' ? 'bg-emerald-500 animate-pulse' : 'bg-slate-300'
+                  }`}></div>
+                  <span className="font-medium text-slate-800">{milestone.title}</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <span className="text-sm text-slate-600">{milestone.weeks} weeks</span>
+                  {milestone.status === 'building' && (
+                    <span className="bg-emerald-100 text-emerald-700 px-2 py-1 rounded-full text-xs font-medium">
+                      Building...
+                    </span>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+          
+          <button className="w-full p-4 border border-dashed border-slate-300 rounded-lg text-slate-500 hover:border-emerald-300 hover:text-emerald-600 transition-colors duration-200 flex items-center justify-center space-x-2">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+            </svg>
+            <span>Add New Milestone</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+
   const getCurrentDemoView = () => {
     switch (currentDemoStep) {
       case 0:
