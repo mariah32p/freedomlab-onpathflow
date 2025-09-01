@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Target, CheckCircle, Users, TrendingUp, Clock, Star, Eye } from 'lucide-react';
+import { Target, CheckCircle, Users, TrendingUp, Clock, Star } from 'lucide-react';
 import Header from '../components/Header';
 import DemoEmbed from '../components/DemoEmbed';
 

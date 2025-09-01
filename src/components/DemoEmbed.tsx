@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Users, Target, CheckCircle, Clock, TrendingUp, Settings, Bell, Star, Trophy, MessageSquare } from 'lucide-react';
+import { Users, Target, CheckCircle, TrendingUp, Settings, Bell, Star, Trophy, MessageSquare } from 'lucide-react';
 
 const DemoEmbed: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(0);
