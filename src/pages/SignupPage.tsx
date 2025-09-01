@@ -17,6 +17,20 @@ const SignupPage: React.FC = () => {
   const { signUp } = useAuth();
   const navigate = useNavigate();
 
+  // Password validation helper
+  const getPasswordRequirements = () => {
+    return [
+      { text: 'At least 8 characters', met: password.length >= 8 },
+      { text: 'Contains uppercase letter', met: /[A-Z]/.test(password) },
+      { text: 'Contains lowercase letter', met: /[a-z]/.test(password) },
+      { text: 'Contains number', met: /\d/.test(password) },
+    ];
+  };
+
+  const isPasswordValid = () => {
+    return getPasswordRequirements().every(req => req.met);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
@@ -31,6 +45,12 @@ const SignupPage: React.FC = () => {
 
     if (password.length < 6) {
       setError('Password must be at least 6 characters');
+      setLoading(false);
+      return;
+    }
+
+    if (!isPasswordValid()) {
+      setError('Please meet all password requirements');
       setLoading(false);
       return;
     }
@@ -138,6 +158,31 @@ const SignupPage: React.FC = () => {
                     </button>
                   </div>
                 </div>
+                
+                {/* Password Requirements */}
+                {password && (
+                  <div className="bg-slate-50 rounded-lg p-4 border border-slate-200">
+                    <p className="text-sm font-medium text-slate-700 mb-3">Password Requirements:</p>
+                    <div className="space-y-2">
+                      {getPasswordRequirements().map((requirement, index) => (
+                        <div key={index} className="flex items-center space-x-2">
+                          <div className={`w-4 h-4 rounded-full flex items-center justify-center ${
+                            requirement.met ? 'bg-emerald-500' : 'bg-slate-300'
+                          }`}>
+                            {requirement.met && (
+                              <CheckCircle className="w-3 h-3 text-white" />
+                            )}
+                          </div>
+                          <span className={`text-sm ${
+                            requirement.met ? 'text-emerald-700' : 'text-slate-600'
+                          }`}>
+                            {requirement.text}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
 
                 <div>
                   <label htmlFor="confirmPassword" className="block text-sm font-medium text-slate-700 mb-2">
@@ -165,7 +210,7 @@ const SignupPage: React.FC = () => {
 
                 <button
                   type="submit"
-                  disabled={loading}
+                  disabled={loading || !isPasswordValid() || password !== confirmPassword}
                   className="w-full bg-emerald-500 text-white py-3 px-6 rounded-lg font-semibold hover:bg-emerald-600 focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {loading ? (
