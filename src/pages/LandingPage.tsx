@@ -120,6 +120,56 @@ const LandingPage: React.FC = () => {
         </div>
       </section>
 
+      {/* Live Demo Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
+              See OnPathFlow in Action
+            </h2>
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+              Watch how coaches create milestone paths and track their clients' progress in real-time
+            </p>
+          </div>
+          
+          <div className="max-w-6xl mx-auto">
+            <div className="bg-slate-900 rounded-2xl shadow-2xl overflow-hidden">
+              {/* Browser Header */}
+              <div className="bg-slate-800 px-6 py-4 flex items-center justify-between">
+                <div className="flex items-center space-x-3">
+                  <div className="flex space-x-2">
+                    <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                    <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                    <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                  </div>
+                  <span className="text-slate-300 text-sm">onpathflow.com/dashboard</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-slate-600 rounded-full"></div>
+                  <div className="w-2 h-2 bg-slate-600 rounded-full"></div>
+                  <div className="w-2 h-2 bg-slate-600 rounded-full"></div>
+                </div>
+              </div>
+              
+              {/* Demo Content */}
+              <div className="bg-gradient-to-br from-slate-50 to-blue-50">
+                <DemoPage />
+              </div>
+            </div>
+            
+            <div className="text-center mt-12">
+              <Link 
+                to="/demo" 
+                className="inline-flex items-center bg-emerald-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-emerald-600 transition-colors duration-200 space-x-2"
+              >
+                <Eye className="w-5 h-5" />
+                <span>Try Interactive Demo</span>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Features Section */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
