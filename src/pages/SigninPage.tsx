@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Eye, EyeOff, AlertCircle } from 'lucide-react';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { Eye, EyeOff, AlertCircle, CheckCircle } from 'lucide-react';
 import Header from '../components/Header';
 import { useAuth } from '../hooks/useAuth';
 
@@ -13,6 +13,8 @@ const SigninPage: React.FC = () => {
   
   const { signIn } = useAuth();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const message = searchParams.get('message');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -52,6 +54,12 @@ const SigninPage: React.FC = () => {
 
             <div className="bg-white rounded-2xl shadow-xl border border-slate-200 p-8">
               <form onSubmit={handleSubmit} className="space-y-6">
+                {message && (
+                  <div className="bg-green-50 border border-green-200 rounded-lg p-4 flex items-center space-x-3">
+                    <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
+                    <p className="text-green-700 text-sm">{message}</p>
+                  </div>
+                )}
                 {error && (
                   <div className="bg-red-50 border border-red-200 rounded-lg p-4 flex items-center space-x-3">
                     <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0" />
