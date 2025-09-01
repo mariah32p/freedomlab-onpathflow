@@ -1,19 +1,16 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Target, Eye, EyeOff, AlertCircle, CheckCircle } from 'lucide-react';
+import { Target, Eye, EyeOff, AlertCircle } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 
-const SignupPage: React.FC = () => {
+const SigninPage: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [success, setSuccess] = useState(false);
   
-  const { signUp } = useAuth();
+  const { signIn } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -21,30 +18,14 @@ const SignupPage: React.FC = () => {
     setError('');
     setLoading(true);
 
-    // Validation
-    if (password !== confirmPassword) {
-      setError('Passwords do not match');
-      setLoading(false);
-      return;
-    }
-
-    if (password.length < 6) {
-      setError('Password must be at least 6 characters');
-      setLoading(false);
-      return;
-    }
-
     try {
-      const { data, error: signUpError } = await signUp(email, password);
+      const { data, error: signInError } = await signIn(email, password);
       
-      if (signUpError) {
-        setError(signUpError.message);
+      if (signInError) {
+        setError(signInError.message);
       } else if (data.user) {
-        setSuccess(true);
-        // Redirect to get-started after successful signup
-        setTimeout(() => {
-          navigate('/get-started');
-        }, 2000);
+        // Redirect to dashboard after successful signin
+        navigate('/dashboard');
       }
     } catch (err: any) {
       setError(err.message || 'An unexpected error occurred');
@@ -52,23 +33,6 @@ const SignupPage: React.FC = () => {
       setLoading(false);
     }
   };
-
-  if (success) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-blue-50 flex items-center justify-center px-4">
-        <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8 text-center">
-          <div className="w-16 h-16 bg-emerald-500 rounded-full flex items-center justify-center mx-auto mb-6">
-            <CheckCircle className="w-8 h-8 text-white" />
-          </div>
-          <h2 className="text-2xl font-bold text-slate-900 mb-4">Account Created Successfully!</h2>
-          <p className="text-slate-600 mb-6">
-            Welcome to OnPathFlow! Redirecting you to choose your plan...
-          </p>
-          <div className="animate-spin w-6 h-6 border-2 border-emerald-500 border-t-transparent rounded-full mx-auto"></div>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-blue-50 flex items-center justify-center px-4">
@@ -81,11 +45,11 @@ const SignupPage: React.FC = () => {
             </div>
             <span className="text-2xl font-bold text-slate-800">OnPathFlow</span>
           </Link>
-          <h1 className="text-3xl font-bold text-slate-900 mb-2">Create Your Account</h1>
-          <p className="text-slate-600">Start your 7-day free trial today</p>
+          <h1 className="text-3xl font-bold text-slate-900 mb-2">Welcome Back</h1>
+          <p className="text-slate-600">Sign in to your coaching dashboard</p>
         </div>
 
-        {/* Signup Form */}
+        {/* Signin Form */}
         <div className="bg-white rounded-2xl shadow-xl p-8">
           <form onSubmit={handleSubmit} className="space-y-6">
             {error && (
@@ -121,7 +85,7 @@ const SignupPage: React.FC = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors duration-200 pr-12"
-                  placeholder="Create a password"
+                  placeholder="Enter your password"
                   required
                 />
                 <button
@@ -134,28 +98,13 @@ const SignupPage: React.FC = () => {
               </div>
             </div>
 
-            <div>
-              <label htmlFor="confirmPassword" className="block text-sm font-medium text-slate-700 mb-2">
-                Confirm Password
-              </label>
-              <div className="relative">
-                <input
-                  id="confirmPassword"
-                  type={showConfirmPassword ? 'text' : 'password'}
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors duration-200 pr-12"
-                  placeholder="Confirm your password"
-                  required
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-slate-600"
-                >
-                  {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-                </button>
-              </div>
+            <div className="flex items-center justify-between">
+              <Link 
+                to="/forgot-password" 
+                className="text-sm text-emerald-600 hover:text-emerald-700 font-medium"
+              >
+                Forgot your password?
+              </Link>
             </div>
 
             <button
@@ -166,33 +115,26 @@ const SignupPage: React.FC = () => {
               {loading ? (
                 <div className="flex items-center justify-center space-x-2">
                   <div className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full"></div>
-                  <span>Creating Account...</span>
+                  <span>Signing In...</span>
                 </div>
               ) : (
-                'Create Account & Start Trial'
+                'Sign In'
               )}
             </button>
           </form>
 
           <div className="mt-6 text-center">
             <p className="text-slate-600 text-sm">
-              Already have an account?{' '}
-              <Link to="/signin" className="text-emerald-600 hover:text-emerald-700 font-medium">
-                Sign in
+              Don't have an account?{' '}
+              <Link to="/signup" className="text-emerald-600 hover:text-emerald-700 font-medium">
+                Start your free trial
               </Link>
             </p>
           </div>
-        </div>
-
-        {/* Trial Info */}
-        <div className="mt-6 text-center">
-          <p className="text-slate-500 text-sm">
-            7-day free trial • Cancel anytime • Choose your plan after signup
-          </p>
         </div>
       </div>
     </div>
   );
 };
 
-export default SignupPage;
+export default SigninPage;
