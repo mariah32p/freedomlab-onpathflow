@@ -30,9 +30,7 @@ const Header: React.FC = () => {
               <span className="text-xl md:text-2xl font-bold text-slate-800">OnPathFlow</span>
             </Link>
           </div>
-            </div>
-            <span className="text-2xl font-bold text-slate-800">OnPathFlow</span>
-          </Link>
+          </div>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
