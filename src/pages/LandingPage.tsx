@@ -569,13 +569,6 @@ const LandingPage: React.FC = () => {
                   <span className="text-4xl sm:text-5xl font-bold text-slate-900">$29</span>
                   <span className="text-slate-600 text-base sm:text-lg">/month</span>
                 </div>
-
-                <Link 
-                  to="/signup"
-                  className="block w-full bg-slate-600 text-white py-3 px-6 rounded-xl font-semibold hover:bg-slate-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl mb-6 sm:mb-8 text-center"
-                >
-                  Start 7-Day Free Trial
-                </Link>
               </div>
 
               <ul className="space-y-3 sm:space-y-4">
@@ -622,13 +615,6 @@ const LandingPage: React.FC = () => {
                   <span className="text-4xl sm:text-5xl font-bold text-slate-900">$49</span>
                   <span className="text-slate-600 text-base sm:text-lg">/month</span>
                 </div>
-
-                <Link 
-                  to="/signup"
-                  className="block w-full bg-emerald-500 text-white py-3 px-6 rounded-xl font-semibold hover:bg-emerald-600 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl mb-6 sm:mb-8 text-center"
-                >
-                  Start 7-Day Free Trial
-                </Link>
               </div>
 
               <ul className="space-y-3 sm:space-y-4">
@@ -658,6 +644,19 @@ const LandingPage: React.FC = () => {
                 </li>
               </ul>
             </div>
+          </div>
+          
+          {/* Single CTA Button */}
+          <div className="text-center mt-8 sm:mt-12">
+            <Link 
+              to="/signup"
+              className="inline-block bg-emerald-500 text-white px-8 sm:px-10 py-4 sm:py-5 rounded-xl font-bold text-lg sm:text-xl hover:bg-emerald-600 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl"
+            >
+              Start Your 7-Day Free Trial
+            </Link>
+            <p className="text-slate-500 text-sm mt-3">
+              Choose your plan during signup • Cancel anytime
+            </p>
           </div>
         </div>
       </section>
