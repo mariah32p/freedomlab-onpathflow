@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Target, CheckCircle, Users, TrendingUp, Clock, Star, Eye } from 'lucide-react';
 import Header from '../components/Header';
+import DemoPage from './DemoPage';
 
 const LandingPage: React.FC = () => {
   return (
