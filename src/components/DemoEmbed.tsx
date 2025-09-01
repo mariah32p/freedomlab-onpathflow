@@ -9,7 +9,7 @@ const DemoEmbed: React.FC = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentStep(prev => (prev + 1) % 6);
-    }, 8000);
+    }, 3000);
     
     return () => clearInterval(interval);
   }, []);
