@@ -139,10 +139,6 @@ const GetStartedPage: React.FC = () => {
 
         {/* Start Trial Button */}
         <div className="text-center">
-          <p className="text-slate-600 text-sm mb-4">
-            <strong>Note:</strong> You'll need to replace the Stripe price IDs in the configuration with your actual Stripe subscription price IDs that include 7-day trials.
-          </p>
-          
           <button
             onClick={handleStartTrial}
             disabled={loading}
