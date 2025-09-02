@@ -6,7 +6,19 @@ import { useProfile } from '../hooks/useProfile';
 
 const DashboardPage: React.FC = () => {
   const { user, signOut } = useAuth();
-  const { profile, loading: profileLoading, isTrialing, hasActiveSubscription, isNotStarted, isPremium, isStandard, isPastDue, isInGracePeriod, isActive, isCanceled } = useProfile();
+  const { 
+    profile, 
+    loading: profileLoading, 
+    isTrialing, 
+    isActive,
+    isPastDue,
+    isCanceled,
+    isNotStarted, 
+    hasActiveSubscription, 
+    isInGracePeriod, 
+    isPremium, 
+    isStandard 
+  } = useProfile();
 
   const handleSignOut = async () => {
     await signOut();
