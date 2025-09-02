@@ -10,6 +10,7 @@ import GetStartedPage from './pages/GetStartedPage';
 import DashboardPage from './pages/DashboardPage';
 import PricingPage from './pages/PricingPage';
 import DemoPage from './pages/DemoPage';
+import CheckoutSuccessPage from './pages/CheckoutSuccessPage';
 import './App.css';
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
         } />
         <Route path="/pricing" element={<PricingPage />} />
         <Route path="/demo" element={<DemoPage />} />
+        <Route path="/checkout-success" element={<CheckoutSuccessPage />} />
       </Routes>
     </Router>
   );
