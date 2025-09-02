@@ -26,3 +26,5 @@ const RouteGuard: React.FC<RouteGuardProps> = ({ children }) => {
 
   return <>{children}</>;
 };
+
+export default RouteGuard;
