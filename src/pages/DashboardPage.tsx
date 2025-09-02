@@ -292,6 +292,34 @@ const DashboardPage: React.FC = () => {
             {/* Account Status */}
             <div className="mt-8 p-6 bg-slate-50 rounded-xl border border-slate-200">
               <h4 className="font-semibold text-slate-900 mb-3">Account Status</h4>
+              
+              {/* Debug Sync Button - Remove after testing */}
+              <div className="mb-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
+                <button
+                  onClick={async () => {
+                    try {
+                      const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/sync-subscriptions`, {
+                        method: 'POST',
+                        headers: {
+                          'Content-Type': 'application/json',
+                        },
+                      });
+                      const result = await response.json();
+                      console.log('Sync result:', result);
+                      alert(`Sync complete: ${result.synced} synced, ${result.errors} errors`);
+                      window.location.reload();
+                    } catch (error) {
+                      console.error('Sync error:', error);
+                      alert('Sync failed - check console');
+                    }
+                  }}
+                  className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg font-medium hover:bg-blue-600 transition-colors duration-200 text-sm"
+                >
+                  🔄 Sync Subscriptions (Debug)
+                </button>
+                <p className="text-blue-600 text-xs mt-1">Click to manually sync subscription data from Stripe</p>
+              </div>
+              
               <div className="grid md:grid-cols-2 gap-4 text-sm">
                 <div className="flex justify-between">
                   <span className="text-slate-600">Plan:</span>
