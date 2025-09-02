@@ -282,17 +282,18 @@ async function syncCustomerFromStripe(customerId: string) {
 
 async function updateProfileFromSubscription(customerId: string, subscription: Stripe.Subscription, plan: string) {
   try {
-    console.log('🔄 Updating profile from subscription data for customer:', customerId);
+    console.log('🔄 Updating profile from subscription data for customer:', customerId, 'status:', subscription.status);
 
     // Find the user ID from the customer mapping
     const { data: customerData, error: customerError } = await supabase
       .from('stripe_customers')
       .select('user_id')
       .eq('customer_id', customerId)
+      .is('deleted_at', null)
       .single();
 
     if (customerError || !customerData) {
-      console.error('❌ Could not find user for customer:', customerId, customerError);
+      console.error('❌ Could not find user for customer:', customerId, 'Error:', customerError);
       return;
     }
 
@@ -306,11 +307,13 @@ async function updateProfileFromSubscription(customerId: string, subscription: S
       customer_id: customerId,
       subscription_id: subscription.id,
       current_period_end: subscription.current_period_end ? new Date(subscription.current_period_end * 1000).toISOString() : null,
+      updated_at: new Date().toISOString(),
     };
 
     // Handle trial end date
     if (subscription.trial_end) {
       profileUpdates.trial_ends_at = new Date(subscription.trial_end * 1000).toISOString();
+      console.log('📅 Setting trial_ends_at:', profileUpdates.trial_ends_at);
     }
 
     // Clear payment issue timestamp if subscription is active/trialing
@@ -318,7 +321,7 @@ async function updateProfileFromSubscription(customerId: string, subscription: S
       profileUpdates.payment_issue_since = null;
     }
 
-    console.log('📝 Updating profile with:', profileUpdates);
+    console.log('📝 Updating profile for user:', userId, 'with:', JSON.stringify(profileUpdates, null, 2));
 
     // Update the profiles table
     const { error: profileError } = await supabase
@@ -327,10 +330,23 @@ async function updateProfileFromSubscription(customerId: string, subscription: S
       .eq('id', userId);
 
     if (profileError) {
-      console.error('❌ Error updating profile:', profileError);
+      console.error('❌ Error updating profile for user:', userId, 'Error:', JSON.stringify(profileError, null, 2));
       throw new Error('Failed to update profile with subscription data');
     } else {
-      console.log('✅ Successfully updated profile for user:', userId);
+      console.log('✅ Successfully updated profile for user:', userId, 'with status:', subscription.status);
+      
+      // Verify the update worked
+      const { data: verifyData, error: verifyError } = await supabase
+        .from('profiles')
+        .select('subscription_status, plan, trial_ends_at')
+        .eq('id', userId)
+        .single();
+      
+      if (verifyError) {
+        console.error('❌ Error verifying profile update:', verifyError);
+      } else {
+        console.log('✅ Profile verification - Current status:', verifyData.subscription_status, 'Plan:', verifyData.plan);
+      }
     }
   } catch (error) {
     console.error('❌ Error updating profile from subscription:', error);
