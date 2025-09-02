@@ -46,10 +46,31 @@ export const useProfile = () => {
         .single();
 
       if (error) {
-        throw error;
+        // If profile doesn't exist, create it
+        if (error.code === 'PGRST116') {
+          const { data: newProfile, error: createError } = await supabase
+            .from('profiles')
+            .insert({
+              id: user.id,
+              email: user.email!,
+              plan: 'standard',
+              subscription_status: 'not_started'
+            })
+            .select()
+            .single();
+          
+          if (createError) {
+            throw createError;
+          }
+          
+          setProfile(newProfile);
+        } else {
+          throw error;
+        }
+      } else {
+        setProfile(data);
       }
 
-      setProfile(data);
     } catch (err: any) {
       setError(err.message);
     } finally {

@@ -23,7 +23,9 @@ export const createCheckoutSession = async (priceId: string, plan: 'standard' | 
         price_id: priceId,
         success_url: `${window.location.origin}/checkout-success`,
         cancel_url: `${window.location.origin}/get-started`,
-        mode: 'subscription'
+        mode: 'subscription',
+        customer_email: session.user.email,
+        client_reference_id: session.user.id
       }),
     });
 
