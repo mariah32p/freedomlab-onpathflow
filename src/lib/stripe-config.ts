@@ -15,3 +15,4 @@ export const stripeConfig = {
       amount: 4900, // $49.00 in cents
     }
   }
+}
