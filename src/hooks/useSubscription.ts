@@ -39,6 +39,8 @@ export const useSubscription = () => {
     
     try {
       setLoading(true);
+      console.log('🔍 Fetching profile for user:', user.id);
+      
       const { data, error } = await supabase
         .from('profiles')
         .select('*')
@@ -46,8 +48,10 @@ export const useSubscription = () => {
         .single();
 
       if (error) {
+        console.log('❌ Profile fetch error:', error.code, error.message);
         // If profile doesn't exist, create it
         if (error.code === 'PGRST116') {
+          console.log('📝 Creating new profile for user:', user.id);
           const { data: newProfile, error: createError } = await supabase
             .from('profiles')
             .insert({
@@ -60,18 +64,22 @@ export const useSubscription = () => {
             .single();
           
           if (createError) {
+            console.error('❌ Error creating profile:', createError);
             throw createError;
           }
           
+          console.log('✅ Created new profile:', newProfile);
           setProfile(newProfile);
         } else {
           throw error;
         }
       } else {
+        console.log('✅ Found existing profile:', data);
         setProfile(data);
       }
 
     } catch (err: any) {
+      console.error('❌ Profile fetch/create error:', err);
       setError(err.message);
     } finally {
       setLoading(false);
