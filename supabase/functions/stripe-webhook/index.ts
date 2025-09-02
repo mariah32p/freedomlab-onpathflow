@@ -132,9 +132,6 @@ async function handleEvent(event: Stripe.Event) {
       }
     }
   }
-
-  // Update profile status
-  await updateProfileStatus(customerId, 'canceled');
 }
 
 // based on the excellent https://github.com/t3dotgg/stripe-recommendations
@@ -210,48 +207,11 @@ async function syncCustomerFromStripe(customerId: string) {
     } else {
       console.log('✅ Successfully synced subscription to database');
     }
+
+    // Update profiles table with subscription data
+    await updateProfileFromSubscription(customerId, subscription);
   } catch (error) {
     console.error(`Failed to sync subscription for customer ${customerId}:`, error);
     throw error;
-  }
-
-  // Update profile status and set payment issue timestamp
-  await updateProfileStatus(customerId, 'past_due', true);
-}
-
-async function updateProfileStatus(customerId: string, status: string, setPaymentIssue = false) {
-  try {
-    // Get the user ID from stripe_customers table
-    const { data: customer, error: customerError } = await supabase
-      .from('stripe_customers')
-      .select('user_id')
-      .eq('customer_id', customerId)
-      .single();
-
-    if (customerError || !customer?.user_id) {
-      console.log(`No user found for customer ${customerId}, skipping profile update`);
-      return;
-    }
-
-    const profileUpdate: any = {
-      subscription_status: status,
-    };
-
-    if (setPaymentIssue) {
-      profileUpdate.payment_issue_since = new Date().toISOString();
-    }
-
-    const { error: profileError } = await supabase
-      .from('profiles')
-      .update(profileUpdate)
-      .eq('id', customer.user_id);
-
-    if (profileError) {
-      console.error('Error updating profile status:', profileError);
-    } else {
-      console.log(`Successfully updated profile status to ${status} for user ${customer.user_id}`);
-    }
-  } catch (error) {
-    console.error('Error updating profile status:', error);
   }
 }
