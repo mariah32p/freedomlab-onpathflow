@@ -9,7 +9,14 @@ interface RouteGuardProps {
 
 const RouteGuard: React.FC<RouteGuardProps> = ({ children }) => {
   const { user, loading: authLoading } = useAuth();
-  const { profile, loading: profileLoading, shouldRedirectToGetStarted } = useProfile();
+  const { profile, loading: profileLoading, shouldRedirectToGetStarted, fetchProfile } = useProfile();
+
+  // Force refresh profile data when component mounts (for post-checkout scenarios)
+  React.useEffect(() => {
+    if (user && !profileLoading) {
+      fetchProfile();
+    }
+  }, [user, fetchProfile]);
 
   // Show loading while auth or profile is loading, OR while we have a user but no profile yet
   if (authLoading || profileLoading || (user && !profile)) {

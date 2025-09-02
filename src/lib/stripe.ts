@@ -37,8 +37,8 @@ export const createCheckoutSession = async (priceId: string, plan: 'standard' | 
       const checkClosed = setInterval(() => {
         if (popup?.closed) {
           clearInterval(checkClosed);
-          // Refresh current page to trigger route guard check
-          window.location.reload();
+          // Navigate directly to dashboard after popup closes
+          window.location.href = '/dashboard';
         }
       }, 1000);
       
@@ -48,7 +48,7 @@ export const createCheckoutSession = async (priceId: string, plan: 'standard' | 
           clearInterval(checkClosed);
           popup?.close();
           window.removeEventListener('message', messageListener);
-          // Navigate to dashboard
+          // Navigate directly to dashboard
           window.location.href = '/dashboard';
         }
       };
