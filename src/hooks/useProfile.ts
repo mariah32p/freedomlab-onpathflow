@@ -34,6 +34,7 @@ export const useProfile = () => {
 
   const fetchProfile = async () => {
     try {
+      console.log('📊 Fetching profile for user:', user?.id);
       setLoading(true);
       const { data, error } = await supabase
         .from('profiles')
@@ -42,11 +43,14 @@ export const useProfile = () => {
         .single();
 
       if (error) {
+        console.error('❌ Profile fetch error:', error);
         throw error;
       }
 
+      console.log('✅ Profile fetched successfully:', data);
       setProfile(data);
     } catch (err: any) {
+      console.error('❌ Profile fetch failed:', err.message);
       setError(err.message);
     } finally {
       setLoading(false);
@@ -106,11 +110,21 @@ export const useProfile = () => {
   const shouldRedirectToGetStarted = () => {
     if (!profile) return false;
     
-    return (
+    const shouldRedirect = (
       profile.subscription_status === 'not_started' ||
       isCanceled() ||
       (isPastDue() && !isInGracePeriod())
     );
+    
+    console.log('🤔 shouldRedirectToGetStarted check:', {
+      subscription_status: profile.subscription_status,
+      isCanceled: isCanceled(),
+      isPastDue: isPastDue(),
+      isInGracePeriod: isInGracePeriod(),
+      shouldRedirect
+    });
+    
+    return shouldRedirect;
   };
 
   return {
