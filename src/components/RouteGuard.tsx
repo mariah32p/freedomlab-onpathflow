@@ -9,9 +9,10 @@ interface RouteGuardProps {
 
 const RouteGuard: React.FC<RouteGuardProps> = ({ children }) => {
   const { user, loading: authLoading } = useAuth();
-  const { loading: profileLoading, shouldRedirectToGetStarted } = useProfile();
+  const { profile, loading: profileLoading, shouldRedirectToGetStarted } = useProfile();
 
-  if (authLoading || profileLoading) {
+  // Show loading while auth or profile is loading, OR while we have a user but no profile yet
+  if (authLoading || profileLoading || (user && !profile)) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 flex items-center justify-center">
         <div className="text-center">
