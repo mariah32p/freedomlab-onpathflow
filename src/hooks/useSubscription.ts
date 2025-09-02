@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
-import { useAuth } from './useAuth';
+import { useAuth } from '../contexts/AuthContext';
 
 export interface Profile {
   id: string;
@@ -16,7 +16,7 @@ export interface Profile {
   updated_at: string;
 }
 
-export const useProfile = () => {
+export const useSubscription = () => {
   const { user } = useAuth();
   const [profile, setProfile] = useState<Profile | null>(null);
   const [loading, setLoading] = useState(true);
@@ -98,30 +98,13 @@ export const useProfile = () => {
     }
   };
 
-  // Helper functions for subscription status
-  const isTrialing = () => {
-    return profile?.subscription_status === 'trialing';
-  };
-
-  const isActive = () => {
-    return profile?.subscription_status === 'active';
-  };
-
-  const isPastDue = () => {
-    return profile?.subscription_status === 'past_due';
-  };
-
-  const isCanceled = () => {
-    return profile?.subscription_status === 'canceled';
-  };
-
-  const isNotStarted = () => {
-    return profile?.subscription_status === 'not_started';
-  };
-
-  const hasActiveSubscription = () => {
-    return isTrialing() || isActive();
-  };
+  // Subscription status helpers
+  const isTrialing = () => profile?.subscription_status === 'trialing';
+  const isActive = () => profile?.subscription_status === 'active';
+  const isPastDue = () => profile?.subscription_status === 'past_due';
+  const isCanceled = () => profile?.subscription_status === 'canceled';
+  const isNotStarted = () => profile?.subscription_status === 'not_started';
+  const hasActiveSubscription = () => isTrialing() || isActive();
 
   const isInGracePeriod = () => {
     if (!isPastDue() || !profile?.payment_issue_since) return false;
@@ -132,12 +115,43 @@ export const useProfile = () => {
     return new Date() < gracePeriodEnd;
   };
 
-  const isPremium = () => {
-    return profile?.plan === 'premium';
+  // Plan helpers
+  const isPremium = () => profile?.plan === 'premium';
+  const isStandard = () => profile?.plan === 'standard';
+
+  // Feature gating for OnPathFlow
+  const canCreateClients = () => {
+    if (isTrialing()) return true; // Full access during trial
+    if (!hasActiveSubscription()) return false;
+    return true; // Both plans can create clients
   };
 
-  const isStandard = () => {
-    return profile?.plan === 'standard';
+  const getClientLimit = () => {
+    if (isTrialing() || isPremium()) return null; // Unlimited
+    return 10; // Standard limit
+  };
+
+  const canCreatePaths = () => {
+    if (isTrialing()) return true;
+    if (!hasActiveSubscription()) return false;
+    return true;
+  };
+
+  const getPathLimit = () => {
+    if (isTrialing() || isPremium()) return null; // Unlimited
+    return 5; // Standard limit per client
+  };
+
+  const canAccessAnalytics = () => {
+    if (isTrialing()) return true;
+    if (!hasActiveSubscription()) return false;
+    return isPremium(); // Premium only
+  };
+
+  const canAccessLeaderboards = () => {
+    if (isTrialing()) return true;
+    if (!hasActiveSubscription()) return false;
+    return isPremium(); // Premium only
   };
 
   return {
@@ -146,6 +160,7 @@ export const useProfile = () => {
     error,
     fetchProfile,
     updateProfile,
+    // Status checks
     isTrialing,
     isActive,
     isPastDue,
@@ -153,7 +168,15 @@ export const useProfile = () => {
     isNotStarted,
     hasActiveSubscription,
     isInGracePeriod,
+    // Plan checks
     isPremium,
-    isStandard
+    isStandard,
+    // Feature gating
+    canCreateClients,
+    getClientLimit,
+    canCreatePaths,
+    getPathLimit,
+    canAccessAnalytics,
+    canAccessLeaderboards
   };
 };

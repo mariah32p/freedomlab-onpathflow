@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { Eye, EyeOff, AlertCircle, CheckCircle } from 'lucide-react';
 import Header from '../components/Header';
-import { useAuth } from '../hooks/useAuth';
+import { useAuth } from '../contexts/AuthContext';
 
 const SigninPage: React.FC = () => {
   const [email, setEmail] = useState('');

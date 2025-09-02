@@ -1,15 +1,14 @@
 import React from 'react';
-import { Navigate } from 'react-router-dom';
-import { useAuth } from '../hooks/useAuth';
+import { useRouteGuard } from '../hooks/useRouteGuard';
 
 interface RouteGuardProps {
   children: React.ReactNode;
 }
 
 const RouteGuard: React.FC<RouteGuardProps> = ({ children }) => {
-  const { user, loading: authLoading } = useAuth();
+  const { loading } = useRouteGuard();
 
-  if (authLoading) {
+  if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 flex items-center justify-center">
         <div className="text-center">
@@ -20,10 +19,7 @@ const RouteGuard: React.FC<RouteGuardProps> = ({ children }) => {
     );
   }
 
-  if (!user) {
-    return <Navigate to="/signup" replace />;
-  }
-
+  // Route guard handles all navigation logic
   return <>{children}</>;
 };
 

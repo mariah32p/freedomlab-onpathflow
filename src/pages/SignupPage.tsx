@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Eye, EyeOff, AlertCircle, CheckCircle } from 'lucide-react';
 import Header from '../components/Header';
-import { useAuth } from '../hooks/useAuth';
+import { useAuth } from '../contexts/AuthContext';
 
 const SignupPage: React.FC = () => {
   const [email, setEmail] = useState('');

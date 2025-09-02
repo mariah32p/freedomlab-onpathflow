@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Target, AlertCircle, CheckCircle, Eye, EyeOff } from 'lucide-react';
-import { useAuth } from '../hooks/useAuth';
+import { useAuth } from '../contexts/AuthContext';
 import { supabase } from '../lib/supabase';
 
 const ResetPasswordPage: React.FC = () => {

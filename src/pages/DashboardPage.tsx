@@ -1,24 +1,25 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Target, Users, TrendingUp, Settings, Bell, LogOut, Calendar, Trophy, AlertCircle, Clock } from 'lucide-react';
-import { useAuth } from '../hooks/useAuth';
-import { useProfile } from '../hooks/useProfile';
+import { useAuth } from '../contexts/AuthContext';
+import { useSubscription } from '../hooks/useSubscription';
 
 const DashboardPage: React.FC = () => {
   const { user, signOut } = useAuth();
   const { 
     profile, 
-    loading: profileLoading, 
+    loading, 
     isTrialing, 
     isActive,
     isPastDue,
     isCanceled,
     isNotStarted, 
-    hasActiveSubscription, 
     isInGracePeriod, 
     isPremium, 
-    isStandard 
-  } = useProfile();
+    isStandard,
+    getClientLimit,
+    getPathLimit
+  } = useSubscription();
 
   const handleSignOut = async () => {
     await signOut();
@@ -43,7 +44,7 @@ const DashboardPage: React.FC = () => {
   };
 
   // Show loading state while profile is loading
-  if (profileLoading) {
+  if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 flex items-center justify-center">
         <div className="text-center">
@@ -185,7 +186,9 @@ const DashboardPage: React.FC = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-emerald-600 text-sm font-medium">Total Clients</p>
-                <p className="text-3xl font-bold text-emerald-700">{isPremium() ? '∞' : '0/10'}</p>
+                <p className="text-3xl font-bold text-emerald-700">
+                  {getClientLimit() ? `0/${getClientLimit()}` : '∞'}
+                </p>
               </div>
               <Users className="w-8 h-8 text-emerald-500" />
             </div>
@@ -195,7 +198,9 @@ const DashboardPage: React.FC = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-blue-600 text-sm font-medium">Active Paths</p>
-                <p className="text-3xl font-bold text-blue-700">{isPremium() ? '∞' : '0/5'}</p>
+                <p className="text-3xl font-bold text-blue-700">
+                  {getPathLimit() ? `0/${getPathLimit()}` : '∞'}
+                </p>
               </div>
               <Target className="w-8 h-8 text-blue-500" />
             </div>
@@ -246,8 +251,8 @@ const DashboardPage: React.FC = () => {
                 <button className="w-full bg-emerald-500 text-white py-2 px-4 rounded-lg font-medium hover:bg-emerald-600 transition-colors duration-200">
                   Add Client
                 </button>
-                {isStandard() && (
-                  <p className="text-emerald-600 text-xs mt-2">Standard: Up to 10 clients</p>
+                {getClientLimit() && (
+                  <p className="text-emerald-600 text-xs mt-2">Standard: Up to {getClientLimit()} clients</p>
                 )}
               </div>
               
@@ -262,8 +267,8 @@ const DashboardPage: React.FC = () => {
                 <button className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg font-medium hover:bg-blue-600 transition-colors duration-200">
                   Create Path
                 </button>
-                {isStandard() && (
-                  <p className="text-blue-600 text-xs mt-2">Standard: Up to 5 paths per client</p>
+                {getPathLimit() && (
+                  <p className="text-blue-600 text-xs mt-2">Standard: Up to {getPathLimit()} paths per client</p>
                 )}
               </div>
               

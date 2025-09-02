@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { CheckCircle, AlertCircle } from 'lucide-react';
 import Header from '../components/Header';
 import { stripeConfig } from '../lib/stripe-config';
-import { createCheckoutSession } from '../lib/stripe';
+import { useStripe } from '../hooks/useStripe';
 
 const GetStartedPage: React.FC = () => {
   const [selectedPlan, setSelectedPlan] = useState<'standard' | 'premium'>('premium');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const { createCheckoutSession } = useStripe();
 
   const handleStartTrial = async () => {
     setError('');
@@ -16,7 +16,7 @@ const GetStartedPage: React.FC = () => {
     
     try {
       const config = stripeConfig.products[selectedPlan];
-      await createCheckoutSession(config.priceId, selectedPlan);
+      await createCheckoutSession(config.priceId, selectedPlan, false);
       
       // Show success message while checkout window is open
       setTimeout(() => {
@@ -157,15 +157,6 @@ const GetStartedPage: React.FC = () => {
           <p className="text-slate-500 text-sm mt-4">
             Checkout opens in new window • Full access during trial • Cancel anytime • No charges until trial ends
           </p>
-          
-          <div className="mt-6">
-            <Link 
-              to="/signin" 
-              className="text-slate-600 hover:text-slate-900 font-medium text-sm"
-            >
-              Already have an account? Sign in
-            </Link>
-          </div>
         </div>
       </main>
     </div>

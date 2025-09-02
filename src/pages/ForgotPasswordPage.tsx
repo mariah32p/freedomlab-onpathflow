@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Target, AlertCircle, CheckCircle, ArrowLeft } from 'lucide-react';
-import { useAuth } from '../hooks/useAuth';
+import { useAuth } from '../contexts/AuthContext';
 
 const ForgotPasswordPage: React.FC = () => {
   const [email, setEmail] = useState('');
