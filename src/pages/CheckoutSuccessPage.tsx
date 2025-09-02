@@ -2,15 +2,11 @@ import React, { useEffect } from 'react';
 
 const CheckoutSuccessPage: React.FC = () => {
   useEffect(() => {
-    console.log('🎉 CheckoutSuccessPage loaded - sending success message to parent');
     // Send message to parent window that checkout was successful
     if (window.opener) {
-      console.log('📨 Sending checkout-success message to parent window');
       window.opener.postMessage('checkout-success', window.location.origin);
-      console.log('🪟 Closing popup window');
       window.close();
     } else {
-      console.log('🔄 No opener found, redirecting directly to dashboard');
       // Fallback: redirect to dashboard if not in popup
       window.location.href = '/dashboard';
     }

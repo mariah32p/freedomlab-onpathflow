@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Target, Users, TrendingUp, Settings, Bell, LogOut, Calendar, Trophy } from 'lucide-react';
+import { Target, Users, TrendingUp, Settings, Bell, LogOut, Calendar, Trophy, AlertCircle, Clock } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import { useProfile } from '../hooks/useProfile';
 
 const DashboardPage: React.FC = () => {
   const { user, signOut } = useAuth();
-  const { profile, isTrialing, hasActiveSubscription } = useProfile();
+  const { profile, loading: profileLoading, isTrialing, hasActiveSubscription, isNotStarted, isPremium, isStandard, isPastDue, isInGracePeriod } = useProfile();
 
   const handleSignOut = async () => {
     await signOut();
@@ -30,6 +30,18 @@ const DashboardPage: React.FC = () => {
     });
   };
 
+  // Show loading state while profile is loading
+  if (profileLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin w-8 h-8 border-2 border-emerald-500 border-t-transparent rounded-full mx-auto mb-4"></div>
+          <p className="text-slate-600">Loading your dashboard...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
       {/* Header */}
@@ -44,7 +56,7 @@ const DashboardPage: React.FC = () => {
                 <h1 className="text-2xl font-bold text-slate-800">OnPathFlow</h1>
                 <div className="flex items-center space-x-2">
                   <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                    profile?.plan === 'premium' 
+                    isPremium() 
                       ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white' 
                       : 'bg-slate-200 text-slate-700'
                   }`}>
@@ -70,6 +82,28 @@ const DashboardPage: React.FC = () => {
         </div>
       </header>
 
+      {/* Account Status Banners */}
+      {isNotStarted() && (
+        <div className="bg-gradient-to-r from-blue-500 to-purple-600 text-white py-3">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-3">
+                <Clock className="w-5 h-5" />
+                <span className="font-medium">
+                  Setting up your account... This may take a few moments.
+                </span>
+              </div>
+              <Link 
+                to="/get-started" 
+                className="text-blue-100 hover:text-white font-medium text-sm underline"
+              >
+                Complete Setup
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Trial Banner */}
       {isTrialing() && profile?.trial_ends_at && (
         <div className="bg-gradient-to-r from-emerald-500 to-blue-600 text-white py-3">
@@ -92,6 +126,28 @@ const DashboardPage: React.FC = () => {
         </div>
       )}
 
+      {/* Payment Issue Banner */}
+      {isPastDue() && isInGracePeriod() && (
+        <div className="bg-gradient-to-r from-red-500 to-pink-600 text-white py-3">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-3">
+                <AlertCircle className="w-5 h-5" />
+                <span className="font-medium">
+                  Payment issue detected. Please update your payment method to continue service.
+                </span>
+              </div>
+              <Link 
+                to="/settings" 
+                className="text-red-100 hover:text-white font-medium text-sm underline"
+              >
+                Update Payment
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Welcome Section */}
@@ -99,9 +155,16 @@ const DashboardPage: React.FC = () => {
           <h2 className="text-3xl font-bold text-slate-900 mb-2">
             Welcome back, {user?.email?.split('@')[0]}! 👋
           </h2>
-          <p className="text-slate-600">
-            Here's what's happening with your coaching practice today.
-          </p>
+          <div className="flex items-center space-x-4">
+            <p className="text-slate-600">
+              Here's what's happening with your coaching practice today.
+            </p>
+            {isPremium() && (
+              <span className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-3 py-1 rounded-full text-sm font-medium">
+                Premium Features Unlocked
+              </span>
+            )}
+          </div>
         </div>
 
         {/* Stats Overview */}
@@ -110,7 +173,7 @@ const DashboardPage: React.FC = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-emerald-600 text-sm font-medium">Total Clients</p>
-                <p className="text-3xl font-bold text-emerald-700">0</p>
+                <p className="text-3xl font-bold text-emerald-700">{isPremium() ? '∞' : '0/10'}</p>
               </div>
               <Users className="w-8 h-8 text-emerald-500" />
             </div>
@@ -120,7 +183,7 @@ const DashboardPage: React.FC = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-blue-600 text-sm font-medium">Active Paths</p>
-                <p className="text-3xl font-bold text-blue-700">0</p>
+                <p className="text-3xl font-bold text-blue-700">{isPremium() ? '∞' : '0/5'}</p>
               </div>
               <Target className="w-8 h-8 text-blue-500" />
             </div>
@@ -171,6 +234,9 @@ const DashboardPage: React.FC = () => {
                 <button className="w-full bg-emerald-500 text-white py-2 px-4 rounded-lg font-medium hover:bg-emerald-600 transition-colors duration-200">
                   Add Client
                 </button>
+                {isStandard() && (
+                  <p className="text-emerald-600 text-xs mt-2">Standard: Up to 10 clients</p>
+                )}
               </div>
               
               <div className="bg-blue-50 rounded-xl p-6 border border-blue-200">
@@ -184,6 +250,9 @@ const DashboardPage: React.FC = () => {
                 <button className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg font-medium hover:bg-blue-600 transition-colors duration-200">
                   Create Path
                 </button>
+                {isStandard() && (
+                  <p className="text-blue-600 text-xs mt-2">Standard: Up to 5 paths per client</p>
+                )}
               </div>
               
               <div className="bg-purple-50 rounded-xl p-6 border border-purple-200">
@@ -197,6 +266,9 @@ const DashboardPage: React.FC = () => {
                 <button className="w-full bg-purple-500 text-white py-2 px-4 rounded-lg font-medium hover:bg-purple-600 transition-colors duration-200">
                   Open Settings
                 </button>
+                {isPremium() && (
+                  <p className="text-purple-600 text-xs mt-2">Premium: Advanced analytics included</p>
+                )}
               </div>
             </div>
 
@@ -206,14 +278,24 @@ const DashboardPage: React.FC = () => {
               <div className="grid md:grid-cols-2 gap-4 text-sm">
                 <div className="flex justify-between">
                   <span className="text-slate-600">Plan:</span>
-                  <span className="font-medium text-slate-900 capitalize">{profile?.plan || 'Standard'}</span>
+                  <span className={`font-medium capitalize ${isPremium() ? 'text-purple-600' : 'text-slate-900'}`}>
+                    {profile?.plan || 'Standard'}
+                  </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-slate-600">Status:</span>
                   <span className={`font-medium capitalize ${
-                    hasActiveSubscription() ? 'text-emerald-600' : 'text-slate-600'
+                    isTrialing() ? 'text-blue-600' :
+                    isActive() ? 'text-emerald-600' :
+                    isPastDue() ? 'text-red-600' :
+                    isCanceled() ? 'text-slate-600' :
+                    'text-amber-600'
                   }`}>
-                    {profile?.subscription_status?.replace('_', ' ') || 'Not Started'}
+                    {isTrialing() ? 'Free Trial' :
+                     isActive() ? 'Active' :
+                     isPastDue() ? 'Payment Issue' :
+                     isCanceled() ? 'Canceled' :
+                     'Setting Up...'}
                   </span>
                 </div>
                 {profile?.trial_ends_at && (
@@ -222,10 +304,55 @@ const DashboardPage: React.FC = () => {
                     <span className="font-medium text-slate-900">{formatDate(profile.trial_ends_at)}</span>
                   </div>
                 )}
+                {profile?.current_period_end && isActive() && (
+                  <div className="flex justify-between">
+                    <span className="text-slate-600">Next Billing:</span>
+                    <span className="font-medium text-slate-900">{formatDate(profile.current_period_end)}</span>
+                  </div>
+                )}
                 <div className="flex justify-between">
                   <span className="text-slate-600">Member Since:</span>
                   <span className="font-medium text-slate-900">{formatDate(profile?.created_at)}</span>
                 </div>
+              </div>
+              
+              {/* Action Buttons Based on Status */}
+              <div className="mt-4 space-y-2">
+                {isNotStarted() && (
+                  <Link 
+                    to="/get-started"
+                    className="w-full bg-emerald-500 text-white py-2 px-4 rounded-lg font-medium hover:bg-emerald-600 transition-colors duration-200 text-center block"
+                  >
+                    Complete Account Setup
+                  </Link>
+                )}
+                
+                {(isTrialing() || isActive()) && (
+                  <Link 
+                    to="/settings"
+                    className="w-full bg-slate-500 text-white py-2 px-4 rounded-lg font-medium hover:bg-slate-600 transition-colors duration-200 text-center block"
+                  >
+                    Manage Subscription
+                  </Link>
+                )}
+                
+                {isPastDue() && (
+                  <Link 
+                    to="/settings"
+                    className="w-full bg-red-500 text-white py-2 px-4 rounded-lg font-medium hover:bg-red-600 transition-colors duration-200 text-center block"
+                  >
+                    Fix Payment Issue
+                  </Link>
+                )}
+                
+                {isCanceled() && (
+                  <Link 
+                    to="/get-started"
+                    className="w-full bg-emerald-500 text-white py-2 px-4 rounded-lg font-medium hover:bg-emerald-600 transition-colors duration-200 text-center block"
+                  >
+                    Reactivate Subscription
+                  </Link>
+                )}
               </div>
             </div>
           </div>

@@ -49,9 +49,7 @@ export const createCheckoutSession = async (priceId: string, plan: 'standard' | 
       
       // Listen for popup to close or navigate to success page
       const checkClosed = setInterval(() => {
-        console.log('🔍 Checking if popup is closed...');
         if (popup?.closed) {
-          console.log('🪟 Popup closed, navigating to dashboard');
           clearInterval(checkClosed);
           // Navigate directly to dashboard after popup closes
           window.location.href = '/dashboard';
@@ -60,9 +58,7 @@ export const createCheckoutSession = async (priceId: string, plan: 'standard' | 
       
       // Also listen for success message from popup
       const messageListener = (event: MessageEvent) => {
-        console.log('📨 Received message from popup:', event.data, 'from origin:', event.origin);
         if (event.origin === window.location.origin && event.data === 'checkout-success') {
-          console.log('✅ Checkout success message received, closing popup and navigating');
           clearInterval(checkClosed);
           popup?.close();
           window.removeEventListener('message', messageListener);
@@ -72,7 +68,6 @@ export const createCheckoutSession = async (priceId: string, plan: 'standard' | 
       };
       
       window.addEventListener('message', messageListener);
-      console.log('👂 Message listener added, waiting for checkout completion');
     } else {
       console.error('❌ No checkout URL returned from edge function');
       throw new Error('No checkout URL returned');
