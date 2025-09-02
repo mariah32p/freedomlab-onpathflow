@@ -22,6 +22,8 @@ export const useRouteGuard = () => {
     // Don't redirect while loading
     if (authLoading || profileLoading) return;
 
+    const currentPath = location.pathname;
+
     console.log('🛡️ Route guard check:', {
       user: !!user,
       profile: !!profile,
@@ -41,8 +43,6 @@ export const useRouteGuard = () => {
       console.warn('User authenticated but no profile found');
       return;
     }
-
-    const currentPath = location.pathname;
 
     // Route logic based on subscription status
     if (isNotStarted()) {
