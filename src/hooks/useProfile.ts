@@ -33,6 +33,11 @@ export const useProfile = () => {
   }, [user]);
 
   const fetchProfile = async () => {
+    if (!user) {
+      console.log('⚠️ fetchProfile called but user is null/undefined, skipping');
+      return;
+    }
+    
     try {
       console.log('📊 Fetching profile for user:', user?.id);
       setLoading(true);
