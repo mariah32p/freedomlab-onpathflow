@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import ProtectedRoute from './components/ProtectedRoute';
 import RouteGuard from './components/RouteGuard';
 import LandingPage from './pages/LandingPage';
 import SignupPage from './pages/SignupPage';
@@ -23,16 +22,14 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route path="/get-started" element={
-          <ProtectedRoute>
+          <RouteGuard>
             <GetStartedPage />
-          </ProtectedRoute>
+          </RouteGuard>
         } />
         <Route path="/dashboard" element={
-          <ProtectedRoute>
-            <RouteGuard>
-              <DashboardPage />
-            </RouteGuard>
-          </ProtectedRoute>
+          <RouteGuard>
+            <DashboardPage />
+          </RouteGuard>
         } />
         <Route path="/pricing" element={<PricingPage />} />
         <Route path="/demo" element={<DemoPage />} />

@@ -19,7 +19,6 @@ const RouteGuard: React.FC<RouteGuardProps> = ({ children }) => {
     );
   }
 
-  // Route guard handles all navigation logic
   return <>{children}</>;
 };
 

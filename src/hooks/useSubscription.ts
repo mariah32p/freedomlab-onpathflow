@@ -107,59 +107,22 @@ export const useSubscription = () => {
   };
 
   // Subscription status helpers
-  const isTrialing = () => profile?.subscription_status === 'trialing';
-  const isActive = () => profile?.subscription_status === 'active';
-  const isPastDue = () => profile?.subscription_status === 'past_due';
-  const isCanceled = () => profile?.subscription_status === 'canceled';
-  const isNotStarted = () => profile?.subscription_status === 'not_started';
-  const hasActiveSubscription = () => isTrialing() || isActive();
-
-  const isInGracePeriod = () => {
-    if (!isPastDue() || !profile?.payment_issue_since) return false;
-    
-    const gracePeriodEnd = new Date(profile.payment_issue_since);
-    gracePeriodEnd.setDate(gracePeriodEnd.getDate() + 30);
-    
-    return new Date() < gracePeriodEnd;
+  const hasActiveSubscription = () => {
+    const status = profile?.subscription_status;
+    return status === 'trialing' || status === 'active';
   };
 
-  // Plan helpers
   const isPremium = () => profile?.plan === 'premium';
-  const isStandard = () => profile?.plan === 'standard';
 
   // Feature gating for OnPathFlow
-  const canCreateClients = () => {
-    if (isTrialing()) return true; // Full access during trial
-    if (!hasActiveSubscription()) return false;
-    return true; // Both plans can create clients
-  };
-
   const getClientLimit = () => {
-    if (isTrialing() || isPremium()) return null; // Unlimited
+    if (isPremium()) return null; // Unlimited
     return 10; // Standard limit
   };
 
-  const canCreatePaths = () => {
-    if (isTrialing()) return true;
-    if (!hasActiveSubscription()) return false;
-    return true;
-  };
-
   const getPathLimit = () => {
-    if (isTrialing() || isPremium()) return null; // Unlimited
+    if (isPremium()) return null; // Unlimited
     return 5; // Standard limit per client
-  };
-
-  const canAccessAnalytics = () => {
-    if (isTrialing()) return true;
-    if (!hasActiveSubscription()) return false;
-    return isPremium(); // Premium only
-  };
-
-  const canAccessLeaderboards = () => {
-    if (isTrialing()) return true;
-    if (!hasActiveSubscription()) return false;
-    return isPremium(); // Premium only
   };
 
   return {
@@ -168,23 +131,9 @@ export const useSubscription = () => {
     error,
     fetchProfile,
     updateProfile,
-    // Status checks
-    isTrialing,
-    isActive,
-    isPastDue,
-    isCanceled,
-    isNotStarted,
     hasActiveSubscription,
-    isInGracePeriod,
-    // Plan checks
     isPremium,
-    isStandard,
-    // Feature gating
-    canCreateClients,
     getClientLimit,
-    canCreatePaths,
-    getPathLimit,
-    canAccessAnalytics,
-    canAccessLeaderboards
+    getPathLimit
   };
 };
