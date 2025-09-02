@@ -1,7 +1,6 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
-import { useProfile } from '../hooks/useProfile';
 
 interface RouteGuardProps {
   children: React.ReactNode;
@@ -9,10 +8,8 @@ interface RouteGuardProps {
 
 const RouteGuard: React.FC<RouteGuardProps> = ({ children }) => {
   const { user, loading: authLoading } = useAuth();
-  const { profile, loading: profileLoading, shouldRedirectToGetStarted } = useProfile();
 
-  // Show loading while auth or profile is loading, OR while we have a user but no profile yet
-  if (authLoading || profileLoading || (user && !profile)) {
+  if (authLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 flex items-center justify-center">
         <div className="text-center">
@@ -23,18 +20,9 @@ const RouteGuard: React.FC<RouteGuardProps> = ({ children }) => {
     );
   }
 
-  // Not signed in - redirect to signup
   if (!user) {
     return <Navigate to="/signup" replace />;
   }
 
-  // User exists but needs to set up subscription
-  if (shouldRedirectToGetStarted()) {
-    return <Navigate to="/get-started" replace />;
-  }
-
-  // User has active subscription or is in trial/grace period
   return <>{children}</>;
 };
-
-export default RouteGuard;

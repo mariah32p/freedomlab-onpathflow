@@ -94,6 +94,10 @@ export const useProfile = () => {
     return profile?.subscription_status === 'canceled';
   };
 
+  const isNotStarted = () => {
+    return profile?.subscription_status === 'not_started';
+  };
+
   const hasActiveSubscription = () => {
     return isTrialing() || isActive();
   };
@@ -107,14 +111,12 @@ export const useProfile = () => {
     return new Date() < gracePeriodEnd;
   };
 
-  const shouldRedirectToGetStarted = () => {
-    if (!profile) return false;
-    
-    return (
-      profile.subscription_status === 'not_started' ||
-      isCanceled() ||
-      (isPastDue() && !isInGracePeriod())
-    );
+  const isPremium = () => {
+    return profile?.plan === 'premium';
+  };
+
+  const isStandard = () => {
+    return profile?.plan === 'standard';
   };
 
   return {
@@ -127,8 +129,10 @@ export const useProfile = () => {
     isActive,
     isPastDue,
     isCanceled,
+    isNotStarted,
     hasActiveSubscription,
     isInGracePeriod,
-    shouldRedirectToGetStarted
+    isPremium,
+    isStandard
   };
 };
