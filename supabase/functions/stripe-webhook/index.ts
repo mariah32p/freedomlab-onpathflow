@@ -15,6 +15,8 @@ const supabase = createClient(Deno.env.get('SUPABASE_URL')!, Deno.env.get('SUPAB
 
 Deno.serve(async (req) => {
   try {
+    console.log('🎯 Webhook received:', req.method, req.url);
+    
     // Handle OPTIONS request for CORS preflight
     if (req.method === 'OPTIONS') {
       return new Response(null, { status: 204 });
@@ -33,6 +35,7 @@ Deno.serve(async (req) => {
 
     // get the raw body
     const body = await req.text();
+    console.log('📦 Webhook body length:', body.length);
 
     // verify the webhook signature
     let event: Stripe.Event;
@@ -44,6 +47,7 @@ Deno.serve(async (req) => {
       return new Response(`Webhook signature verification failed: ${error.message}`, { status: 400 });
     }
 
+    console.log('✅ Webhook event verified:', event.type, event.id);
     EdgeRuntime.waitUntil(handleEvent(event));
 
     return Response.json({ received: true });
@@ -54,13 +58,16 @@ Deno.serve(async (req) => {
 });
 
 async function handleEvent(event: Stripe.Event) {
+  console.log('🔄 Processing webhook event:', event.type);
   const stripeData = event?.data?.object ?? {};
 
   if (!stripeData) {
+    console.log('❌ No stripe data found in event');
     return;
   }
 
   if (!('customer' in stripeData)) {
+    console.log('❌ No customer found in stripe data');
     return;
   }
 
@@ -74,6 +81,7 @@ async function handleEvent(event: Stripe.Event) {
   if (!customerId || typeof customerId !== 'string') {
     console.error(`No customer received on event: ${JSON.stringify(event)}`);
   } else {
+    console.log('👤 Processing event for customer:', customerId);
     let isSubscription = true;
 
     if (event.type === 'checkout.session.completed') {
@@ -84,6 +92,8 @@ async function handleEvent(event: Stripe.Event) {
       console.info(`Processing ${isSubscription ? 'subscription' : 'one-time payment'} checkout session`);
     }
 
+    console.log('🔍 Event details:', { type: event.type, isSubscription, customerId });
+    
     const { mode, payment_status } = stripeData as Stripe.Checkout.Session;
 
     if (isSubscription) {
@@ -127,6 +137,8 @@ async function handleEvent(event: Stripe.Event) {
 // based on the excellent https://github.com/t3dotgg/stripe-recommendations
 async function syncCustomerFromStripe(customerId: string) {
   try {
+    console.log('🔄 Starting subscription sync for customer:', customerId);
+    
     // fetch latest subscription data from Stripe
     const subscriptions = await stripe.subscriptions.list({
       customer: customerId,
@@ -135,6 +147,8 @@ async function syncCustomerFromStripe(customerId: string) {
       expand: ['data.default_payment_method'],
     });
 
+    console.log('📊 Found subscriptions:', subscriptions.data.length);
+    
     // TODO verify if needed
     if (subscriptions.data.length === 0) {
       console.info(`No active subscriptions found for customer: ${customerId}`);
@@ -156,6 +170,14 @@ async function syncCustomerFromStripe(customerId: string) {
 
     // assumes that a customer can only have a single subscription
     const subscription = subscriptions.data[0];
+
+    console.log('💳 Subscription details:', {
+      id: subscription.id,
+      status: subscription.status,
+      current_period_start: subscription.current_period_start,
+      current_period_end: subscription.current_period_end,
+      trial_end: subscription.trial_end
+    });
 
     // store subscription state
     const { error: subError } = await supabase.from('stripe_subscriptions').upsert(
@@ -182,8 +204,9 @@ async function syncCustomerFromStripe(customerId: string) {
     if (subError) {
       console.error('Error syncing subscription:', subError);
       throw new Error('Failed to sync subscription in database');
+    } else {
+      console.log('✅ Successfully synced subscription to database');
     }
-    console.info(`Successfully synced subscription for customer: ${customerId}`);
   } catch (error) {
     console.error(`Failed to sync subscription for customer ${customerId}:`, error);
     throw error;
