@@ -1,22 +1,31 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { CheckCircle } from 'lucide-react';
+import { CheckCircle, AlertCircle } from 'lucide-react';
 import Header from '../components/Header';
+import { stripeConfig } from '../lib/stripe-config';
+import { createCheckoutSession } from '../lib/stripe';
 
 const GetStartedPage: React.FC = () => {
   const [selectedPlan, setSelectedPlan] = useState<'standard' | 'premium'>('premium');
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const handleStartTrial = async () => {
+    setError('');
     setLoading(true);
     
-    // This will integrate with Stripe checkout later
-    // For now, just simulate the process
-    setTimeout(() => {
+    try {
+      const config = stripeConfig.products[selectedPlan];
+      await createCheckoutSession(config.priceId, selectedPlan);
+      
+      // Show success message while checkout window is open
+      setTimeout(() => {
+        setLoading(false);
+      }, 2000);
+    } catch (err: any) {
+      setError(err.message || 'Failed to start checkout process');
       setLoading(false);
-      // Will redirect to Stripe checkout
-      console.log(`Starting trial for ${selectedPlan} plan`);
-    }, 2000);
+    }
   };
 
   return (
@@ -32,6 +41,13 @@ const GetStartedPage: React.FC = () => {
           <p className="text-xl text-slate-600 max-w-2xl mx-auto">
             Start your 7-day free trial with full access to all features. Choose the plan that fits your coaching practice.
           </p>
+          
+          {error && (
+            <div className="bg-red-50 border border-red-200 rounded-lg p-4 flex items-center space-x-3 max-w-2xl mx-auto mt-6">
+              <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0" />
+              <p className="text-red-700 text-sm">{error}</p>
+            </div>
+          )}
         </div>
 
         {/* Plan Selection */}
@@ -123,6 +139,10 @@ const GetStartedPage: React.FC = () => {
 
         {/* Start Trial Button */}
         <div className="text-center">
+          <p className="text-slate-600 text-sm mb-4">
+            <strong>Note:</strong> You'll need to replace the Stripe price IDs in the configuration with your actual Stripe subscription price IDs that include 7-day trials.
+          </p>
+          
           <button
             onClick={handleStartTrial}
             disabled={loading}
@@ -131,7 +151,7 @@ const GetStartedPage: React.FC = () => {
             {loading ? (
               <div className="flex items-center justify-center space-x-3">
                 <div className="animate-spin w-5 h-5 border-2 border-white border-t-transparent rounded-full"></div>
-                <span>Starting Your Trial...</span>
+                <span>Opening Checkout...</span>
               </div>
             ) : (
               `Start 7-Day Trial (${selectedPlan === 'standard' ? '$29' : '$49'}/month after trial)`
@@ -139,7 +159,7 @@ const GetStartedPage: React.FC = () => {
           </button>
           
           <p className="text-slate-500 text-sm mt-4">
-            Full access during trial • Cancel anytime • No charges until trial ends
+            Checkout opens in new window • Full access during trial • Cancel anytime • No charges until trial ends
           </p>
           
           <div className="mt-6">
