@@ -125,6 +125,20 @@ export const useSubscription = () => {
     return 5; // Standard limit per client
   };
 
+  // Subscription status helpers
+  const isTrialing = () => profile?.subscription_status === 'trialing';
+  const isActive = () => profile?.subscription_status === 'active';
+  const isPastDue = () => profile?.subscription_status === 'past_due';
+  const isCanceled = () => profile?.subscription_status === 'canceled';
+  const isNotStarted = () => profile?.subscription_status === 'not_started';
+  
+  const isInGracePeriod = () => {
+    if (!isPastDue() || !profile?.payment_issue_since) return false;
+    const issueDate = new Date(profile.payment_issue_since);
+    const now = new Date();
+    const daysSinceIssue = (now.getTime() - issueDate.getTime()) / (1000 * 60 * 60 * 24);
+    return daysSinceIssue <= 30;
+  };
   return {
     profile,
     loading,
@@ -134,6 +148,12 @@ export const useSubscription = () => {
     hasActiveSubscription,
     isPremium,
     getClientLimit,
-    getPathLimit
+    getPathLimit,
+    isTrialing,
+    isActive,
+    isPastDue,
+    isCanceled,
+    isNotStarted,
+    isInGracePeriod
   };
 };
