@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { User, CreditCard, Bell, Shield, HelpCircle, LogOut } from 'lucide-react';
+import Header from '../components/Header';
 import { useAuth } from '../contexts/AuthContext';
 import { useSubscription } from '../hooks/useSubscription';
 import { useStripe } from '../hooks/useStripe';
@@ -40,8 +41,10 @@ const SettingsPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
+      <Header />
+      
       {/* Header */}
-      <div className="bg-white shadow-sm border-b border-slate-200">
+      <div className="bg-white shadow-sm border-b border-slate-200 pt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div>
             <h1 className="text-3xl font-bold text-slate-900">Settings</h1>

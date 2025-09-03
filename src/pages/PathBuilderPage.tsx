@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Plus, Save, Target, Calendar, ArrowLeft, Trash2, GripVertical } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import Header from '../components/Header';
 import { GoalPath, Milestone } from '../types';
 
 const PathBuilderPage: React.FC = () => {
@@ -59,8 +60,10 @@ const PathBuilderPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
+      <Header />
+      
       {/* Header */}
-      <div className="bg-white shadow-sm border-b border-slate-200">
+      <div className="bg-white shadow-sm border-b border-slate-200 pt-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
