@@ -10,6 +10,11 @@ import DashboardPage from './pages/DashboardPage';
 import PricingPage from './pages/PricingPage';
 import DemoPage from './pages/DemoPage';
 import CheckoutSuccessPage from './pages/CheckoutSuccessPage';
+import ClientsPage from './pages/ClientsPage';
+import ClientDetailPage from './pages/ClientDetailPage';
+import PathBuilderPage from './pages/PathBuilderPage';
+import AnalyticsPage from './pages/AnalyticsPage';
+import SettingsPage from './pages/SettingsPage';
 import './App.css';
 
 function App() {
@@ -29,6 +34,31 @@ function App() {
         <Route path="/dashboard" element={
           <RouteGuard>
             <DashboardPage />
+          </RouteGuard>
+        } />
+        <Route path="/clients" element={
+          <RouteGuard>
+            <ClientsPage />
+          </RouteGuard>
+        } />
+        <Route path="/clients/:clientId" element={
+          <RouteGuard>
+            <ClientDetailPage />
+          </RouteGuard>
+        } />
+        <Route path="/paths/new" element={
+          <RouteGuard>
+            <PathBuilderPage />
+          </RouteGuard>
+        } />
+        <Route path="/analytics" element={
+          <RouteGuard>
+            <AnalyticsPage />
+          </RouteGuard>
+        } />
+        <Route path="/settings" element={
+          <RouteGuard>
+            <SettingsPage />
           </RouteGuard>
         } />
         <Route path="/pricing" element={<PricingPage />} />

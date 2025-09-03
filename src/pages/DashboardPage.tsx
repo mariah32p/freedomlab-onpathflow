@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Target, Users, TrendingUp, Settings, Bell, LogOut, Calendar, Trophy, AlertCircle, Clock } from 'lucide-react';
+import { Target, Users, TrendingUp, Settings, Bell, LogOut, Calendar, Trophy, AlertCircle, Clock, Plus, BarChart3 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useSubscription } from '../hooks/useSubscription';
 
@@ -58,7 +58,7 @@ const DashboardPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
       {/* Header */}
-      <header className="bg-white/80 backdrop-blur-lg border-b border-slate-200 sticky top-0 z-50">
+      <header className="bg-white shadow-sm border-b border-slate-200 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <div className="flex items-center space-x-4">
@@ -82,7 +82,9 @@ const DashboardPage: React.FC = () => {
             
             <div className="flex items-center space-x-4">
               <Bell className="w-6 h-6 text-slate-400 hover:text-slate-600 cursor-pointer transition-colors duration-200" />
-              <Settings className="w-6 h-6 text-slate-400 hover:text-slate-600 cursor-pointer transition-colors duration-200" />
+              <Link to="/settings">
+                <Settings className="w-6 h-6 text-slate-400 hover:text-slate-600 cursor-pointer transition-colors duration-200" />
+              </Link>
               <button
                 onClick={handleSignOut}
                 className="flex items-center space-x-2 text-slate-600 hover:text-slate-900 transition-colors duration-200 px-3 py-2 rounded-lg hover:bg-slate-100"
@@ -94,6 +96,38 @@ const DashboardPage: React.FC = () => {
           </div>
         </div>
       </header>
+
+      {/* Navigation */}
+      <div className="bg-white border-b border-slate-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <nav className="flex space-x-8 py-4">
+            <Link 
+              to="/dashboard" 
+              className="text-emerald-600 border-b-2 border-emerald-600 pb-2 px-1 text-sm font-medium"
+            >
+              Dashboard
+            </Link>
+            <Link 
+              to="/clients" 
+              className="text-slate-500 hover:text-slate-700 pb-2 px-1 text-sm font-medium transition-colors duration-200"
+            >
+              Clients
+            </Link>
+            <Link 
+              to="/paths" 
+              className="text-slate-500 hover:text-slate-700 pb-2 px-1 text-sm font-medium transition-colors duration-200"
+            >
+              Goal Paths
+            </Link>
+            <Link 
+              to="/analytics" 
+              className="text-slate-500 hover:text-slate-700 pb-2 px-1 text-sm font-medium transition-colors duration-200"
+            >
+              Analytics
+            </Link>
+          </nav>
+        </div>
+      </div>
 
       {/* Account Status Banners */}
       {isNotStarted() && (
@@ -248,9 +282,13 @@ const DashboardPage: React.FC = () => {
                 <p className="text-slate-600 text-sm mb-4">
                   Start by adding a client and setting up their profile
                 </p>
-                <button className="w-full bg-emerald-500 text-white py-2 px-4 rounded-lg font-medium hover:bg-emerald-600 transition-colors duration-200">
-                  Add Client
-                </button>
+                <Link 
+                  to="/clients/new"
+                  className="w-full bg-emerald-500 text-white py-2 px-4 rounded-lg font-medium hover:bg-emerald-600 transition-colors duration-200 flex items-center justify-center space-x-2"
+                >
+                  <Plus className="w-4 h-4" />
+                  <span>Add Client</span>
+                </Link>
                 {getClientLimit() && (
                   <p className="text-emerald-600 text-xs mt-2">Standard: Up to {getClientLimit()} clients</p>
                 )}
@@ -264,9 +302,13 @@ const DashboardPage: React.FC = () => {
                 <p className="text-slate-600 text-sm mb-4">
                   Build your first milestone path template
                 </p>
-                <button className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg font-medium hover:bg-blue-600 transition-colors duration-200">
-                  Create Path
-                </button>
+                <Link 
+                  to="/paths/new"
+                  className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg font-medium hover:bg-blue-600 transition-colors duration-200 flex items-center justify-center space-x-2"
+                >
+                  <Target className="w-4 h-4" />
+                  <span>Create Path</span>
+                </Link>
                 {getPathLimit() && (
                   <p className="text-blue-600 text-xs mt-2">Standard: Up to {getPathLimit()} paths per client</p>
                 )}
@@ -280,9 +322,13 @@ const DashboardPage: React.FC = () => {
                 <p className="text-slate-600 text-sm mb-4">
                   Set up your coaching preferences and notifications
                 </p>
-                <button className="w-full bg-purple-500 text-white py-2 px-4 rounded-lg font-medium hover:bg-purple-600 transition-colors duration-200">
-                  Open Settings
-                </button>
+                <Link 
+                  to="/analytics"
+                  className="w-full bg-purple-500 text-white py-2 px-4 rounded-lg font-medium hover:bg-purple-600 transition-colors duration-200 flex items-center justify-center space-x-2"
+                >
+                  <BarChart3 className="w-4 h-4" />
+                  <span>View Analytics</span>
+                </Link>
                 {isPremium() && (
                   <p className="text-purple-600 text-xs mt-2">Premium: Advanced analytics included</p>
                 )}
