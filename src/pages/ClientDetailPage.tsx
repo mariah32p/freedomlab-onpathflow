@@ -129,4 +129,4 @@ const ClientDetailPage: React.FC = () => {
   );
 };
 
-export default DashboardPage;
+export default ClientDetailPage;
