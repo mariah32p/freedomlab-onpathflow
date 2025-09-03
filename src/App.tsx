@@ -12,7 +12,6 @@ import DemoPage from './pages/DemoPage';
 import CheckoutSuccessPage from './pages/CheckoutSuccessPage';
 import ClientsPage from './pages/ClientsPage';
 import ClientDetailPage from './pages/ClientDetailPage';
-import PathBuilderPage from './pages/PathBuilderPage';
 import AnalyticsPage from './pages/AnalyticsPage';
 import SettingsPage from './pages/SettingsPage';
 import './App.css';
@@ -44,11 +43,6 @@ function App() {
         <Route path="/clients/:clientId" element={
           <RouteGuard>
             <ClientDetailPage />
-          </RouteGuard>
-        } />
-        <Route path="/paths/new" element={
-          <RouteGuard>
-            <PathBuilderPage />
           </RouteGuard>
         } />
         <Route path="/analytics" element={
