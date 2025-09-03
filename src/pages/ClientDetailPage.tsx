@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { ArrowLeft, CheckCircle, Clock, Plus } from 'lucide-react';
 import Header from '../components/Header';
+import Header from '../components/Header';
 
 const ClientDetailPage: React.FC = () => {
   const { clientId } = useParams();
@@ -42,6 +43,8 @@ const ClientDetailPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-white">
+      <Header />
+      
       <Header />
       
       <div className="pt-20 max-w-4xl mx-auto px-4 py-8">
