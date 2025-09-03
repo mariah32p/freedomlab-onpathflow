@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { ArrowLeft, CheckCircle, Clock, Plus } from 'lucide-react';
 import Header from '../components/Header';
-import Header from '../components/Header';
 
 const ClientDetailPage: React.FC = () => {
   const { clientId } = useParams();
