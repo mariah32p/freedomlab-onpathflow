@@ -33,26 +33,60 @@ const AnalyticsPage: React.FC = () => {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
       <Header />
       
-      {/* Header */}
-      <div className="bg-white shadow-sm border-b border-slate-200 pt-20">
+      {/* Navigation */}
+      <div className="bg-white border-b border-slate-200 pt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold text-slate-900">Analytics</h1>
-              <p className="text-slate-600 mt-1">Track your coaching performance and client progress</p>
-            </div>
-            <div className="flex items-center space-x-2">
-              <select className="border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500">
-                <option>Last 30 days</option>
-                <option>This quarter</option>
-                <option>This year</option>
-              </select>
-            </div>
-          </div>
+          <nav className="flex space-x-8 py-4">
+            <Link 
+              to="/dashboard" 
+              className="text-slate-500 hover:text-slate-700 pb-2 px-1 text-sm font-medium transition-colors duration-200"
+            >
+              Dashboard
+            </Link>
+            <Link 
+              to="/clients" 
+              className="text-slate-500 hover:text-slate-700 pb-2 px-1 text-sm font-medium transition-colors duration-200"
+            >
+              Clients
+            </Link>
+            <Link 
+              to="/paths" 
+              className="text-slate-500 hover:text-slate-700 pb-2 px-1 text-sm font-medium transition-colors duration-200"
+            >
+              Goal Paths
+            </Link>
+            <Link 
+              to="/analytics" 
+              className="text-emerald-600 border-b-2 border-emerald-600 pb-2 px-1 text-sm font-medium"
+            >
+              Analytics
+            </Link>
+            <Link 
+              to="/settings" 
+              className="text-slate-500 hover:text-slate-700 pb-2 px-1 text-sm font-medium transition-colors duration-200"
+            >
+              Settings
+            </Link>
+          </nav>
         </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Page Header */}
+        <div className="flex items-center justify-between mb-8">
+          <div>
+            <h1 className="text-3xl font-bold text-slate-900">Analytics</h1>
+            <p className="text-slate-600 mt-1">Track your coaching performance and client progress</p>
+          </div>
+          <div className="flex items-center space-x-2">
+            <select className="border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 bg-white">
+              <option>Last 30 days</option>
+              <option>This quarter</option>
+              <option>This year</option>
+            </select>
+          </div>
+        </div>
+
         {/* Key Metrics */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <div className="bg-gradient-to-br from-emerald-50 to-emerald-100 p-6 rounded-2xl border border-emerald-200">

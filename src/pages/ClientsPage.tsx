@@ -59,26 +59,60 @@ const ClientsPage: React.FC = () => {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
       <Header />
       
-      {/* Header */}
-      <div className="bg-white shadow-sm border-b border-slate-200 pt-20">
+      {/* Navigation */}
+      <div className="bg-white border-b border-slate-200 pt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold text-slate-900">Clients</h1>
-              <p className="text-slate-600 mt-1">Manage your coaching clients and their progress</p>
-            </div>
-            <Link
-              to="/clients/new"
-              className="bg-emerald-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-emerald-600 transition-colors duration-200 flex items-center space-x-2"
+          <nav className="flex space-x-8 py-4">
+            <Link 
+              to="/dashboard" 
+              className="text-slate-500 hover:text-slate-700 pb-2 px-1 text-sm font-medium transition-colors duration-200"
             >
-              <Plus className="w-5 h-5" />
-              <span>Add Client</span>
+              Dashboard
             </Link>
-          </div>
+            <Link 
+              to="/clients" 
+              className="text-emerald-600 border-b-2 border-emerald-600 pb-2 px-1 text-sm font-medium"
+            >
+              Clients
+            </Link>
+            <Link 
+              to="/paths" 
+              className="text-slate-500 hover:text-slate-700 pb-2 px-1 text-sm font-medium transition-colors duration-200"
+            >
+              Goal Paths
+            </Link>
+            <Link 
+              to="/analytics" 
+              className="text-slate-500 hover:text-slate-700 pb-2 px-1 text-sm font-medium transition-colors duration-200"
+            >
+              Analytics
+            </Link>
+            <Link 
+              to="/settings" 
+              className="text-slate-500 hover:text-slate-700 pb-2 px-1 text-sm font-medium transition-colors duration-200"
+            >
+              Settings
+            </Link>
+          </nav>
         </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Page Header */}
+        <div className="flex items-center justify-between mb-8">
+          <div>
+            <h1 className="text-3xl font-bold text-slate-900">Clients</h1>
+            <p className="text-slate-600 mt-1">Manage your coaching clients and their progress</p>
+          </div>
+          <Link
+            to="/clients/new"
+            className="bg-emerald-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-emerald-600 transition-colors duration-200 flex items-center space-x-2"
+          >
+            <Plus className="w-5 h-5" />
+            <span>Add Client</span>
+          </Link>
+        </div>
+
         {/* Stats Overview */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <div className="bg-white rounded-xl shadow-lg border border-slate-200 p-6">

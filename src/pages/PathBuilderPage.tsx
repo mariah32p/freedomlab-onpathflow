@@ -62,34 +62,68 @@ const PathBuilderPage: React.FC = () => {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
       <Header />
       
-      {/* Header */}
-      <div className="bg-white shadow-sm border-b border-slate-200 pt-20">
+      {/* Navigation */}
+      <div className="bg-white border-b border-slate-200 pt-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <Link
-                to="/paths"
-                className="p-2 hover:bg-slate-100 rounded-lg transition-colors duration-200"
-              >
-                <ArrowLeft className="w-5 h-5 text-slate-600" />
-              </Link>
-              <div>
-                <h1 className="text-3xl font-bold text-slate-900">Goal Path Builder</h1>
-                <p className="text-slate-600 mt-1">Create a structured path to help your client achieve their goal</p>
-              </div>
-            </div>
-            <button
-              onClick={handleSave}
-              className="bg-emerald-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-emerald-600 transition-colors duration-200 flex items-center space-x-2"
+          <nav className="flex space-x-8 py-4">
+            <Link 
+              to="/dashboard" 
+              className="text-slate-500 hover:text-slate-700 pb-2 px-1 text-sm font-medium transition-colors duration-200"
             >
-              <Save className="w-5 h-5" />
-              <span>Save Path</span>
-            </button>
-          </div>
+              Dashboard
+            </Link>
+            <Link 
+              to="/clients" 
+              className="text-slate-500 hover:text-slate-700 pb-2 px-1 text-sm font-medium transition-colors duration-200"
+            >
+              Clients
+            </Link>
+            <Link 
+              to="/paths" 
+              className="text-emerald-600 border-b-2 border-emerald-600 pb-2 px-1 text-sm font-medium"
+            >
+              Goal Paths
+            </Link>
+            <Link 
+              to="/analytics" 
+              className="text-slate-500 hover:text-slate-700 pb-2 px-1 text-sm font-medium transition-colors duration-200"
+            >
+              Analytics
+            </Link>
+            <Link 
+              to="/settings" 
+              className="text-slate-500 hover:text-slate-700 pb-2 px-1 text-sm font-medium transition-colors duration-200"
+            >
+              Settings
+            </Link>
+          </nav>
         </div>
       </div>
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Page Header */}
+        <div className="flex items-center justify-between mb-8">
+          <div className="flex items-center space-x-4">
+            <Link
+              to="/dashboard"
+              className="p-2 hover:bg-slate-100 rounded-lg transition-colors duration-200"
+            >
+              <ArrowLeft className="w-5 h-5 text-slate-600" />
+            </Link>
+            <div>
+              <h1 className="text-3xl font-bold text-slate-900">Goal Path Builder</h1>
+              <p className="text-slate-600 mt-1">Create a structured path to help your client achieve their goal</p>
+            </div>
+          </div>
+          <button
+            onClick={handleSave}
+            className="bg-emerald-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-emerald-600 transition-colors duration-200 flex items-center space-x-2"
+          >
+            <Save className="w-5 h-5" />
+            <span>Save Path</span>
+          </button>
+        </div>
+
         {/* Goal Path Details */}
         <div className="bg-white rounded-xl shadow-lg border border-slate-200 p-8 mb-8">
           <div className="flex items-center space-x-3 mb-6">
