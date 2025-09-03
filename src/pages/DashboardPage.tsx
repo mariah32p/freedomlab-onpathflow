@@ -303,87 +303,88 @@ const DashboardPage: React.FC = () => {
               <h4 className="font-semibold text-slate-900 mb-3">Account Status</h4>
               
               {/* Debug Sync Button - Remove after testing */}
-            <div className="mb-4 p-3 bg-slate-50 rounded-lg border border-slate-200">
-              <h4 className="font-semibold text-slate-900 mb-3">Account Status</h4>
-              
-              <div className="grid md:grid-cols-2 gap-4 text-sm">
-                <div className="flex justify-between">
-                  <span className="text-slate-600">Plan:</span>
-                  <span className={`font-medium capitalize ${isPremium() ? 'text-purple-600' : 'text-slate-900'}`}>
-                    {profile?.plan || 'Standard'}
-                  </span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-slate-600">Status:</span>
-                  <span className={`font-medium capitalize ${
-                    isTrialing() ? 'text-blue-600' :
-                    isActive() ? 'text-emerald-600' :
-                    isPastDue() ? 'text-red-600' :
-                    isCanceled() ? 'text-slate-600' :
-                    'text-amber-600'
-                  }`}>
-                    {isTrialing() ? 'Free Trial' :
-                     isActive() ? 'Active' :
-                     isPastDue() ? 'Payment Issue' :
-                     isCanceled() ? 'Canceled' :
-                     'Setting Up...'}
-                  </span>
-                </div>
-                {profile?.trial_ends_at && (
+              <div className="mb-4 p-3 bg-slate-50 rounded-lg border border-slate-200">
+                <h4 className="font-semibold text-slate-900 mb-3">Account Status</h4>
+                
+                <div className="grid md:grid-cols-2 gap-4 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-slate-600">Trial Ends:</span>
-                    <span className="font-medium text-slate-900">{formatDate(profile.trial_ends_at)}</span>
+                    <span className="text-slate-600">Plan:</span>
+                    <span className={`font-medium capitalize ${isPremium() ? 'text-purple-600' : 'text-slate-900'}`}>
+                      {profile?.plan || 'Standard'}
+                    </span>
                   </div>
-                )}
-                {profile?.current_period_end && isActive() && (
                   <div className="flex justify-between">
-                    <span className="text-slate-600">Next Billing:</span>
-                    <span className="font-medium text-slate-900">{formatDate(profile.current_period_end)}</span>
+                    <span className="text-slate-600">Status:</span>
+                    <span className={`font-medium capitalize ${
+                      isTrialing() ? 'text-blue-600' :
+                      isActive() ? 'text-emerald-600' :
+                      isPastDue() ? 'text-red-600' :
+                      isCanceled() ? 'text-slate-600' :
+                      'text-amber-600'
+                    }`}>
+                      {isTrialing() ? 'Free Trial' :
+                       isActive() ? 'Active' :
+                       isPastDue() ? 'Payment Issue' :
+                       isCanceled() ? 'Canceled' :
+                       'Setting Up...'}
+                    </span>
                   </div>
-                )}
-                <div className="flex justify-between">
-                  <span className="text-slate-600">Member Since:</span>
-                  <span className="font-medium text-slate-900">{formatDate(profile?.created_at)}</span>
+                  {profile?.trial_ends_at && (
+                    <div className="flex justify-between">
+                      <span className="text-slate-600">Trial Ends:</span>
+                      <span className="font-medium text-slate-900">{formatDate(profile.trial_ends_at)}</span>
+                    </div>
+                  )}
+                  {profile?.current_period_end && isActive() && (
+                    <div className="flex justify-between">
+                      <span className="text-slate-600">Next Billing:</span>
+                      <span className="font-medium text-slate-900">{formatDate(profile.current_period_end)}</span>
+                    </div>
+                  )}
+                  <div className="flex justify-between">
+                    <span className="text-slate-600">Member Since:</span>
+                    <span className="font-medium text-slate-900">{formatDate(profile?.created_at)}</span>
+                  </div>
                 </div>
-              </div>
-              
-              {/* Action Buttons Based on Status */}
-              <div className="mt-4 space-y-2">
-                {isNotStarted() && (
-                  <Link 
-                    to="/get-started"
-                    className="w-full bg-emerald-500 text-white py-2 px-4 rounded-lg font-medium hover:bg-emerald-600 transition-colors duration-200 text-center block"
-                  >
-                    Complete Account Setup
-                  </Link>
-                )}
                 
-                {(isTrialing() || isActive()) && (
-                  <Link 
-                    to="/settings"
-                    className="w-full bg-slate-500 text-white py-2 px-4 rounded-lg font-medium hover:bg-slate-600 transition-colors duration-200 text-center block"
-                  >
-                    Manage Subscription
-                  </Link>
-                )}
-                
-                {isPastDue() && (
-                  <Link 
-                    to="/settings"
-                    className="w-full bg-red-500 text-white py-2 px-4 rounded-lg font-medium hover:bg-red-600 transition-colors duration-200 text-center block"
-                  >
-                    Fix Payment Issue
-                  </Link>
-                )}
-                
-                {isCanceled() && (
-                  <Link 
-                    to="/get-started"
-                    className="w-full bg-emerald-500 text-white py-2 px-4 rounded-lg font-medium hover:bg-emerald-600 transition-colors duration-200 text-center block"
-                  >
-                    Reactivate Subscription
-                  </Link>
-                )}
+                {/* Action Buttons Based on Status */}
+                <div className="mt-4 space-y-2">
+                  {isNotStarted() && (
+                    <Link 
+                      to="/get-started"
+                      className="w-full bg-emerald-500 text-white py-2 px-4 rounded-lg font-medium hover:bg-emerald-600 transition-colors duration-200 text-center block"
+                    >
+                      Complete Account Setup
+                    </Link>
+                  )}
+                  
+                  {(isTrialing() || isActive()) && (
+                    <Link 
+                      to="/settings"
+                      className="w-full bg-slate-500 text-white py-2 px-4 rounded-lg font-medium hover:bg-slate-600 transition-colors duration-200 text-center block"
+                    >
+                      Manage Subscription
+                    </Link>
+                  )}
+                  
+                  {isPastDue() && (
+                    <Link 
+                      to="/settings"
+                      className="w-full bg-red-500 text-white py-2 px-4 rounded-lg font-medium hover:bg-red-600 transition-colors duration-200 text-center block"
+                    >
+                      Fix Payment Issue
+                    </Link>
+                  )}
+                  
+                  {isCanceled() && (
+                    <Link 
+                      to="/get-started"
+                      className="w-full bg-emerald-500 text-white py-2 px-4 rounded-lg font-medium hover:bg-emerald-600 transition-colors duration-200 text-center block"
+                    >
+                      Reactivate Subscription
+                    </Link>
+                  )}
+                </div>
               </div>
             </div>
           </div>
