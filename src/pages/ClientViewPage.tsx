@@ -132,7 +132,8 @@ const ClientViewPage: React.FC = () => {
               <Target className="w-8 h-8 text-white" />
             </div>
             <h1 className="text-3xl font-bold text-slate-900 mb-2">OnPathFlow</h1>
-            <p className="text-slate-600">Access your goal progress</p>
+            <p className="text-slate-600 mb-1">by Freedom Lab</p>
+            <p className="text-slate-500 text-sm">Access your goal progress</p>
           </div>
 
           <div className="bg-white rounded-2xl shadow-xl border border-slate-200 p-8">

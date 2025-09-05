@@ -21,6 +21,8 @@ const ClientsPage: React.FC = () => {
   const [selectedClient, setSelectedClient] = useState<Client | null>(null);
   const [generatedPassword, setGeneratedPassword] = useState('');
   const [copySuccess, setCopySuccess] = useState(false);
+  const [sendingEmail, setSendingEmail] = useState(false);
+  const [emailSent, setEmailSent] = useState(false);
   const [clientToDelete, setClientToDelete] = useState<Client | null>(null);
   const [clientToEdit, setClientToEdit] = useState<Client | null>(null);
   const [deleting, setDeleting] = useState(false);
@@ -200,6 +202,50 @@ const ClientsPage: React.FC = () => {
       setShowClientAccessModal(true);
     } catch (err: any) {
       setError(err.message);
+    }
+  };
+
+  const sendClientAccessEmail = async (client: Client, password: string) => {
+    if (!client.email) {
+      setError('Client email is required to send access details');
+      return;
+    }
+
+    try {
+      setSendingEmail(true);
+      setError('');
+      
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session?.access_token) {
+        throw new Error('No active session');
+      }
+
+      const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/send-client-access`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${session.access_token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          clientId: client.id,
+          clientEmail: client.email,
+          clientName: client.name,
+          accessUrl: getClientAccessUrl(client),
+          password: password
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to send email');
+      }
+
+      setEmailSent(true);
+      setTimeout(() => setEmailSent(false), 3000);
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setSendingEmail(false);
     }
   };
 
@@ -582,12 +628,37 @@ const ClientsPage: React.FC = () => {
               <div className="space-y-4">
                 <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-4">
                   <p className="text-emerald-800 text-sm font-medium mb-2">
-                    ✅ Client access created for {selectedClient.name}
+                    ✅ Access created for {selectedClient.name}
                   </p>
                   <p className="text-emerald-700 text-sm">
-                    Share the link and password below with your client so they can track their progress.
+                    Send via email or copy the details below to share with your client.
                   </p>
                 </div>
+
+                {/* Send Email Button */}
+                {selectedClient.email && (
+                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h4 className="font-medium text-blue-800 mb-1">📧 Send via Email</h4>
+                        <p className="text-blue-700 text-sm">Send access details to {selectedClient.email}</p>
+                      </div>
+                      <button
+                        onClick={() => sendClientAccessEmail(selectedClient, generatedPassword)}
+                        disabled={sendingEmail}
+                        className="bg-blue-500 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-600 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                      >
+                        {sendingEmail ? 'Sending...' : 'Send Email'}
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {emailSent && (
+                  <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                    <p className="text-green-700 text-sm font-medium">✅ Email sent successfully to {selectedClient.email}!</p>
+                  </div>
+                )}
 
                 <div>
                   <label className="block text-sm font-medium text-slate-700 mb-2">
@@ -649,49 +720,6 @@ const ClientsPage: React.FC = () => {
                   </div>
                 )}
 
-                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                  <h4 className="font-medium text-blue-800 mb-2">💡 How to share:</h4>
-                  <p className="text-blue-700 text-sm">
-                    Send your client the link and password above. They can then track their progress and update milestones directly!
-                  </p>
-                </div>
-
-                <div className="bg-slate-50 border border-slate-200 rounded-lg p-4">
-                  <div className="flex items-center justify-between mb-2">
-                    <h4 className="font-medium text-slate-800">📧 Ready-to-Send Message</h4>
-                    <button
-                      onClick={() => copyToClipboard(`Hi ${selectedClient.name},
-
-I've set up your personal goal tracking dashboard! You can now view your progress and update milestones anytime.
-
-🔗 Your Dashboard: ${getClientAccessUrl(selectedClient)}
-🔑 Access Code: ${generatedPassword}
-
-Simply visit the link above and enter your access code to see your goal progress. You can mark milestones as complete and add your own notes about your progress.
-
-Let me know if you have any questions!
-
-Best regards`)}
-                      className="text-xs bg-slate-200 hover:bg-slate-300 px-2 py-1 rounded transition-colors duration-200"
-                    >
-                      Copy Message
-                    </button>
-                  </div>
-                  <div className="bg-white border border-slate-200 rounded p-3 text-sm text-slate-700 max-h-32 overflow-y-auto">
-                    <p className="whitespace-pre-line">{`Hi ${selectedClient.name},
-
-I've set up your personal goal tracking dashboard! You can now view your progress and update milestones anytime.
-
-🔗 Your Dashboard: ${getClientAccessUrl(selectedClient)}
-🔑 Access Code: ${generatedPassword}
-
-Simply visit the link above and enter your access code to see your goal progress. You can mark milestones as complete and add your own notes about your progress.
-
-Let me know if you have any questions!
-
-Best regards`}</p>
-                  </div>
-                </div>
               </div>
               
               <div className="flex justify-end mt-6">
@@ -700,6 +728,7 @@ Best regards`}</p>
                     setShowClientAccessModal(false);
                     setSelectedClient(null);
                     setCopySuccess(false);
+                    setEmailSent(false);
                   }}
                   className="px-6 py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition-colors duration-200"
                 >
