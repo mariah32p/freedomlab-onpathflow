@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { Plus, Users, ArrowLeft, X } from 'lucide-react';
-import Header from '../components/Header';
+import { Link, useNavigate } from 'react-router-dom';
+import { Plus, Users, X } from 'lucide-react';
+import AppLayout from '../components/AppLayout';
 import { useAuth } from '../contexts/AuthContext';
 import { supabase } from '../lib/supabase';
 import { Client } from '../types';
 
 const ClientsPage: React.FC = () => {
+  const navigate = useNavigate();
   const { user } = useAuth();
   const [clients, setClients] = useState<Client[]>([]);
   const [loading, setLoading] = useState(true);
@@ -81,23 +82,20 @@ const ClientsPage: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-white">
-        <Header />
-        <div className="pt-20 flex items-center justify-center py-12">
+      <AppLayout>
+        <div className="flex items-center justify-center py-12">
           <div className="text-center">
             <div className="animate-spin w-8 h-8 border-2 border-emerald-500 border-t-transparent rounded-full mx-auto mb-4"></div>
             <p className="text-slate-600">Loading clients...</p>
           </div>
         </div>
-      </div>
+      </AppLayout>
     );
   }
 
   return (
-    <div className="min-h-screen bg-white">
-      <Header />
-      
-      <div className="pt-20 max-w-6xl mx-auto px-4 py-8">
+    <AppLayout>
+      <div className="p-6 lg:p-8">
         {/* Error Message */}
         {error && (
           <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
@@ -106,15 +104,10 @@ const ClientsPage: React.FC = () => {
         )}
 
         {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center space-x-4">
-            <Link to="/dashboard" className="p-2 hover:bg-slate-100 rounded-lg">
-              <ArrowLeft className="w-5 h-5 text-slate-600" />
-            </Link>
-            <div>
-              <h1 className="text-3xl font-bold text-slate-900">Clients</h1>
-              <p className="text-slate-600">Manage your coaching clients</p>
-            </div>
+        <div className="flex items-center justify-between mb-6">
+          <div>
+            <h1 className="text-3xl font-bold text-slate-900">Clients</h1>
+            <p className="text-slate-600">Manage your coaching clients</p>
           </div>
           <button 
             onClick={() => setShowAddModal(true)}
@@ -253,7 +246,7 @@ const ClientsPage: React.FC = () => {
           </div>
         )}
       </div>
-    </div>
+    </AppLayout>
   );
 };
 

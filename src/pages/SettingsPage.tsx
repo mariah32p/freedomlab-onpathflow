@@ -1,7 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { ArrowLeft, LogOut } from 'lucide-react';
-import Header from '../components/Header';
+import { LogOut } from 'lucide-react';
+import AppLayout from '../components/AppLayout';
 import { useAuth } from '../contexts/AuthContext';
 import { useSubscription } from '../hooks/useSubscription';
 import { useStripe } from '../hooks/useStripe';
@@ -24,19 +23,12 @@ const SettingsPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white">
-      <Header />
-      
-      <div className="pt-20 max-w-4xl mx-auto px-4 py-8">
+    <AppLayout>
+      <div className="p-6 lg:p-8 max-w-4xl mx-auto">
         {/* Header */}
-        <div className="flex items-center space-x-4 mb-8">
-          <Link to="/dashboard" className="p-2 hover:bg-slate-100 rounded-lg">
-            <ArrowLeft className="w-5 h-5 text-slate-600" />
-          </Link>
-          <div>
-            <h1 className="text-3xl font-bold text-slate-900">Settings</h1>
-            <p className="text-slate-600">Manage your account and subscription</p>
-          </div>
+        <div className="mb-6">
+          <h1 className="text-3xl font-bold text-slate-900">Settings</h1>
+          <p className="text-slate-600">Manage your account and subscription</p>
         </div>
 
         <div className="space-y-8">
@@ -97,7 +89,7 @@ const SettingsPage: React.FC = () => {
           </div>
         </div>
       </div>
-    </div>
+    </AppLayout>
   );
 };
 

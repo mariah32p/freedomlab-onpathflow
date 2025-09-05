@@ -1,27 +1,19 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { ArrowLeft, TrendingUp, Users, Target } from 'lucide-react';
-import Header from '../components/Header';
+import { TrendingUp, Users, Target } from 'lucide-react';
+import AppLayout from '../components/AppLayout';
 
 const AnalyticsPage: React.FC = () => {
   return (
-    <div className="min-h-screen bg-white">
-      <Header />
-      
-      <div className="pt-20 max-w-6xl mx-auto px-4 py-8">
+    <AppLayout>
+      <div className="p-6 lg:p-8">
         {/* Header */}
-        <div className="flex items-center space-x-4 mb-8">
-          <Link to="/dashboard" className="p-2 hover:bg-slate-100 rounded-lg">
-            <ArrowLeft className="w-5 h-5 text-slate-600" />
-          </Link>
-          <div>
-            <h1 className="text-3xl font-bold text-slate-900">Analytics</h1>
-            <p className="text-slate-600">Track your coaching performance</p>
-          </div>
+        <div className="mb-6">
+          <h1 className="text-3xl font-bold text-slate-900">Analytics</h1>
+          <p className="text-slate-600">Track your coaching performance</p>
         </div>
 
         {/* Key Metrics */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
           <div className="bg-white border border-slate-200 rounded-lg p-6">
             <div className="flex items-center justify-between">
               <div>
@@ -80,7 +72,7 @@ const AnalyticsPage: React.FC = () => {
           </div>
         </div>
       </div>
-    </div>
+    </AppLayout>
   );
 };
 

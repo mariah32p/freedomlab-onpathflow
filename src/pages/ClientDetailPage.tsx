@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import { ArrowLeft, CheckCircle, Clock, Plus } from 'lucide-react';
-import Header from '../components/Header';
+import { useParams, useNavigate } from 'react-router-dom';
+import { CheckCircle, Clock, Plus, ArrowLeft } from 'lucide-react';
+import AppLayout from '../components/AppLayout';
 
 const ClientDetailPage: React.FC = () => {
   const { clientId } = useParams();
+  const navigate = useNavigate();
   
   const [client] = useState({
     id: '1',
@@ -41,17 +42,16 @@ const ClientDetailPage: React.FC = () => {
   const progressPercentage = Math.round((completedCount / milestones.length) * 100);
 
   return (
-    <div className="min-h-screen bg-white">
-      <Header />
-      
-      <Header />
-      
-      <div className="pt-20 max-w-4xl mx-auto px-4 py-8">
+    <AppLayout>
+      <div className="p-6 lg:p-8 max-w-4xl mx-auto">
         {/* Header */}
-        <div className="flex items-center space-x-4 mb-8">
-          <Link to="/clients" className="p-2 hover:bg-slate-100 rounded-lg">
+        <div className="flex items-center space-x-4 mb-6">
+          <button 
+            onClick={() => navigate('/clients')}
+            className="p-2 hover:bg-slate-100 rounded-lg"
+          >
             <ArrowLeft className="w-5 h-5 text-slate-600" />
-          </Link>
+          </button>
           <div>
             <h1 className="text-3xl font-bold text-slate-900">{client.name}</h1>
             <p className="text-slate-600">{client.email}</p>
@@ -59,7 +59,7 @@ const ClientDetailPage: React.FC = () => {
         </div>
 
         {/* Goal Overview */}
-        <div className="bg-white border border-slate-200 rounded-lg p-6 mb-8">
+        <div className="bg-white border border-slate-200 rounded-lg p-6 mb-6">
           <h2 className="text-xl font-semibold text-slate-900 mb-4">Current Goal</h2>
           <div className="flex items-center justify-between">
             <div>
@@ -127,7 +127,7 @@ const ClientDetailPage: React.FC = () => {
           </div>
         </div>
       </div>
-    </div>
+    </AppLayout>
   );
 };
 
