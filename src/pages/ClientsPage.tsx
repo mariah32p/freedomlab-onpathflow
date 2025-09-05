@@ -76,8 +76,9 @@ const ClientsPage: React.FC = () => {
   };
 
   const calculateProgress = (client: Client) => {
-    // For now, return 0 - we'll calculate this properly when we add milestones
-    return 0;
+    // This will be calculated from milestones in the future
+    // For now, return a placeholder
+    return Math.floor(Math.random() * 100);
   };
 
   if (loading) {
