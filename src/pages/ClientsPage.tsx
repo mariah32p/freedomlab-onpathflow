@@ -655,6 +655,43 @@ const ClientsPage: React.FC = () => {
                     Send your client the link and password above. They can then track their progress and update milestones directly!
                   </p>
                 </div>
+
+                <div className="bg-slate-50 border border-slate-200 rounded-lg p-4">
+                  <div className="flex items-center justify-between mb-2">
+                    <h4 className="font-medium text-slate-800">📧 Ready-to-Send Message</h4>
+                    <button
+                      onClick={() => copyToClipboard(`Hi ${selectedClient.name},
+
+I've set up your personal goal tracking dashboard! You can now view your progress and update milestones anytime.
+
+🔗 Your Dashboard: ${getClientAccessUrl(selectedClient)}
+🔑 Access Code: ${generatedPassword}
+
+Simply visit the link above and enter your access code to see your goal progress. You can mark milestones as complete and add your own notes about your progress.
+
+Let me know if you have any questions!
+
+Best regards`)}
+                      className="text-xs bg-slate-200 hover:bg-slate-300 px-2 py-1 rounded transition-colors duration-200"
+                    >
+                      Copy Message
+                    </button>
+                  </div>
+                  <div className="bg-white border border-slate-200 rounded p-3 text-sm text-slate-700 max-h-32 overflow-y-auto">
+                    <p className="whitespace-pre-line">{`Hi ${selectedClient.name},
+
+I've set up your personal goal tracking dashboard! You can now view your progress and update milestones anytime.
+
+🔗 Your Dashboard: ${getClientAccessUrl(selectedClient)}
+🔑 Access Code: ${generatedPassword}
+
+Simply visit the link above and enter your access code to see your goal progress. You can mark milestones as complete and add your own notes about your progress.
+
+Let me know if you have any questions!
+
+Best regards`}</p>
+                  </div>
+                </div>
               </div>
               
               <div className="flex justify-end mt-6">
