@@ -180,25 +180,34 @@ const ClientsPage: React.FC = () => {
   const handleGenerateClientAccess = async (client: Client) => {
     try {
       setError('');
-      const newPassword = generateClientPassword();
       
-      const { error } = await supabase
-        .from('clients')
-        .update({ client_password: newPassword })
-        .eq('id', client.id)
-        .eq('user_id', user!.id);
+      // Check if client already has a password
+      let passwordToUse = client.client_password;
+      
+      if (!passwordToUse) {
+        // Only generate new password if client doesn't have one
+        const newPassword = generateClientPassword();
+        
+        const { error } = await supabase
+          .from('clients')
+          .update({ client_password: newPassword })
+          .eq('id', client.id)
+          .eq('user_id', user!.id);
 
-      if (error) throw error;
+        if (error) throw error;
+        
+        // Update local state
+        setClients(clients.map(c => 
+          c.id === client.id 
+            ? { ...c, client_password: newPassword }
+            : c
+        ));
+        
+        passwordToUse = newPassword;
+      }
       
-      // Update local state
-      setClients(clients.map(c => 
-        c.id === client.id 
-          ? { ...c, client_password: newPassword }
-          : c
-      ));
-      
-      setSelectedClient({ ...client, client_password: newPassword });
-      setGeneratedPassword(newPassword);
+      setSelectedClient({ ...client, client_password: passwordToUse });
+      setGeneratedPassword(passwordToUse);
       setShowClientAccessModal(true);
     } catch (err: any) {
       setError(err.message);
@@ -398,7 +407,7 @@ const ClientsPage: React.FC = () => {
                     className="flex-1 bg-emerald-500 text-white px-3 py-2 rounded-lg text-sm font-medium hover:bg-emerald-600 transition-colors duration-200 flex items-center justify-center space-x-1"
                   >
                     <Key className="w-4 h-4" />
-                    <span>Share with Client</span>
+                    <span>{client.client_password ? 'Share with Client' : 'Generate Access'}</span>
                   </button>
                   <button
                     onClick={() => openEditModal(client)}
