@@ -12,6 +12,7 @@ import DemoPage from './pages/DemoPage';
 import CheckoutSuccessPage from './pages/CheckoutSuccessPage';
 import ClientsPage from './pages/ClientsPage';
 import ClientDetailPage from './pages/ClientDetailPage';
+import ClientViewPage from './pages/ClientViewPage';
 import AnalyticsPage from './pages/AnalyticsPage';
 import SettingsPage from './pages/SettingsPage';
 import './App.css';
@@ -25,6 +26,7 @@ function App() {
         <Route path="/signin" element={<SigninPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
+        <Route path="/client-view/:clientId" element={<ClientViewPage />} />
         <Route path="/get-started" element={
           <RouteGuard>
             <GetStartedPage />
