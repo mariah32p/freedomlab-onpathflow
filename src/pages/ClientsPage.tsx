@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Plus, Users, X, Trash2, Edit } from 'lucide-react';
+import { Plus, Users, X, Trash2, Edit, Key, Copy, ExternalLink } from 'lucide-react';
 import AppLayout from '../components/AppLayout';
 import { useAuth } from '../contexts/AuthContext';
 import { supabase } from '../lib/supabase';
 import { Client, Milestone } from '../types';
+import { generateClientPassword } from '../utils/passwordGenerator';
 
 const ClientsPage: React.FC = () => {
   const navigate = useNavigate();
@@ -16,6 +17,10 @@ const ClientsPage: React.FC = () => {
   const [showAddModal, setShowAddModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [showClientAccessModal, setShowClientAccessModal] = useState(false);
+  const [selectedClient, setSelectedClient] = useState<Client | null>(null);
+  const [generatedPassword, setGeneratedPassword] = useState('');
+  const [copySuccess, setCopySuccess] = useState(false);
   const [clientToDelete, setClientToDelete] = useState<Client | null>(null);
   const [clientToEdit, setClientToEdit] = useState<Client | null>(null);
   const [deleting, setDeleting] = useState(false);
@@ -170,6 +175,56 @@ const ClientsPage: React.FC = () => {
     }
   };
 
+  const handleGenerateClientAccess = async (client: Client) => {
+    try {
+      setError('');
+      const newPassword = generateClientPassword();
+      
+      const { error } = await supabase
+        .from('clients')
+        .update({ client_password: newPassword })
+        .eq('id', client.id)
+        .eq('user_id', user!.id);
+
+      if (error) throw error;
+      
+      // Update local state
+      setClients(clients.map(c => 
+        c.id === client.id 
+          ? { ...c, client_password: newPassword }
+          : c
+      ));
+      
+      setSelectedClient({ ...client, client_password: newPassword });
+      setGeneratedPassword(newPassword);
+      setShowClientAccessModal(true);
+    } catch (err: any) {
+      setError(err.message);
+    }
+  };
+
+  const copyToClipboard = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopySuccess(true);
+      setTimeout(() => setCopySuccess(false), 2000);
+    } catch (err) {
+      // Fallback for older browsers
+      const textArea = document.createElement('textarea');
+      textArea.value = text;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+      setCopySuccess(true);
+      setTimeout(() => setCopySuccess(false), 2000);
+    }
+  };
+
+  const getClientAccessUrl = (client: Client) => {
+    return `${window.location.origin}/client-view/${client.id}`;
+  };
+
   const openEditModal = (client: Client) => {
     setClientToEdit(client);
     setEditClient({
@@ -253,6 +308,16 @@ const ClientsPage: React.FC = () => {
                 className="bg-white border border-slate-200 rounded-lg p-6 hover:shadow-lg transition-all duration-200 relative group"
               >
                 <div className="absolute top-4 right-4 flex space-x-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleGenerateClientAccess(client);
+                    }}
+                    className="text-slate-400 hover:text-emerald-500 p-1"
+                    title="Generate client access"
+                  >
+                    <Key className="w-4 h-4" />
+                  </button>
                   <button
                     onClick={(e) => {
                       e.preventDefault();
@@ -498,6 +563,132 @@ const ClientsPage: React.FC = () => {
                   className="flex-1 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {deleting ? 'Deleting...' : 'Delete Goal'}
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Client Access Modal */}
+        {showClientAccessModal && selectedClient && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+            <div className="bg-white rounded-lg shadow-xl max-w-lg w-full p-6">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-xl font-semibold text-slate-900">Client Access Generated</h2>
+                <button 
+                  onClick={() => {
+                    setShowClientAccessModal(false);
+                    setSelectedClient(null);
+                    setCopySuccess(false);
+                  }}
+                  className="text-slate-400 hover:text-slate-600"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+              
+              <div className="space-y-4">
+                <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-4">
+                  <p className="text-emerald-800 text-sm font-medium mb-2">
+                    ✅ Client access created for {selectedClient.name}
+                  </p>
+                  <p className="text-emerald-700 text-sm">
+                    Share the link and password below with your client so they can track their progress.
+                  </p>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-2">
+                    Client Access Link
+                  </label>
+                  <div className="flex items-center space-x-2">
+                    <input
+                      type="text"
+                      value={getClientAccessUrl(selectedClient)}
+                      readOnly
+                      className="flex-1 px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-slate-900 text-sm"
+                    />
+                    <button
+                      onClick={() => copyToClipboard(getClientAccessUrl(selectedClient))}
+                      className="px-3 py-2 bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded-lg transition-colors duration-200"
+                      title="Copy link"
+                    >
+                      <Copy className="w-4 h-4 text-slate-600" />
+                    </button>
+                    <a
+                      href={getClientAccessUrl(selectedClient)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-3 py-2 bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded-lg transition-colors duration-200"
+                      title="Open in new tab"
+                    >
+                      <ExternalLink className="w-4 h-4 text-slate-600" />
+                    </a>
+                  </div>
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-2">
+                    Password
+                  </label>
+                  <div className="flex items-center space-x-2">
+                    <input
+                      type="text"
+                      value={generatedPassword}
+                      readOnly
+                      className="flex-1 px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-slate-900 font-mono text-lg"
+                    />
+                    <button
+                      onClick={() => copyToClipboard(generatedPassword)}
+                      className="px-3 py-2 bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded-lg transition-colors duration-200"
+                      title="Copy password"
+                    >
+                      <Copy className="w-4 h-4 text-slate-600" />
+                    </button>
+                  </div>
+                  <p className="text-slate-500 text-xs mt-1">
+                    Easy to remember and type, but secure
+                  </p>
+                </div>
+
+                {copySuccess && (
+                  <div className="bg-green-50 border border-green-200 rounded-lg p-3">
+                    <p className="text-green-700 text-sm">✅ Copied to clipboard!</p>
+                  </div>
+                )}
+
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                  <h4 className="font-medium text-blue-800 mb-2">📧 Share with your client:</h4>
+                  <div className="bg-white border border-blue-200 rounded p-3 text-sm">
+                    <p className="mb-2">Hi {selectedClient.name},</p>
+                    <p className="mb-2">You can now track your progress on your goal: <strong>{selectedClient.goal}</strong></p>
+                    <p className="mb-2">
+                      <strong>Link:</strong> {getClientAccessUrl(selectedClient)}
+                    </p>
+                    <p className="mb-2">
+                      <strong>Password:</strong> {generatedPassword}
+                    </p>
+                    <p>You can update your milestone progress and add notes directly!</p>
+                  </div>
+                  <button
+                    onClick={() => copyToClipboard(`Hi ${selectedClient.name},\n\nYou can now track your progress on your goal: ${selectedClient.goal}\n\nLink: ${getClientAccessUrl(selectedClient)}\nPassword: ${generatedPassword}\n\nYou can update your milestone progress and add notes directly!`)}
+                    className="mt-3 text-blue-600 hover:text-blue-700 text-sm font-medium"
+                  >
+                    📋 Copy message to send
+                  </button>
+                </div>
+              </div>
+              
+              <div className="flex justify-end mt-6">
+                <button
+                  onClick={() => {
+                    setShowClientAccessModal(false);
+                    setSelectedClient(null);
+                    setCopySuccess(false);
+                  }}
+                  className="px-6 py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition-colors duration-200"
+                >
+                  Done
                 </button>
               </div>
             </div>
