@@ -240,8 +240,19 @@ const ClientsPage: React.FC = () => {
         throw new Error(errorData.error || 'Failed to send email');
       }
 
-      setEmailSent(true);
-      setTimeout(() => setEmailSent(false), 3000);
+      const result = await response.json();
+      
+      if (result.success) {
+        if (result.emailSent !== false) {
+          setEmailSent(true);
+        } else {
+          // Email service not configured, show message
+          alert('Client access is ready! Email service is not configured yet, so please copy the message below and send it manually.');
+        }
+        setSendingEmail(false);
+      } else {
+        throw new Error(result.error || 'Failed to send email');
+      }
     } catch (err: any) {
       setError(err.message);
     } finally {
