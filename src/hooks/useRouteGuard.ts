@@ -18,11 +18,12 @@ export const useRouteGuard = () => {
       return;
     }
 
-    // Logged in but no subscription? Go to get-started
-    if (!hasActiveSubscription()) {
-      navigate('/get-started', { replace: true });
-      return;
-    }
+    // TEMPORARY: Allow dashboard access for testing
+    // TODO: Re-enable subscription check after MVP testing
+    // if (!hasActiveSubscription()) {
+    //   navigate('/get-started', { replace: true });
+    //   return;
+    // }
 
     // Logged in with subscription? Stay on dashboard (do nothing)
   }, [user, profile, authLoading, profileLoading, hasActiveSubscription, navigate]);
