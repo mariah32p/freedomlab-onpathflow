@@ -1,7 +1,7 @@
 # OnPathFlow MVP Production Checklist
 
 ## 🎯 MVP Goal
-Get a simple, working coaching platform live ASAP with core functionality only.
+Get a working coaching platform with basic payments live ASAP with core functionality only.
 
 ## ✅ Core Features (Must Have)
 1. **User Authentication**
@@ -9,41 +9,59 @@ Get a simple, working coaching platform live ASAP with core functionality only.
    - Sign in/sign out
    - Basic password reset
 
-2. **Client Management**
+2. **Simple Stripe Integration**
+   - Two plans: Standard ($29) & Premium ($49)
+   - 7-day free trial
+   - Basic subscription management
+   - Cancel/reactivate via Stripe portal
+
+3. **Client Management**
    - Add clients (name, email, goal)
    - View client list
    - Basic client profile page
 
-3. **Goal Tracking**
+4. **Goal Tracking**
    - Create simple milestones for clients
    - Mark milestones complete/incomplete
    - Show basic progress percentage
 
-4. **Simple Dashboard**
+5. **Simple Dashboard**
    - Client count
    - Basic stats
    - Recent activity
 
 ## 🚫 Cut for MVP (Add Later)
-- Stripe payments/subscriptions
-- Advanced analytics
-- Email notifications
-- File uploads
+- **Email Systems** (automated emails like trial reminders, milestone notifications, welcome sequences)
+- Advanced analytics & reporting
+- File uploads & attachments
 - Complex milestone dependencies
-- Team features
+- Team features & collaboration
 - Mobile app
-- Advanced permissions
-- Integrations
+- Advanced permissions & roles
+- Third-party integrations (Calendly, Zoom, etc.)
+- Custom branding
+- Bulk operations
+- Export features
 
 ## 🛠 Technical MVP Stack
 - **Frontend**: React + TypeScript + Tailwind
 - **Backend**: Supabase (auth + database)
+- **Payments**: Stripe (simplified - just subscriptions)
 - **Deployment**: Netlify
-- **No payment processing initially**
 
 ## 📋 MVP Database Schema (Simplified)
 ```sql
--- Users table (handled by Supabase Auth)
+-- Profiles table (extends Supabase Auth)
+CREATE TABLE profiles (
+  id uuid PRIMARY KEY REFERENCES auth.users(id),
+  email text NOT NULL,
+  plan text DEFAULT 'standard',
+  subscription_status text DEFAULT 'not_started',
+  trial_ends_at timestamptz,
+  customer_id text,
+  subscription_id text,
+  created_at timestamptz DEFAULT now()
+);
 
 -- Clients table
 CREATE TABLE clients (
@@ -71,47 +89,56 @@ CREATE TABLE milestones (
 ## 🚀 MVP Launch Checklist
 
 ### Phase 1: Core Functionality (Week 1)
-- [ ] Set up Supabase project
-- [ ] Create database tables with RLS
-- [ ] Build auth pages (signup/signin/forgot password)
-- [ ] Create basic dashboard
-- [ ] Build client management (add/list/view)
-- [ ] Basic milestone system
+- [ ] Fix all existing bugs (input styling, navigation, etc.)
+- [ ] Simplify Stripe integration (remove complex webhook logic)
+- [ ] Create basic client CRUD operations
+- [ ] Build simple milestone system
+- [ ] Test subscription flow end-to-end
 
 ### Phase 2: Polish & Deploy (Week 2)
-- [ ] Fix all UI bugs
-- [ ] Ensure responsive design
-- [ ] Add loading states
-- [ ] Error handling
-- [ ] Deploy to Netlify
-- [ ] Test end-to-end
+- [ ] Fix all UI bugs and inconsistencies
+- [ ] Ensure responsive design works
+- [ ] Add proper loading states
+- [ ] Implement error handling
+- [ ] Test Stripe webhooks thoroughly
+- [ ] Deploy to Netlify with environment variables
 
 ### Phase 3: Launch (Week 3)
-- [ ] Create simple landing page
-- [ ] Set up domain
-- [ ] Basic analytics (Google Analytics)
-- [ ] Launch to first users
-- [ ] Collect feedback
+- [ ] Polish landing page
+- [ ] Set up custom domain
+- [ ] Add basic analytics (Google Analytics)
+- [ ] Create simple onboarding flow
+- [ ] Launch to first 10 beta users
+- [ ] Collect feedback and iterate
 
-## 💰 Monetization (Post-MVP)
-- Start free, add paid plans later
-- Focus on getting users first
-- Validate demand before building payments
+## 💰 Simplified Stripe Flow
+1. User signs up → goes to plan selection
+2. Selects plan → Stripe checkout with 7-day trial
+3. Trial period → full access to features
+4. Trial ends → auto-charge or cancel
+5. Settings page → Stripe portal for plan changes
 
 ## 📊 Success Metrics for MVP
-- 10 coaches sign up
+- 10 coaches complete signup + payment
 - 50 clients added to platform
 - 200 milestones created
-- Users actively using for 1+ weeks
+- 80%+ trial-to-paid conversion
+- Users actively using for 2+ weeks
 
-## 🔄 Post-MVP Roadmap
-1. Add Stripe payments
-2. Advanced analytics
-3. Email notifications
-4. Mobile responsiveness improvements
-5. Team features
-6. Integrations
+## 🔄 Post-MVP Roadmap (Priority Order)
+1. **Email notifications** (trial ending, milestone reminders)
+2. **Advanced analytics** (client progress charts, completion rates)
+3. **Mobile responsiveness** improvements
+4. **File attachments** for milestones
+5. **Team features** (multiple coaches per account)
+6. **Integrations** (Calendly, Zoom, Slack)
+
+## 🎯 Key Principles
+- **Ship fast, learn fast, iterate fast**
+- **Perfect is the enemy of good**
+- **Validate demand before building complex features**
+- **Focus on core value: helping coaches track client progress**
 
 ---
 
-**Key Principle**: Ship fast, learn fast, iterate fast. Perfect is the enemy of good.
+**Current Status**: We have most of the foundation built, just need to simplify and polish for launch.
