@@ -17,7 +17,14 @@ const ClientDetailPage: React.FC = () => {
   const [error, setError] = useState('');
   const [showAddModal, setShowAddModal] = useState(false);
   const [addingMilestone, setAddingMilestone] = useState(false);
+  const [editingMilestone, setEditingMilestone] = useState<Milestone | null>(null);
+  const [showEditModal, setShowEditModal] = useState(false);
   const [newMilestone, setNewMilestone] = useState({
+    title: '',
+    description: '',
+    due_date: ''
+  });
+  const [editMilestone, setEditMilestone] = useState({
     title: '',
     description: '',
     due_date: ''
@@ -93,6 +100,53 @@ const ClientDetailPage: React.FC = () => {
       setMilestones([...milestones, data]);
       setNewMilestone({ title: '', description: '', due_date: '' });
       setShowAddModal(false);
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setAddingMilestone(false);
+    }
+  };
+
+  const handleEditMilestone = (milestone: Milestone) => {
+    setEditingMilestone(milestone);
+    setEditMilestone({
+      title: milestone.title,
+      description: milestone.description || '',
+      due_date: milestone.due_date || ''
+    });
+    setShowEditModal(true);
+  };
+
+  const handleUpdateMilestone = async () => {
+    if (!editMilestone.title.trim() || !editingMilestone) return;
+    
+    try {
+      setAddingMilestone(true);
+      setError('');
+      
+      const updateData: any = {
+        title: editMilestone.title.trim(),
+        description: editMilestone.description.trim() || null,
+        due_date: editMilestone.due_date || null
+      };
+
+      const { error } = await supabase
+        .from('milestones')
+        .update(updateData)
+        .eq('id', editingMilestone.id);
+
+      if (error) throw error;
+      
+      // Update local state
+      setMilestones(milestones.map(m => 
+        m.id === editingMilestone.id 
+          ? { ...m, ...updateData }
+          : m
+      ));
+      
+      setEditMilestone({ title: '', description: '', due_date: '' });
+      setEditingMilestone(null);
+      setShowEditModal(false);
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -263,6 +317,13 @@ const ClientDetailPage: React.FC = () => {
                       </p>
                     )}
                   </div>
+                  
+                  <button
+                    onClick={() => handleEditMilestone(milestone)}
+                    className="text-slate-400 hover:text-slate-600 text-sm"
+                  >
+                    Edit
+                  </button>
                 </div>
               ))}
             </div>
@@ -343,6 +404,92 @@ const ClientDetailPage: React.FC = () => {
                   className="flex-1 px-4 py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {addingMilestone ? 'Adding...' : 'Add Milestone'}
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Edit Milestone Modal */}
+        {showEditModal && editingMilestone && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+            <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-xl font-semibold text-slate-900">Edit Milestone</h2>
+                <button 
+                  onClick={() => {
+                    setShowEditModal(false);
+                    setEditingMilestone(null);
+                  }}
+                  className="text-slate-400 hover:text-slate-600"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+              
+              <div className="space-y-4">
+                {error && (
+                  <div className="bg-red-50 border border-red-200 rounded-lg p-3">
+                    <p className="text-red-700 text-sm">{error}</p>
+                  </div>
+                )}
+
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-2">
+                    Milestone Title *
+                  </label>
+                  <input
+                    type="text"
+                    value={editMilestone.title}
+                    onChange={(e) => setEditMilestone({...editMilestone, title: e.target.value})}
+                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-slate-900 placeholder-slate-500"
+                    placeholder="What needs to be accomplished?"
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-2">
+                    Description (Optional)
+                  </label>
+                  <textarea
+                    value={editMilestone.description}
+                    onChange={(e) => setEditMilestone({...editMilestone, description: e.target.value})}
+                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-slate-900 placeholder-slate-500"
+                    placeholder="Additional details..."
+                    rows={3}
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-2">
+                    Due Date (Optional)
+                  </label>
+                  <input
+                    type="date"
+                    value={editMilestone.due_date}
+                    onChange={(e) => setEditMilestone({...editMilestone, due_date: e.target.value})}
+                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-slate-900 placeholder-slate-500"
+                    min={new Date().toISOString().split('T')[0]}
+                  />
+                </div>
+              </div>
+              
+              <div className="flex space-x-3 mt-6">
+                <button
+                  onClick={() => {
+                    setShowEditModal(false);
+                    setEditingMilestone(null);
+                  }}
+                  className="flex-1 px-4 py-2 border border-slate-300 text-slate-700 rounded-lg hover:bg-slate-50 transition-colors duration-200"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleUpdateMilestone}
+                  disabled={!editMilestone.title.trim() || addingMilestone}
+                  className="flex-1 px-4 py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {addingMilestone ? 'Updating...' : 'Update Milestone'}
                 </button>
               </div>
             </div>
