@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Plus, Users, X } from 'lucide-react';
+import { Plus, Users, X, Trash2 } from 'lucide-react';
 import AppLayout from '../components/AppLayout';
 import { useAuth } from '../contexts/AuthContext';
 import { supabase } from '../lib/supabase';
@@ -14,6 +14,9 @@ const ClientsPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [showAddModal, setShowAddModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [clientToDelete, setClientToDelete] = useState<Client | null>(null);
+  const [deleting, setDeleting] = useState(false);
   const [addingClient, setAddingClient] = useState(false);
   const [newClient, setNewClient] = useState({
     name: '',
@@ -98,6 +101,36 @@ const ClientsPage: React.FC = () => {
     }
   };
 
+  const handleDeleteClient = async () => {
+    if (!clientToDelete) return;
+    
+    try {
+      setDeleting(true);
+      setError('');
+      
+      const { error } = await supabase
+        .from('clients')
+        .delete()
+        .eq('id', clientToDelete.id)
+        .eq('user_id', user!.id);
+
+      if (error) throw error;
+      
+      setClients(clients.filter(c => c.id !== clientToDelete.id));
+      setShowDeleteModal(false);
+      setClientToDelete(null);
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setDeleting(false);
+    }
+  };
+
+  const confirmDelete = (client: Client) => {
+    setClientToDelete(client);
+    setShowDeleteModal(true);
+  };
+
   const calculateProgress = (client: Client) => {
     const milestones = clientMilestones[client.id] || [];
     if (milestones.length === 0) return 0;
@@ -161,11 +194,22 @@ const ClientsPage: React.FC = () => {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {clients.map((client) => (
-              <Link
+              <div
                 key={client.id}
-                to={`/clients/${client.id}`}
-                className="bg-white border border-slate-200 rounded-lg p-6 hover:shadow-lg transition-all duration-200 block"
+                className="bg-white border border-slate-200 rounded-lg p-6 hover:shadow-lg transition-all duration-200 relative group"
               >
+                <button
+                  onClick={() => confirmDelete(client)}
+                  className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-slate-400 hover:text-red-500 p-1"
+                  title="Delete client goal"
+                >
+                  <Trash2 className="w-4 h-4" />
+                </button>
+                
+                <Link
+                  to={`/clients/${client.id}`}
+                  className="block"
+                >
                 <div className="mb-4">
                   <h3 className="font-semibold text-slate-900 text-lg">{client.name}</h3>
                   <p className="text-slate-600 text-sm">{client.email}</p>
@@ -187,7 +231,8 @@ const ClientsPage: React.FC = () => {
                     ></div>
                   </div>
                 </div>
-              </Link>
+                </Link>
+              </div>
             ))}
           </div>
         )}
@@ -266,6 +311,38 @@ const ClientsPage: React.FC = () => {
                   className="flex-1 px-4 py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {addingClient ? 'Creating...' : 'Create Client Goal'}
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Delete Confirmation Modal */}
+        {showDeleteModal && clientToDelete && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+            <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
+              <h2 className="text-xl font-semibold text-slate-900 mb-4">Delete Client Goal</h2>
+              <p className="text-slate-600 mb-6">
+                Are you sure you want to delete the goal "{clientToDelete.goal}" for {clientToDelete.name}? 
+                This will also delete all associated milestones and cannot be undone.
+              </p>
+              
+              <div className="flex space-x-3">
+                <button
+                  onClick={() => {
+                    setShowDeleteModal(false);
+                    setClientToDelete(null);
+                  }}
+                  className="flex-1 px-4 py-2 border border-slate-300 text-slate-700 rounded-lg hover:bg-slate-50 transition-colors duration-200"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleDeleteClient}
+                  disabled={deleting}
+                  className="flex-1 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {deleting ? 'Deleting...' : 'Delete Goal'}
                 </button>
               </div>
             </div>
