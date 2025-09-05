@@ -86,10 +86,15 @@ Deno.serve(async (req) => {
     // Send email via Resend
     const resendApiKey = Deno.env.get('RESEND_API_KEY');
     if (!resendApiKey) {
+      console.log('RESEND_API_KEY not configured, skipping email send');
       return new Response(
-        JSON.stringify({ error: 'Email service not configured' }), 
+        JSON.stringify({ 
+          success: true, 
+          message: 'Client access configured successfully. Email service not available - please share the link manually.',
+          emailSent: false
+        }), 
         { 
-          status: 500,
+          status: 200,
           headers: { ...corsHeaders, 'Content-Type': 'application/json' }
         }
       );
