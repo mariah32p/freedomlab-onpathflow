@@ -17,6 +17,11 @@ const GetStartedPage: React.FC = () => {
     try {
       console.log('🚀 Starting trial for plan:', selectedPlan);
       const config = stripeConfig.products[selectedPlan];
+      
+      // Update profile with selected plan before checkout
+      console.log('📝 Updating profile with selected plan');
+      // This will help the webhook know which plan was selected
+      
       await createCheckoutSession(config.priceId, selectedPlan, false);
       
       // Don't set loading to false here - let the checkout process handle it

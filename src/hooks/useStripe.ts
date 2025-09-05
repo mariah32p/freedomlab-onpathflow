@@ -25,9 +25,6 @@ export const useStripe = () => {
           success_url: `${window.location.origin}/checkout-success`,
           cancel_url: `${window.location.origin}/get-started`,
           mode: 'subscription',
-          customer_email: session.user.email,
-          client_reference_id: session.user.id,
-          is_plan_change: isPlanChange
         }),
       });
 
@@ -43,52 +40,57 @@ export const useStripe = () => {
       
       if (url) {
         console.log('🪟 Opening popup window for checkout');
-        // Open Stripe checkout in popup window
-        const popup = window.open(url, 'stripe-checkout', 'width=800,height=600,scrollbars=yes,resizable=yes');
+        // Try popup first, fallback to redirect
+        const popup = window.open(url, 'stripe-checkout', 'width=900,height=700,scrollbars=yes,resizable=yes');
         
         if (!popup) {
-          console.error('❌ Popup blocked by browser');
-          throw new Error('Popup was blocked. Please allow popups and try again.');
+          console.log('⚠️ Popup blocked, redirecting to checkout');
+          window.location.href = url;
+          return;
         }
         
-        // Better popup handling
+        // Handle popup completion
         return new Promise((resolve, reject) => {
           const checkClosed = setInterval(() => {
             if (popup?.closed) {
               clearInterval(checkClosed);
-              // Give webhook time to process, then redirect
+              console.log('🪟 Popup closed, checking for completion');
+              // Give webhook time to process
               setTimeout(() => {
-                window.location.href = '/dashboard';
+                console.log('🔄 Refreshing page to check subscription status');
+                window.location.reload();
                 resolve(undefined);
-              }, 2000);
+              }, 3000);
             }
           }, 1000);
           
           // Listen for success message from popup
           const messageListener = (event: MessageEvent) => {
             if (event.origin === window.location.origin && event.data === 'checkout-success') {
+              console.log('✅ Received checkout success message');
               clearInterval(checkClosed);
               popup?.close();
               window.removeEventListener('message', messageListener);
-              // Navigate directly to dashboard
               setTimeout(() => {
-                window.location.href = '/dashboard';
+                console.log('🔄 Refreshing after successful checkout');
+                window.location.reload();
                 resolve(undefined);
-              }, 1000);
+              }, 2000);
             }
           };
           
           window.addEventListener('message', messageListener);
           
-          // Timeout after 10 minutes
+          // Timeout after 15 minutes
           setTimeout(() => {
+            console.log('⏰ Checkout timeout reached');
             clearInterval(checkClosed);
             window.removeEventListener('message', messageListener);
             if (!popup?.closed) {
               popup?.close();
             }
             reject(new Error('Checkout timeout'));
-          }, 600000);
+          }, 900000);
         });
       } else {
         console.error('❌ No checkout URL returned from edge function');

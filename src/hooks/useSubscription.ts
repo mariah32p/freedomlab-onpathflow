@@ -111,17 +111,21 @@ export const useSubscription = () => {
     if (!profile) return false;
     
     const status = profile.subscription_status;
+    console.log('🔍 Checking subscription status:', status);
     
     // Allow access during trial and active subscription
     if (status === 'trialing' || status === 'active') {
+      console.log('✅ Has active subscription:', status);
       return true;
     }
     
     // Allow access during grace period for payment issues
     if (status === 'past_due' && isInGracePeriod()) {
+      console.log('✅ In grace period for past_due');
       return true;
     }
     
+    console.log('❌ No active subscription:', status);
     return false;
   };
 
