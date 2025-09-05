@@ -385,7 +385,7 @@ const ClientDetailPage: React.FC = () => {
                     type="date"
                     value={newMilestone.due_date}
                     onChange={(e) => setNewMilestone({...newMilestone, due_date: e.target.value})}
-                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-slate-900 placeholder-slate-500"
+                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-slate-900"
                     min={new Date().toISOString().split('T')[0]}
                   />
                 </div>
@@ -468,7 +468,7 @@ const ClientDetailPage: React.FC = () => {
                     type="date"
                     value={editMilestone.due_date}
                     onChange={(e) => setEditMilestone({...editMilestone, due_date: e.target.value})}
-                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-slate-900 placeholder-slate-500"
+                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-slate-900"
                     min={new Date().toISOString().split('T')[0]}
                   />
                 </div>
