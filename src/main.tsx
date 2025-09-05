@@ -1,13 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
-import { AuthProvider } from './contexts/AuthContext'
+import { OutsetaProvider } from './contexts/OutsetaContext'
 import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <AuthProvider>
+    <OutsetaProvider>
       <App />
-    </AuthProvider>
+    </OutsetaProvider>
   </React.StrictMode>,
 )

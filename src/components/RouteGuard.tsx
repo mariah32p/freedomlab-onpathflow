@@ -1,12 +1,12 @@
 import React from 'react';
-import { useRouteGuard } from '../hooks/useRouteGuard';
+import { useOutsetaRouteGuard } from '../hooks/useOutsetaRouteGuard';
 
 interface RouteGuardProps {
   children: React.ReactNode;
 }
 
 const RouteGuard: React.FC<RouteGuardProps> = ({ children }) => {
-  const { loading } = useRouteGuard();
+  const { loading } = useOutsetaRouteGuard();
 
   if (loading) {
     return (
