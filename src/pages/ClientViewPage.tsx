@@ -200,64 +200,78 @@ const ClientViewPage: React.FC = () => {
 
   // Main client dashboard
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-blue-50">
+    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50 relative overflow-hidden">
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-emerald-400/20 to-blue-400/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full blur-3xl animate-pulse" style={{animationDelay: '2s'}}></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-br from-purple-400/10 to-emerald-400/10 rounded-full blur-3xl animate-pulse" style={{animationDelay: '4s'}}></div>
+      </div>
+
       {/* Header */}
-      <header className="bg-white shadow-sm border-b border-slate-200">
+      <header className="bg-white/80 backdrop-blur-xl shadow-lg border-b border-white/20 relative z-10">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center space-x-4">
-            <div className="w-12 h-12 bg-gradient-to-r from-emerald-500 to-blue-600 rounded-xl flex items-center justify-center">
+            <div className="w-12 h-12 bg-gradient-to-r from-emerald-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
               <Target className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-slate-900">Welcome back, {client?.name}! 👋</h1>
-              <p className="text-slate-600">Track your progress and update milestones</p>
+              <h1 className="text-2xl font-bold bg-gradient-to-r from-slate-900 to-slate-700 bg-clip-text text-transparent">Welcome back, {client?.name}! 👋</h1>
+              <p className="text-slate-600">Track your progress and celebrate your wins</p>
             </div>
           </div>
         </div>
       </header>
 
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
         {/* Error Message */}
         {error && (
-          <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6 flex items-center space-x-3">
+          <div className="bg-red-50/80 backdrop-blur-sm border border-red-200 rounded-xl p-4 mb-6 flex items-center space-x-3 shadow-lg">
             <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0" />
             <p className="text-red-700 text-sm">{error}</p>
           </div>
         )}
 
         {/* Goal Overview */}
-        <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-8 mb-8">
+        <div className="bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 p-8 mb-8 relative overflow-hidden">
+          {/* Sparkle Effects */}
+          <div className="absolute top-4 right-4 w-2 h-2 bg-emerald-400 rounded-full animate-ping"></div>
+          <div className="absolute top-8 right-12 w-1 h-1 bg-blue-400 rounded-full animate-ping" style={{animationDelay: '1s'}}></div>
+          <div className="absolute top-6 right-20 w-1.5 h-1.5 bg-purple-400 rounded-full animate-ping" style={{animationDelay: '2s'}}></div>
+          
           <div className="text-center mb-6">
-            <h2 className="text-3xl font-bold text-slate-900 mb-2">Your Goal</h2>
-            <p className="text-xl text-slate-700">{client?.goal}</p>
+            <h2 className="text-3xl font-bold bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent mb-2">Your Goal</h2>
+            <p className="text-xl text-slate-700 font-medium">{client?.goal}</p>
           </div>
           
           <div className="flex items-center justify-center space-x-8 mb-6">
             <div className="text-center">
-              <div className="text-4xl font-bold text-emerald-600">{progressPercentage}%</div>
-              <div className="text-slate-500">Complete</div>
+              <div className="text-5xl font-bold bg-gradient-to-r from-emerald-500 to-emerald-600 bg-clip-text text-transparent">{progressPercentage}%</div>
+              <div className="text-slate-500 font-medium">Complete</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl font-bold text-blue-600">{completedCount}</div>
-              <div className="text-slate-500">Completed</div>
+              <div className="text-5xl font-bold bg-gradient-to-r from-blue-500 to-blue-600 bg-clip-text text-transparent">{completedCount}</div>
+              <div className="text-slate-500 font-medium">Completed</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl font-bold text-slate-600">{milestones.length}</div>
-              <div className="text-slate-500">Total</div>
+              <div className="text-5xl font-bold bg-gradient-to-r from-purple-500 to-purple-600 bg-clip-text text-transparent">{milestones.length}</div>
+              <div className="text-slate-500 font-medium">Total</div>
             </div>
           </div>
           
-          <div className="w-full bg-slate-200 rounded-full h-4">
+          <div className="w-full bg-slate-200 rounded-full h-4 shadow-inner">
             <div 
-              className="bg-gradient-to-r from-emerald-500 to-blue-600 h-4 rounded-full transition-all duration-1000" 
+              className="bg-gradient-to-r from-emerald-500 via-blue-500 to-purple-500 h-4 rounded-full transition-all duration-1000 shadow-lg relative overflow-hidden" 
               style={{width: `${progressPercentage}%`}}
-            ></div>
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-white/30 to-transparent animate-pulse"></div>
+            </div>
           </div>
         </div>
 
         {/* Milestones */}
-        <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-8">
-          <h3 className="text-2xl font-semibold text-slate-900 mb-6">Your Milestones</h3>
+        <div className="bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 p-8 relative overflow-hidden">
+          <h3 className="text-2xl font-semibold bg-gradient-to-r from-slate-900 to-slate-700 bg-clip-text text-transparent mb-6">Your Milestones</h3>
           
           {milestones.length === 0 ? (
             <div className="text-center py-8">
@@ -269,8 +283,8 @@ const ClientViewPage: React.FC = () => {
               {milestones.map((milestone) => (
                 <div key={milestone.id} className={`border-2 rounded-xl p-6 transition-all duration-200 ${
                   milestone.completed 
-                    ? 'border-emerald-200 bg-emerald-50' 
-                    : 'border-slate-200 bg-white hover:border-slate-300'
+                    ? 'border-emerald-200 bg-gradient-to-r from-emerald-50 to-emerald-100/50 shadow-lg' 
+                    : 'border-slate-200 bg-white/50 hover:border-slate-300 hover:shadow-lg hover:bg-white/80'
                 }`}>
                   <div className="flex items-start space-x-4">
                     <button
@@ -279,9 +293,9 @@ const ClientViewPage: React.FC = () => {
                       className="flex-shrink-0 mt-1 transition-all duration-200 disabled:opacity-50"
                     >
                       {milestone.completed ? (
-                        <CheckCircle className="w-7 h-7 text-emerald-500" />
+                        <CheckCircle className="w-7 h-7 text-emerald-500 drop-shadow-lg" />
                       ) : (
-                        <div className="w-7 h-7 border-2 border-slate-300 rounded-full hover:border-emerald-500 transition-colors duration-200"></div>
+                        <div className="w-7 h-7 border-2 border-slate-300 rounded-full hover:border-emerald-500 hover:shadow-lg transition-all duration-200 hover:scale-110"></div>
                       )}
                     </button>
                     
@@ -316,7 +330,7 @@ const ClientViewPage: React.FC = () => {
                               ...noteUpdates,
                               [milestone.id]: e.target.value
                             })}
-                            className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-slate-900 placeholder-slate-500"
+                            className="w-full px-4 py-3 bg-white border-2 border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-slate-900 placeholder-slate-400 transition-all duration-200 hover:border-slate-300 shadow-sm"
                             placeholder="Add notes about your progress, challenges, or achievements..."
                             rows={3}
                           />
@@ -326,7 +340,7 @@ const ClientViewPage: React.FC = () => {
                           <button
                             onClick={() => updateMilestoneNote(milestone.id)}
                             disabled={updatingMilestone === milestone.id}
-                            className="bg-blue-500 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-600 transition-colors duration-200 disabled:opacity-50"
+                            className="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-6 py-2.5 rounded-xl text-sm font-semibold hover:from-blue-600 hover:to-blue-700 transition-all duration-200 disabled:opacity-50 shadow-lg hover:shadow-xl transform hover:scale-105"
                           >
                             {updatingMilestone === milestone.id ? 'Saving...' : 'Save Note'}
                           </button>
@@ -342,9 +356,15 @@ const ClientViewPage: React.FC = () => {
 
         {/* Encouragement */}
         <div className="mt-8 text-center">
-          <div className="bg-gradient-to-r from-emerald-500 to-blue-600 rounded-2xl p-6 text-white">
-            <h3 className="text-xl font-bold mb-2">Keep Going! 🚀</h3>
-            <p className="text-emerald-100">
+          <div className="bg-gradient-to-r from-emerald-500 via-blue-500 to-purple-600 rounded-3xl p-8 text-white shadow-2xl relative overflow-hidden">
+            {/* Animated sparkles */}
+            <div className="absolute top-2 left-4 w-1 h-1 bg-white rounded-full animate-ping"></div>
+            <div className="absolute top-4 left-8 w-1.5 h-1.5 bg-white rounded-full animate-ping" style={{animationDelay: '0.5s'}}></div>
+            <div className="absolute top-6 right-6 w-1 h-1 bg-white rounded-full animate-ping" style={{animationDelay: '1s'}}></div>
+            <div className="absolute bottom-4 right-4 w-1.5 h-1.5 bg-white rounded-full animate-ping" style={{animationDelay: '1.5s'}}></div>
+            
+            <h3 className="text-2xl font-bold mb-3">Keep Going! 🚀</h3>
+            <p className="text-white/90 text-lg">
               {progressPercentage === 100 
                 ? "Congratulations! You've completed your goal!" 
                 : progressPercentage >= 75 
