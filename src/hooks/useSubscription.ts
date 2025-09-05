@@ -108,8 +108,21 @@ export const useSubscription = () => {
 
   // Subscription status helpers
   const hasActiveSubscription = () => {
-    const status = profile?.subscription_status;
-    return status === 'trialing' || status === 'active';
+    if (!profile) return false;
+    
+    const status = profile.subscription_status;
+    
+    // Allow access during trial and active subscription
+    if (status === 'trialing' || status === 'active') {
+      return true;
+    }
+    
+    // Allow access during grace period for payment issues
+    if (status === 'past_due' && isInGracePeriod()) {
+      return true;
+    }
+    
+    return false;
   };
 
   const isPremium = () => profile?.plan === 'premium';

@@ -15,14 +15,13 @@ const GetStartedPage: React.FC = () => {
     setLoading(true);
     
     try {
+      console.log('🚀 Starting trial for plan:', selectedPlan);
       const config = stripeConfig.products[selectedPlan];
       await createCheckoutSession(config.priceId, selectedPlan, false);
       
-      // Show success message while checkout window is open
-      setTimeout(() => {
-        setLoading(false);
-      }, 2000);
+      // Don't set loading to false here - let the checkout process handle it
     } catch (err: any) {
+      console.error('❌ Checkout error:', err);
       setError(err.message || 'Failed to start checkout process');
       setLoading(false);
     }

@@ -51,27 +51,45 @@ export const useStripe = () => {
           throw new Error('Popup was blocked. Please allow popups and try again.');
         }
         
-        // Listen for popup to close or navigate to success page
-        const checkClosed = setInterval(() => {
-          if (popup?.closed) {
+        // Better popup handling
+        return new Promise((resolve, reject) => {
+          const checkClosed = setInterval(() => {
+            if (popup?.closed) {
+              clearInterval(checkClosed);
+              // Give webhook time to process, then redirect
+              setTimeout(() => {
+                window.location.href = '/dashboard';
+                resolve(undefined);
+              }, 2000);
+            }
+          }, 1000);
+          
+          // Listen for success message from popup
+          const messageListener = (event: MessageEvent) => {
+            if (event.origin === window.location.origin && event.data === 'checkout-success') {
+              clearInterval(checkClosed);
+              popup?.close();
+              window.removeEventListener('message', messageListener);
+              // Navigate directly to dashboard
+              setTimeout(() => {
+                window.location.href = '/dashboard';
+                resolve(undefined);
+              }, 1000);
+            }
+          };
+          
+          window.addEventListener('message', messageListener);
+          
+          // Timeout after 10 minutes
+          setTimeout(() => {
             clearInterval(checkClosed);
-            // Navigate directly to dashboard after popup closes
-            window.location.href = '/dashboard';
-          }
-        }, 1000);
-        
-        // Also listen for success message from popup
-        const messageListener = (event: MessageEvent) => {
-          if (event.origin === window.location.origin && event.data === 'checkout-success') {
-            clearInterval(checkClosed);
-            popup?.close();
             window.removeEventListener('message', messageListener);
-            // Navigate directly to dashboard
-            window.location.href = '/dashboard';
-          }
-        };
-        
-        window.addEventListener('message', messageListener);
+            if (!popup?.closed) {
+              popup?.close();
+            }
+            reject(new Error('Checkout timeout'));
+          }, 600000);
+        });
       } else {
         console.error('❌ No checkout URL returned from edge function');
         throw new Error('No checkout URL returned');

@@ -18,14 +18,13 @@ export const useRouteGuard = () => {
       return;
     }
 
-    // TEMPORARY: Allow dashboard access for testing
-    // TODO: Re-enable subscription check after MVP testing
-    // if (!hasActiveSubscription()) {
-    //   navigate('/get-started', { replace: true });
-    //   return;
-    // }
+    // Check subscription status
+    if (!hasActiveSubscription()) {
+      navigate('/get-started', { replace: true });
+      return;
+    }
 
-    // Logged in with subscription? Stay on dashboard (do nothing)
+    // Logged in with active subscription? Allow access
   }, [user, profile, authLoading, profileLoading, hasActiveSubscription, navigate]);
 
   return {
