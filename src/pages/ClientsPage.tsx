@@ -1,53 +1,110 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Plus, Users, ArrowLeft, X } from 'lucide-react';
 import Header from '../components/Header';
+import { useAuth } from '../contexts/AuthContext';
+import { supabase } from '../lib/supabase';
+import { Client } from '../types';
 
 const ClientsPage: React.FC = () => {
-  const [clients, setClients] = useState([
-    {
-      id: '1',
-      name: 'Sarah Chen',
-      email: 'sarah@example.com',
-      goal: 'Become Senior Software Engineer',
-      progress: 75
-    },
-    {
-      id: '2', 
-      name: 'Marcus Rodriguez',
-      email: 'marcus@example.com',
-      goal: 'Launch Tech Startup',
-      progress: 45
-    }
-  ]);
-
+  const { user } = useAuth();
+  const [clients, setClients] = useState<Client[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
   const [showAddModal, setShowAddModal] = useState(false);
+  const [addingClient, setAddingClient] = useState(false);
   const [newClient, setNewClient] = useState({
     name: '',
     email: '',
     goal: ''
   });
 
-  const handleAddClient = () => {
-    if (newClient.name && newClient.email && newClient.goal) {
-      const client = {
-        id: Date.now().toString(),
-        name: newClient.name,
-        email: newClient.email,
-        goal: newClient.goal,
-        progress: 0
-      };
-      setClients([...clients, client]);
-      setNewClient({ name: '', email: '', goal: '' });
-      setShowAddModal(false);
+  // Load clients from database
+  useEffect(() => {
+    if (user) {
+      loadClients();
+    }
+  }, [user]);
+
+  const loadClients = async () => {
+    try {
+      setLoading(true);
+      const { data, error } = await supabase
+        .from('clients')
+        .select('*')
+        .eq('user_id', user!.id)
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      setClients(data || []);
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
   };
+
+  const handleAddClient = async () => {
+    if (!newClient.name || !newClient.email || !newClient.goal) return;
+    
+    try {
+      setAddingClient(true);
+      setError('');
+      
+      const { data, error } = await supabase
+        .from('clients')
+        .insert({
+          user_id: user!.id,
+          name: newClient.name,
+          email: newClient.email,
+          goal: newClient.goal
+        })
+        .select()
+        .single();
+
+      if (error) throw error;
+      
+      setClients([data, ...clients]);
+      setNewClient({ name: '', email: '', goal: '' });
+      setShowAddModal(false);
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setAddingClient(false);
+    }
+  };
+
+  const calculateProgress = (client: Client) => {
+    // For now, return 0 - we'll calculate this properly when we add milestones
+    return 0;
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-white">
+        <Header />
+        <div className="pt-20 flex items-center justify-center py-12">
+          <div className="text-center">
+            <div className="animate-spin w-8 h-8 border-2 border-emerald-500 border-t-transparent rounded-full mx-auto mb-4"></div>
+            <p className="text-slate-600">Loading clients...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-white">
       <Header />
       
       <div className="pt-20 max-w-6xl mx-auto px-4 py-8">
+        {/* Error Message */}
+        {error && (
+          <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
+            <p className="text-red-700 text-sm">{error}</p>
+          </div>
+        )}
+
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center space-x-4">
@@ -102,12 +159,12 @@ const ClientsPage: React.FC = () => {
                 <div>
                   <div className="flex justify-between items-center mb-2">
                     <span className="text-sm text-slate-600">Progress</span>
-                    <span className="text-sm font-medium text-slate-900">{client.progress}%</span>
+                    <span className="text-sm font-medium text-slate-900">{calculateProgress(client)}%</span>
                   </div>
                   <div className="w-full bg-slate-200 rounded-full h-2">
                     <div 
                       className="bg-emerald-500 h-2 rounded-full transition-all duration-500" 
-                      style={{width: `${client.progress}%`}}
+                      style={{width: `${calculateProgress(client)}%`}}
                     ></div>
                   </div>
                 </div>
@@ -131,6 +188,12 @@ const ClientsPage: React.FC = () => {
               </div>
               
               <div className="space-y-4">
+                {error && (
+                  <div className="bg-red-50 border border-red-200 rounded-lg p-3">
+                    <p className="text-red-700 text-sm">{error}</p>
+                  </div>
+                )}
+
                 <div>
                   <label className="block text-sm font-medium text-slate-700 mb-2">
                     Client Name
@@ -180,10 +243,10 @@ const ClientsPage: React.FC = () => {
                 </button>
                 <button
                   onClick={handleAddClient}
-                  disabled={!newClient.name || !newClient.email || !newClient.goal}
+                  disabled={!newClient.name || !newClient.email || !newClient.goal || addingClient}
                   className="flex-1 px-4 py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Add Client
+                  {addingClient ? 'Adding...' : 'Add Client'}
                 </button>
               </div>
             </div>

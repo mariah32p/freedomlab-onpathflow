@@ -1,17 +1,21 @@
 export interface Client {
   id: string;
+  user_id: string;
   name: string;
   email: string;
   goal: string;
-  progress: number;
   created_at: string;
+  updated_at: string;
 }
 
 export interface Milestone {
   id: string;
   client_id: string;
   title: string;
-  status: 'pending' | 'completed';
+  description?: string;
+  completed: boolean;
   due_date?: string;
   completed_at?: string;
+  created_at: string;
+  updated_at: string;
 }
