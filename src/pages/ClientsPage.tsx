@@ -4,12 +4,13 @@ import { Plus, Users, X } from 'lucide-react';
 import AppLayout from '../components/AppLayout';
 import { useAuth } from '../contexts/AuthContext';
 import { supabase } from '../lib/supabase';
-import { Client } from '../types';
+import { Client, Milestone } from '../types';
 
 const ClientsPage: React.FC = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
   const [clients, setClients] = useState<Client[]>([]);
+  const [clientMilestones, setClientMilestones] = useState<Record<string, Milestone[]>>({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [showAddModal, setShowAddModal] = useState(false);
@@ -38,6 +39,28 @@ const ClientsPage: React.FC = () => {
 
       if (error) throw error;
       setClients(data || []);
+      
+      // Load milestones for all clients
+      if (data && data.length > 0) {
+        const clientIds = data.map(client => client.id);
+        const { data: milestonesData, error: milestonesError } = await supabase
+          .from('milestones')
+          .select('*')
+          .in('client_id', clientIds);
+        
+        if (milestonesError) throw milestonesError;
+        
+        // Group milestones by client_id
+        const milestonesByClient: Record<string, Milestone[]> = {};
+        (milestonesData || []).forEach(milestone => {
+          if (!milestonesByClient[milestone.client_id]) {
+            milestonesByClient[milestone.client_id] = [];
+          }
+          milestonesByClient[milestone.client_id].push(milestone);
+        });
+        
+        setClientMilestones(milestonesByClient);
+      }
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -76,9 +99,11 @@ const ClientsPage: React.FC = () => {
   };
 
   const calculateProgress = (client: Client) => {
-    // This will be calculated from milestones in the future
-    // For now, return a placeholder
-    return Math.floor(Math.random() * 100);
+    const milestones = clientMilestones[client.id] || [];
+    if (milestones.length === 0) return 0;
+    
+    const completedCount = milestones.filter(m => m.completed).length;
+    return Math.round((completedCount / milestones.length) * 100);
   };
 
   if (loading) {
