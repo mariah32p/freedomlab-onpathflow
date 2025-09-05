@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Plus, Users, X, Trash2 } from 'lucide-react';
+import { Plus, Users, X, Trash2, Edit } from 'lucide-react';
 import AppLayout from '../components/AppLayout';
 import { useAuth } from '../contexts/AuthContext';
 import { supabase } from '../lib/supabase';
@@ -15,10 +15,18 @@ const ClientsPage: React.FC = () => {
   const [error, setError] = useState('');
   const [showAddModal, setShowAddModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
   const [clientToDelete, setClientToDelete] = useState<Client | null>(null);
+  const [clientToEdit, setClientToEdit] = useState<Client | null>(null);
   const [deleting, setDeleting] = useState(false);
+  const [editing, setEditing] = useState(false);
   const [addingClient, setAddingClient] = useState(false);
   const [newClient, setNewClient] = useState({
+    name: '',
+    email: '',
+    goal: ''
+  });
+  const [editClient, setEditClient] = useState({
     name: '',
     email: '',
     goal: ''
@@ -126,6 +134,52 @@ const ClientsPage: React.FC = () => {
     }
   };
 
+  const handleEditClient = async () => {
+    if (!editClient.name || !editClient.goal || !clientToEdit) return;
+    
+    try {
+      setEditing(true);
+      setError('');
+      
+      const { error } = await supabase
+        .from('clients')
+        .update({
+          name: editClient.name,
+          email: editClient.email,
+          goal: editClient.goal
+        })
+        .eq('id', clientToEdit.id)
+        .eq('user_id', user!.id);
+
+      if (error) throw error;
+      
+      // Update local state
+      setClients(clients.map(c => 
+        c.id === clientToEdit.id 
+          ? { ...c, name: editClient.name, email: editClient.email, goal: editClient.goal }
+          : c
+      ));
+      
+      setEditClient({ name: '', email: '', goal: '' });
+      setClientToEdit(null);
+      setShowEditModal(false);
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setEditing(false);
+    }
+  };
+
+  const openEditModal = (client: Client) => {
+    setClientToEdit(client);
+    setEditClient({
+      name: client.name,
+      email: client.email || '',
+      goal: client.goal
+    });
+    setShowEditModal(true);
+  };
+
   const confirmDelete = (client: Client) => {
     setClientToDelete(client);
     setShowDeleteModal(true);
@@ -198,13 +252,28 @@ const ClientsPage: React.FC = () => {
                 key={client.id}
                 className="bg-white border border-slate-200 rounded-lg p-6 hover:shadow-lg transition-all duration-200 relative group"
               >
-                <button
-                  onClick={() => confirmDelete(client)}
-                  className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-slate-400 hover:text-red-500 p-1"
-                  title="Delete client goal"
-                >
-                  <Trash2 className="w-4 h-4" />
-                </button>
+                <div className="absolute top-4 right-4 flex space-x-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      openEditModal(client);
+                    }}
+                    className="text-slate-400 hover:text-blue-500 p-1"
+                    title="Edit client goal"
+                  >
+                    <Edit className="w-4 h-4" />
+                  </button>
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      confirmDelete(client);
+                    }}
+                    className="text-slate-400 hover:text-red-500 p-1"
+                    title="Delete client goal"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </div>
                 
                 <Link
                   to={`/clients/${client.id}`}
@@ -311,6 +380,92 @@ const ClientsPage: React.FC = () => {
                   className="flex-1 px-4 py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {addingClient ? 'Creating...' : 'Create Client Goal'}
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Edit Client Modal */}
+        {showEditModal && clientToEdit && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+            <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-xl font-semibold text-slate-900">Edit Client Goal</h2>
+                <button 
+                  onClick={() => {
+                    setShowEditModal(false);
+                    setClientToEdit(null);
+                  }}
+                  className="text-slate-400 hover:text-slate-600"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+              
+              <div className="space-y-4">
+                {error && (
+                  <div className="bg-red-50 border border-red-200 rounded-lg p-3">
+                    <p className="text-red-700 text-sm">{error}</p>
+                  </div>
+                )}
+
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-2">
+                    Client Name
+                  </label>
+                  <input
+                    type="text"
+                    value={editClient.name}
+                    onChange={(e) => setEditClient({...editClient, name: e.target.value})}
+                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-slate-900 placeholder-slate-500"
+                    placeholder="Client's name"
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-2">
+                    Client Email (Optional)
+                  </label>
+                  <input
+                    type="email"
+                    value={editClient.email}
+                    onChange={(e) => setEditClient({...editClient, email: e.target.value})}
+                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-slate-900 placeholder-slate-500"
+                    placeholder="client@example.com"
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-2">
+                    Goal Description
+                  </label>
+                  <input
+                    type="text"
+                    value={editClient.goal}
+                    onChange={(e) => setEditClient({...editClient, goal: e.target.value})}
+                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-slate-900 placeholder-slate-500"
+                    placeholder="What does this client want to achieve?"
+                  />
+                </div>
+              </div>
+              
+              <div className="flex space-x-3 mt-6">
+                <button
+                  onClick={() => {
+                    setShowEditModal(false);
+                    setClientToEdit(null);
+                  }}
+                  className="flex-1 px-4 py-2 border border-slate-300 text-slate-700 rounded-lg hover:bg-slate-50 transition-colors duration-200"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleEditClient}
+                  disabled={!editClient.name || !editClient.goal || editing}
+                  className="flex-1 px-4 py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {editing ? 'Updating...' : 'Update Goal'}
                 </button>
               </div>
             </div>
