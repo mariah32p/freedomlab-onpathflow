@@ -42,7 +42,7 @@ const DashboardPage: React.FC = () => {
           <div className="bg-white border border-slate-200 rounded-lg p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-slate-600 text-sm">Total Clients</p>
+                <p className="text-slate-600 text-sm">Total Goals</p>
                 <p className="text-2xl font-bold text-slate-900">0</p>
               </div>
               <Users className="w-8 h-8 text-emerald-500" />
@@ -52,7 +52,7 @@ const DashboardPage: React.FC = () => {
           <div className="bg-white border border-slate-200 rounded-lg p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-slate-600 text-sm">Active Goals</p>
+                <p className="text-slate-600 text-sm">Active Milestones</p>
                 <p className="text-2xl font-bold text-slate-900">0</p>
               </div>
               <Target className="w-8 h-8 text-blue-500" />
@@ -76,7 +76,7 @@ const DashboardPage: React.FC = () => {
             <Target className="w-16 h-16 text-emerald-500 mx-auto mb-4" />
             <h2 className="text-2xl font-bold text-slate-900 mb-4">Get Started</h2>
             <p className="text-slate-600 mb-8 max-w-2xl mx-auto">
-              Ready to help your clients achieve their goals? Start by adding your first client.
+              Ready to start tracking goals? Create your first goal to get started.
             </p>
             
             <Link 
@@ -84,7 +84,7 @@ const DashboardPage: React.FC = () => {
               className="bg-emerald-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-emerald-600 transition-colors duration-200 inline-flex items-center space-x-2"
             >
               <Plus className="w-5 h-5" />
-              <span>Add Your First Client</span>
+              <span>Create Your First Goal</span>
             </Link>
           </div>
         </div>

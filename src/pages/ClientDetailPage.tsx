@@ -175,13 +175,13 @@ const ClientDetailPage: React.FC = () => {
           </button>
           <div>
             <h1 className="text-3xl font-bold text-slate-900">{client?.name}</h1>
-            <p className="text-slate-600">{client?.email}</p>
+            {client?.email && <p className="text-slate-600">{client?.email}</p>}
           </div>
         </div>
 
         {/* Goal Overview */}
         <div className="bg-white border border-slate-200 rounded-lg p-6 mb-6">
-          <h2 className="text-xl font-semibold text-slate-900 mb-4">Current Goal</h2>
+          <h2 className="text-xl font-semibold text-slate-900 mb-4">Goal Details</h2>
           <div className="flex items-center justify-between">
             <div>
               <h3 className="text-lg font-medium text-slate-900">{client?.goal}</h3>

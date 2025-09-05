@@ -27,8 +27,8 @@ const AnalyticsPage: React.FC = () => {
           <div className="bg-white border border-slate-200 rounded-lg p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-slate-600 text-sm">Active Clients</p>
-                <p className="text-2xl font-bold text-slate-900">24</p>
+                <p className="text-slate-600 text-sm">Active Goals</p>
+                <p className="text-2xl font-bold text-slate-900">12</p>
               </div>
               <Users className="w-8 h-8 text-blue-500" />
             </div>
@@ -37,7 +37,7 @@ const AnalyticsPage: React.FC = () => {
           <div className="bg-white border border-slate-200 rounded-lg p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-slate-600 text-sm">Goals Achieved</p>
+                <p className="text-slate-600 text-sm">Milestones Completed</p>
                 <p className="text-2xl font-bold text-slate-900">47</p>
               </div>
               <Target className="w-8 h-8 text-purple-500" />
