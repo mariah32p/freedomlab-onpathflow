@@ -29,12 +29,14 @@ const ClientsPage: React.FC = () => {
   const [editing, setEditing] = useState(false);
   const [addingClient, setAddingClient] = useState(false);
   const [newClient, setNewClient] = useState({
-    name: '',
+    first_name: '',
+    last_name: '',
     email: '',
     goal: ''
   });
   const [editClient, setEditClient] = useState({
-    name: '',
+    first_name: '',
+    last_name: '',
     email: '',
     goal: ''
   });
@@ -87,7 +89,7 @@ const ClientsPage: React.FC = () => {
   };
 
   const handleAddClient = async () => {
-    if (!newClient.name || !newClient.email || !newClient.goal) return;
+    if (!newClient.first_name || !newClient.goal) return;
     
     try {
       setAddingClient(true);
@@ -97,7 +99,8 @@ const ClientsPage: React.FC = () => {
         .from('clients')
         .insert({
           user_id: user!.id,
-          name: newClient.name,
+          first_name: newClient.first_name,
+          last_name: newClient.last_name,
           email: newClient.email,
           goal: newClient.goal
         })
@@ -107,7 +110,7 @@ const ClientsPage: React.FC = () => {
       if (error) throw error;
       
       setClients([data, ...clients]);
-      setNewClient({ name: '', email: '', goal: '' });
+      setNewClient({ first_name: '', last_name: '', email: '', goal: '' });
       setShowAddModal(false);
     } catch (err: any) {
       setError(err.message);
@@ -142,7 +145,7 @@ const ClientsPage: React.FC = () => {
   };
 
   const handleEditClient = async () => {
-    if (!editClient.name || !editClient.goal || !clientToEdit) return;
+    if (!editClient.first_name || !editClient.goal || !clientToEdit) return;
     
     try {
       setEditing(true);
@@ -151,7 +154,8 @@ const ClientsPage: React.FC = () => {
       const { error } = await supabase
         .from('clients')
         .update({
-          name: editClient.name,
+          first_name: editClient.first_name,
+          last_name: editClient.last_name,
           email: editClient.email,
           goal: editClient.goal
         })
@@ -163,11 +167,11 @@ const ClientsPage: React.FC = () => {
       // Update local state
       setClients(clients.map(c => 
         c.id === clientToEdit.id 
-          ? { ...c, name: editClient.name, email: editClient.email, goal: editClient.goal }
+          ? { ...c, first_name: editClient.first_name, last_name: editClient.last_name, email: editClient.email, goal: editClient.goal }
           : c
       ));
       
-      setEditClient({ name: '', email: '', goal: '' });
+      setEditClient({ first_name: '', last_name: '', email: '', goal: '' });
       setClientToEdit(null);
       setShowEditModal(false);
     } catch (err: any) {
@@ -294,7 +298,8 @@ const ClientsPage: React.FC = () => {
   const openEditModal = (client: Client) => {
     setClientToEdit(client);
     setEditClient({
-      name: client.name,
+      first_name: client.first_name,
+      last_name: client.last_name,
       email: client.email || '',
       goal: client.goal
     });
@@ -378,7 +383,7 @@ const ClientsPage: React.FC = () => {
                   className="block"
                 >
                   <div className="mb-4">
-                    <h3 className="font-semibold text-slate-900 text-lg">{client.name}</h3>
+                    <h3 className="font-semibold text-slate-900 text-lg">{client.first_name} {client.last_name}</h3>
                     <p className="text-slate-600 text-sm">{client.email}</p>
                   </div>
                   
@@ -407,7 +412,7 @@ const ClientsPage: React.FC = () => {
                     className="flex-1 bg-emerald-500 text-white px-3 py-2 rounded-lg text-sm font-medium hover:bg-emerald-600 transition-colors duration-200 flex items-center justify-center space-x-1"
                   >
                     <Key className="w-4 h-4" />
-                    <span>{client.client_password ? 'Share with Client' : 'Generate Access'}</span>
+                    <span>{client.client_password ? `Share with ${client.first_name}` : 'Generate Access'}</span>
                   </button>
                   <button
                     onClick={() => openEditModal(client)}
@@ -452,14 +457,27 @@ const ClientsPage: React.FC = () => {
 
                 <div>
                   <label className="block text-sm font-medium text-slate-700 mb-2">
-                    Client Name
+                    First Name *
                   </label>
                   <input
                     type="text"
-                    value={newClient.name}
-                    onChange={(e) => setNewClient({...newClient, name: e.target.value})}
+                    value={newClient.first_name}
+                    onChange={(e) => setNewClient({...newClient, first_name: e.target.value})}
                     className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-slate-900 placeholder-slate-500"
-                    placeholder="Client's name"
+                    placeholder="First name"
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-2">
+                    Last Name
+                  </label>
+                  <input
+                    type="text"
+                    value={newClient.last_name}
+                    onChange={(e) => setNewClient({...newClient, last_name: e.target.value})}
+                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-slate-900 placeholder-slate-500"
+                    placeholder="Last name"
                   />
                 </div>
                 
@@ -499,7 +517,7 @@ const ClientsPage: React.FC = () => {
                 </button>
                 <button
                   onClick={handleAddClient}
-                  disabled={!newClient.name || !newClient.goal || addingClient}
+                  disabled={!newClient.first_name || !newClient.goal || addingClient}
                   className="flex-1 px-4 py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {addingClient ? 'Creating...' : 'Create Client Goal'}
@@ -535,14 +553,27 @@ const ClientsPage: React.FC = () => {
 
                 <div>
                   <label className="block text-sm font-medium text-slate-700 mb-2">
-                    Client Name
+                    First Name *
                   </label>
                   <input
                     type="text"
-                    value={editClient.name}
-                    onChange={(e) => setEditClient({...editClient, name: e.target.value})}
+                    value={editClient.first_name}
+                    onChange={(e) => setEditClient({...editClient, first_name: e.target.value})}
                     className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-slate-900 placeholder-slate-500"
-                    placeholder="Client's name"
+                    placeholder="First name"
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-2">
+                    Last Name
+                  </label>
+                  <input
+                    type="text"
+                    value={editClient.last_name}
+                    onChange={(e) => setEditClient({...editClient, last_name: e.target.value})}
+                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-slate-900 placeholder-slate-500"
+                    placeholder="Last name"
                   />
                 </div>
                 
@@ -585,7 +616,7 @@ const ClientsPage: React.FC = () => {
                 </button>
                 <button
                   onClick={handleEditClient}
-                  disabled={!editClient.name || !editClient.goal || editing}
+                  disabled={!editClient.first_name || !editClient.goal || editing}
                   className="flex-1 px-4 py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {editing ? 'Updating...' : 'Update Goal'}
@@ -601,7 +632,7 @@ const ClientsPage: React.FC = () => {
             <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
               <h2 className="text-xl font-semibold text-slate-900 mb-4">Delete Client Goal</h2>
               <p className="text-slate-600 mb-6">
-                Are you sure you want to delete the goal "{clientToDelete.goal}" for {clientToDelete.name}? 
+                Are you sure you want to delete the goal "{clientToDelete.goal}" for {clientToDelete.first_name} {clientToDelete.last_name}? 
                 This will also delete all associated milestones and cannot be undone.
               </p>
               
@@ -648,7 +679,7 @@ const ClientsPage: React.FC = () => {
               <div className="space-y-4">
                 <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-4">
                   <p className="text-emerald-800 text-sm font-medium mb-2">
-                    ✅ Access created for {selectedClient.name}
+                    ✅ Access created for {selectedClient.first_name}
                   </p>
                   <p className="text-emerald-700 text-sm">
                     Send via email or copy the details below to share with your client.
@@ -661,10 +692,10 @@ const ClientsPage: React.FC = () => {
                     <div className="flex items-center justify-between">
                       <div>
                         <h4 className="font-medium text-blue-800 mb-1">📧 Send via Email</h4>
-                        <p className="text-blue-700 text-sm">Send access details to {selectedClient.email}</p>
+                        <p className="text-blue-700 text-sm">Send access details to {selectedClient.first_name}</p>
                       </div>
                       <button
-                        onClick={() => sendClientAccessEmail(selectedClient, generatedPassword)}
+                        onClick={() => sendClientAccessEmail({...selectedClient, name: selectedClient.first_name}, generatedPassword)}
                         disabled={sendingEmail}
                         className="bg-blue-500 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-600 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                       >
@@ -676,7 +707,7 @@ const ClientsPage: React.FC = () => {
 
                 {emailSent && (
                   <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-                    <p className="text-green-700 text-sm font-medium">✅ Email sent successfully to {selectedClient.email}!</p>
+                    <p className="text-green-700 text-sm font-medium">✅ Email sent successfully to {selectedClient.first_name}!</p>
                   </div>
                 )}
 

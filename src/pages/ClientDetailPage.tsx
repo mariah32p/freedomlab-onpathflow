@@ -228,7 +228,7 @@ const ClientDetailPage: React.FC = () => {
             <ArrowLeft className="w-5 h-5 text-slate-600" />
           </button>
           <div>
-            <h1 className="text-3xl font-bold text-slate-900">{client?.name}</h1>
+            <h1 className="text-3xl font-bold text-slate-900">{client?.first_name} {client?.last_name}</h1>
             {client?.email && <p className="text-slate-600">{client?.email}</p>}
           </div>
         </div>
@@ -306,6 +306,20 @@ const ClientDetailPage: React.FC = () => {
                     {milestone.description && (
                       <p className="text-slate-600 text-sm mt-1">{milestone.description}</p>
                     )}
+                    
+                    {/* Make client notes more obvious for coaches */}
+                    {milestone.description && milestone.description.trim() && (
+                      <div className="mt-3 bg-blue-50 border-l-4 border-blue-400 p-3 rounded-r-lg">
+                        <div className="flex items-start space-x-2">
+                          <MessageSquare className="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" />
+                          <div>
+                            <p className="text-blue-800 text-sm font-medium">Client Notes:</p>
+                            <p className="text-blue-700 text-sm mt-1">{milestone.description}</p>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                    
                     {milestone.due_date && (
                       <p className="text-slate-500 text-sm mt-1">
                         Due: {new Date(milestone.due_date).toLocaleDateString()}

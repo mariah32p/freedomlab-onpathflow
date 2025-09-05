@@ -16,9 +16,49 @@ const ClientViewPage: React.FC = () => {
   const [updatingMilestone, setUpdatingMilestone] = useState<string | null>(null);
   const [noteUpdates, setNoteUpdates] = useState<Record<string, string>>({});
 
-  const handlePasswordSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!password.trim()) return;
+  // Auto-save and persistence
+  useEffect(() => {
+    // Check for saved authentication
+    const savedAuth = localStorage.getItem(`client-auth-${clientId}`);
+    if (savedAuth) {
+      const { password: savedPassword, timestamp } = JSON.parse(savedAuth);
+      // Keep auth for 7 days
+      if (Date.now() - timestamp < 7 * 24 * 60 * 60 * 1000) {
+        setPassword(savedPassword);
+        handlePasswordSubmit(null, savedPassword);
+      } else {
+        localStorage.removeItem(`client-auth-${clientId}`);
+      }
+    }
+  }, [clientId]);
+
+  // Auto-save notes as user types
+  useEffect(() => {
+    const timeouts: Record<string, NodeJS.Timeout> = {};
+    
+    Object.keys(noteUpdates).forEach(milestoneId => {
+      const milestone = milestones.find(m => m.id === milestoneId);
+      if (milestone && noteUpdates[milestoneId] !== (milestone.description || '')) {
+        // Clear existing timeout
+        if (timeouts[milestoneId]) {
+          clearTimeout(timeouts[milestoneId]);
+        }
+        
+        // Set new timeout for auto-save
+        timeouts[milestoneId] = setTimeout(() => {
+          updateMilestoneNote(milestoneId, true);
+        }, 2000); // Auto-save after 2 seconds of no typing
+      }
+    });
+    
+    return () => {
+      Object.values(timeouts).forEach(timeout => clearTimeout(timeout));
+    };
+  }, [noteUpdates, milestones]);
+  const handlePasswordSubmit = async (e: React.FormEvent | null, savedPassword?: string) => {
+    if (e) e.preventDefault();
+    const passwordToUse = savedPassword || password;
+    if (!passwordToUse.trim()) return;
 
     try {
       setLoading(true);
@@ -29,7 +69,7 @@ const ClientViewPage: React.FC = () => {
         .from('clients')
         .select('*')
         .eq('id', clientId)
-        .eq('client_password', password.trim())
+        .eq('client_password', passwordToUse.trim())
         .single();
 
       if (clientError || !clientData) {
@@ -37,6 +77,11 @@ const ClientViewPage: React.FC = () => {
         return;
       }
 
+      // Save authentication to localStorage
+      localStorage.setItem(`client-auth-${clientId}`, JSON.stringify({
+        password: passwordToUse.trim(),
+        timestamp: Date.now()
+      }));
       setClient(clientData);
       setAuthenticated(true);
 
@@ -95,9 +140,11 @@ const ClientViewPage: React.FC = () => {
     }
   };
 
-  const updateMilestoneNote = async (milestoneId: string) => {
+  const updateMilestoneNote = async (milestoneId: string, isAutoSave = false) => {
     try {
-      setUpdatingMilestone(milestoneId);
+      if (!isAutoSave) {
+        setUpdatingMilestone(milestoneId);
+      }
       
       const { error } = await supabase
         .from('milestones')
@@ -113,9 +160,13 @@ const ClientViewPage: React.FC = () => {
           : m
       ));
     } catch (err: any) {
-      setError('Failed to update note. Please try again.');
+      if (!isAutoSave) {
+        setError('Failed to update note. Please try again.');
+      }
     } finally {
-      setUpdatingMilestone(null);
+      if (!isAutoSave) {
+        setUpdatingMilestone(null);
+      }
     }
   };
 
@@ -215,7 +266,7 @@ const ClientViewPage: React.FC = () => {
               <Target className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-slate-800">Welcome back, {client?.name}! <span className="text-2xl">🤚</span></h1>
+              <h1 className="text-2xl font-bold text-slate-800">Welcome back, {client?.first_name}! <span className="text-2xl">🤚</span></h1>
               <p className="text-slate-600">Track your progress and celebrate your wins</p>
             </div>
           </div>
@@ -322,7 +373,8 @@ const ClientViewPage: React.FC = () => {
                         <div>
                           <label className="block text-sm font-medium text-slate-700 mb-2">
                             <MessageSquare className="w-4 h-4 inline mr-2 text-slate-500" />
-                            Your notes & progress updates:
+                            Your notes & progress updates: 
+                            <span className="text-xs text-emerald-600 ml-2">✓ Auto-saves</span>
                           </label>
                           <textarea
                             value={noteUpdates[milestone.id] || ''}
@@ -342,7 +394,7 @@ const ClientViewPage: React.FC = () => {
                             disabled={updatingMilestone === milestone.id}
                             className="bg-blue-500 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-600 transition-all duration-200 disabled:opacity-50"
                           >
-                            {updatingMilestone === milestone.id ? 'Saving...' : 'Save Note'}
+                            {updatingMilestone === milestone.id ? 'Saving...' : 'Save Now'}
                           </button>
                         )}
                       </div>

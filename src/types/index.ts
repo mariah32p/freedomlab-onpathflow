@@ -1,11 +1,13 @@
 export interface Client {
   id: string;
   user_id: string;
-  name: string;
+  first_name: string;
+  last_name: string;
   email: string;
   goal: string;
   created_at: string;
   updated_at: string;
+  client_password?: string;
 }
 
 export interface Milestone {

@@ -113,7 +113,7 @@ Deno.serve(async (req) => {
         <div style="background: #f8fafc; border-radius: 12px; padding: 24px; margin-bottom: 24px;">
           <h2 style="color: #1e293b; margin: 0 0 16px 0; font-size: 24px;">Hi ${clientName},</h2>
           <p style="color: #475569; margin: 0 0 16px 0; font-size: 16px; line-height: 1.6;">
-            I've set up your personal goal tracking dashboard! You can now view your progress and update milestones anytime.
+            I've set up your personal goal tracking dashboard! You can now view your progress and update milestones anytime. Your progress auto-saves so you won't lose any updates.
           </p>
         </div>
         
@@ -158,18 +158,19 @@ Deno.serve(async (req) => {
 
     const emailText = `Hi ${clientName},
 
-I've set up your personal goal tracking dashboard! You can now view your progress and update milestones anytime.
+I've set up your personal goal tracking dashboard! You can now view your progress and update milestones anytime. Your progress auto-saves so you won't lose any updates.
 
 🔗 Your Dashboard: ${accessUrl}
 🔑 Access Code: ${password}
 
-Simply visit the link above and enter your access code to see your goal progress. You can mark milestones as complete and add your own notes about your progress.
+Simply visit the link above and enter your access code to see your goal progress. You can mark milestones as complete and add your own notes about your progress. The system will remember you so you won't need to enter the code every time.
 
 What you can do:
 • View your goal progress in real-time
 • Mark milestones as complete when you achieve them  
 • Add your own notes and progress updates
 • Track your journey toward your goal
+• Auto-save keeps your progress safe
 
 Questions? Just reply to this email and I'll help you get started!
 
@@ -185,7 +186,7 @@ OnPathFlow by Freedom Lab`;
       body: JSON.stringify({
         from: 'OnPathFlow <info@freedomlab.ai>',
         to: [clientEmail],
-        subject: `Your Goal Dashboard is Ready - ${client.goal}`,
+        subject: `Your Goal Dashboard is Ready, ${clientName}!`,
         html: emailHtml,
         text: emailText,
       }),
