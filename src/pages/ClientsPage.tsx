@@ -139,7 +139,7 @@ const ClientsPage: React.FC = () => {
                     type="text"
                     value={newClient.name}
                     onChange={(e) => setNewClient({...newClient, name: e.target.value})}
-                    className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-slate-900 placeholder-slate-500"
                     placeholder="Enter client name"
                   />
                 </div>
@@ -152,7 +152,7 @@ const ClientsPage: React.FC = () => {
                     type="email"
                     value={newClient.email}
                     onChange={(e) => setNewClient({...newClient, email: e.target.value})}
-                    className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-slate-900 placeholder-slate-500"
                     placeholder="Enter email address"
                   />
                 </div>
@@ -165,7 +165,7 @@ const ClientsPage: React.FC = () => {
                     type="text"
                     value={newClient.goal}
                     onChange={(e) => setNewClient({...newClient, goal: e.target.value})}
-                    className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-slate-900 placeholder-slate-500"
                     placeholder="What's their main goal?"
                   />
                 </div>
