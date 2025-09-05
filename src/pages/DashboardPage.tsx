@@ -76,7 +76,7 @@ const DashboardPage: React.FC = () => {
             <Target className="w-16 h-16 text-emerald-500 mx-auto mb-4" />
             <h2 className="text-2xl font-bold text-slate-900 mb-4">Get Started</h2>
             <p className="text-slate-600 mb-8 max-w-2xl mx-auto">
-              Ready to start tracking goals? Create your first goal to get started.
+              Ready to start tracking client goals? Create your first client goal to get started.
             </p>
             
             <Link 
@@ -84,7 +84,7 @@ const DashboardPage: React.FC = () => {
               className="bg-emerald-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-emerald-600 transition-colors duration-200 inline-flex items-center space-x-2"
             >
               <Plus className="w-5 h-5" />
-              <span>Create Your First Goal</span>
+              <span>Create Your First Client Goal</span>
             </Link>
           </div>
         </div>

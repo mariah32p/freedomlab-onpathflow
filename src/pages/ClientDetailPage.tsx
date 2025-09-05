@@ -181,7 +181,7 @@ const ClientDetailPage: React.FC = () => {
 
         {/* Goal Overview */}
         <div className="bg-white border border-slate-200 rounded-lg p-6 mb-6">
-          <h2 className="text-xl font-semibold text-slate-900 mb-4">Goal Details</h2>
+          <h2 className="text-xl font-semibold text-slate-900 mb-4">Client Goal Details</h2>
           <div className="flex items-center justify-between">
             <div>
               <h3 className="text-lg font-medium text-slate-900">{client?.goal}</h3>
